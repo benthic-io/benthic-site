@@ -955,6 +955,89 @@ Agencies with published DABS submissions.
 
 Agency lookup helper views.
 
+### mv_entity_spending_summary
+
+Unified entity spending profile combining `all_entities` with most recent award context from `entity_awards`. Pre-joins entity aggregates with their latest awarding agency, award type, and action date. ~18M rows.
+
+| Column | Type | Description |
+|---|---|---|
+| `entity_id` | bigint | Primary key |
+| `legal_business_name` | text | Entity legal name |
+| `uei` | text | Unique Entity Identifier |
+| `duns` | text | DUNS number |
+| `state` | text | Entity state |
+| `city` | text | Entity city |
+| `latitude` | numeric | Geocoded latitude |
+| `longitude` | numeric | Geocoded longitude |
+| `geom_point` | geometry | PostGIS point geometry |
+| `award_count` | bigint | Total award count |
+| `total_obligation` | numeric | Total obligated amount |
+| `date_first_award` | date | First award date |
+| `date_last_award` | date | Last award date |
+| `prime_subaward_count` | bigint | Prime + subaward count |
+| `prime_subaward_amount` | numeric | Prime + subaward amount |
+| `top_awarding_agency` | text | Most recent awarding agency |
+| `most_recent_award_type` | text | Most recent award type |
+| `most_recent_action_date` | date | Most recent action date |
+
+#### Example queries
+
+```bash
+# Top recipients by total obligation
+curl "https://benthic.io/ngopen/usaspending/mv_entity_spending_summary?select=entity_id,legal_business_name,uei,total_obligation,top_awarding_agency&order=total_obligation.desc&limit=25"
+
+# Entities in a state
+curl "https://benthic.io/ngopen/usaspending/mv_entity_spending_summary?state=eq.VA&select=legal_business_name,uei,total_obligation,award_count&order=total_obligation.desc&limit=25"
+
+# Search by name
+curl "https://benthic.io/ngopen/usaspending/mv_entity_spending_summary?legal_business_name=ilike.*lockheed*&select=entity_id,legal_business_name,uei,state,total_obligation&limit=25"
+```
+
+### mv_district_spending
+
+Pre-aggregated federal spending by congressional district and fiscal year. Joins `prime_awards` with `zips_grouped` for district assignment.
+
+| Column | Type | Description |
+|---|---|---|
+| `state` | text | State abbreviation |
+| `district` | text | Congressional district number |
+| `fiscal_year` | integer | Fiscal year |
+| `award_count` | bigint | Number of awards |
+| `total_obligation` | numeric | Total obligations |
+| `total_award_amount` | numeric | Total award amounts |
+| `unique_recipients` | bigint | Unique recipient count |
+| `unique_agencies` | bigint | Unique agency count |
+
+#### Example queries
+
+```bash
+# Top districts by spending in FY2024
+curl "https://benthic.io/ngopen/usaspending/mv_district_spending?fiscal_year=eq.2024&select=state,district,total_obligation,award_count,unique_recipients&order=total_obligation.desc&limit=25"
+
+# Spending trend for a district
+curl "https://benthic.io/ngopen/usaspending/mv_district_spending?state=eq.CA&district=eq.12&select=fiscal_year,total_obligation,award_count&order=fiscal_year"
+```
+
+### mv_covid_spending
+
+Aggregated COVID-19 spending tracking by fiscal year from `prime_awards` disaster emergency fund codes.
+
+| Column | Type | Description |
+|---|---|---|
+| `fiscal_year` | integer | Fiscal year |
+| `award_count` | bigint | Number of COVID awards |
+| `total_covid_obligation` | numeric | Total COVID obligations |
+| `total_covid_outlay` | numeric | Total COVID outlays |
+| `unique_recipients` | bigint | Unique recipients |
+| `unique_agencies` | bigint | Unique agencies |
+
+#### Example queries
+
+```bash
+# COVID spending by year
+curl "https://benthic.io/ngopen/usaspending/mv_covid_spending?select=fiscal_year,total_covid_obligation,total_covid_outlay,award_count&order=fiscal_year"
+```
+
 ## PostgREST Query Reference
 
 ### Filtering

@@ -417,5 +417,82 @@ All tables link via **bioguide_id** or **committee_id/thomas_id**:
 
 Cross-dataset: `legislator_terms.state` + `district` matches `up_cdmaps.congressional_districts` for spatial district boundaries.
 
+## Views
+
+### mv_current_lawmakers
+
+Pre-joined profile of all currently serving legislators with their active term, social media accounts, office count, and committee count.
+
+| Column | Type | Description |
+|---|---|---|
+| `bioguide_id` | varchar(10) | Primary key |
+| `official_full` | varchar(255) | Full name |
+| `first_name` | varchar(100) | First name |
+| `last_name` | varchar(100) | Last name |
+| `gender` | char(1) | Gender |
+| `birthday` | date | Date of birth |
+| `state` | char(2) | State |
+| `district` | integer | Congressional district (null for senators) |
+| `term_type` | varchar(10) | `rep` or `sen` |
+| `party` | varchar(50) | Political party |
+| `term_start` | date | Term start date |
+| `term_end` | date | Term end date |
+| `senate_class` | integer | Senate class (1, 2, or 3) |
+| `state_rank` | varchar(10) | `junior` or `senior` |
+| `office_phone` | varchar(50) | Office phone |
+| `contact_form` | varchar(500) | Contact form URL |
+| `twitter` | varchar(100) | Twitter/X handle |
+| `facebook` | varchar(100) | Facebook page |
+| `instagram` | varchar(100) | Instagram handle |
+| `youtube` | varchar(100) | YouTube channel |
+| `office_count` | bigint | Number of district offices |
+| `committee_count` | bigint | Number of committee assignments |
+
+#### Example queries
+
+```bash
+# All current senators
+curl "https://benthic.io/ngopen/usp_cl/mv_current_lawmakers?term_type=eq.sen&select=official_full,state,party,senate_class&order=state"
+
+# Representatives by party
+curl "https://benthic.io/ngopen/usp_cl/mv_current_lawmakers?term_type=eq.rep&party=eq.Republican&select=official_full,state,district&order=state,district&limit=50"
+
+# Legislators with most committee assignments
+curl "https://benthic.io/ngopen/usp_cl/mv_current_lawmakers?select=official_full,committee_count,office_count&order=committee_count.desc&limit=25"
+```
+
+### mv_committee_power
+
+Committee membership with legislator district information. Shows who sits on which committees, their role, and which district they represent.
+
+| Column | Type | Description |
+|---|---|---|
+| `committee_id` | integer | Committee ID |
+| `thomas_id` | varchar(20) | THOMAS committee ID |
+| `committee_name` | varchar(255) | Committee name |
+| `committee_type` | varchar(20) | `house`, `senate`, or `joint` |
+| `is_current` | boolean | Currently active |
+| `bioguide_id` | varchar(10) | Legislator bioguide ID |
+| `legislator_name` | varchar(255) | Legislator name |
+| `party` | varchar(20) | Political party |
+| `rank` | integer | Seniority rank |
+| `title` | varchar(100) | Title (Chair, Ranking Member, etc.) |
+| `state` | char(2) | Legislator's state |
+| `district` | integer | Legislator's district |
+| `term_end` | date | Term end date |
+
+#### Example queries
+
+```bash
+# All Appropriations Committee members
+curl "https://benthic.io/ngopen/usp_cl/mv_committee_power?thomas_id=eq.SAPP&select=legislator_name,party,rank,title,state,district&order=rank"
+
+# Committee chairs
+curl "https://benthic.io/ngopen/usp_cl/mv_committee_power?title=ilike.*chair*&select=legislator_name,committee_name,state,district&limit=50"
+
+# Members from a state on a specific committee
+curl "https://benthic.io/ngopen/usp_cl/mv_committee_power?thomas_id=eq.SFIN&state=eq.CA&select=legislator_name,title"
+```
+
 
 

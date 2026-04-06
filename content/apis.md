@@ -20,16 +20,21 @@ Benthic.io's debut API collection, dubbed NGOpen, consists of five PostgREST API
 
 ### Join paths
 
-| From | To | Key | Method |
-|---|---|---|---|
-| usaspending | samer | `uei` or `duns` | Direct match via `uei_crosswalk`, `historic_parent_duns`, or `sam_registrations` |
-| usaspending | irs_ng | `ein` ≈ `duns` | DUNS often matches EIN for nonprofit recipients |
-| samer | irs_ng | `duns` ≈ `ein` | DUNS often matches EIN for nonprofits |
-| samer | irs_ng | — | Spatial join on geocoded addresses (Photon) |
-| usaspending | up_cdmaps | — | Spatial join: `recipient_geocode_index` point -> district polygon |
-| irs_ng | up_cdmaps | — | Spatial join: `bmf_organizations` lat/lon -> district polygon |
-| usp_cl | up_cdmaps | `state` + `district` | Direct match on legislator terms to district boundaries |
-| all geocoded | all geocoded | `latitude`, `longitude` | Photon geocoding is consistent across all databases |
+| From | To | Key | Method | Reliability |
+|---|---|---|---|---|
+| usaspending → samer | `prime_awards.recipient_uei` → `sam_registrations.uei` | UEI | Direct match | Reliable |
+| usaspending → samer | `prime_awards.recipient_duns` → `sam_registrations.duns` | DUNS | Direct match | Reliable |
+| usaspending → samer | `all_entities.uei` → `sam_registrations.uei` | UEI | Via crosswalk | Reliable |
+| usaspending → samer | `uei_crosswalk.awardee_or_recipient_uniqu` → `uei_crosswalk.uei` | DUNS→UEI | Crosswalk table | Reliable |
+| usaspending → irs_ng | `prime_awards.recipient_duns` ≈ `bmf_organizations.ein` | DUNS≈EIN | Heuristic (nonprofits only) | Partial |
+| samer → irs_ng | `sam_registrations.duns` ≈ `bmf_organizations.ein` | DUNS≈EIN | Heuristic (nonprofits only) | Partial |
+| samer → irs_ng | `sam_registrations.geom_point` ↔ `bmf_organizations.geom_point` | Spatial | Spatial join (same Photon geocoding) | Reliable |
+| usaspending → up_cdmaps | `recipient_geocode_index.geom_point` → `congressional_districts.geom` | Spatial | Point-in-polygon via `rpc_find_district` | Reliable |
+| usaspending → up_cdmaps | `prime_awards.pop_state` + `pop_congressional_district` → `congressional_districts.statename` + `district` | State+District | Direct match | Reliable |
+| irs_ng → up_cdmaps | `bmf_organizations.geom_point` → `congressional_districts.geom` | Spatial | Point-in-polygon via `rpc_nonprofits_in_district` | Reliable |
+| usp_cl → up_cdmaps | `legislator_terms.state` + `district` → `congressional_districts.statename` + `district` | State+District | Direct match | Reliable |
+| irs_ng → usp_cl | `political_orgs_527.ein` → `legislators` | EIN | Cross-reference 527 orgs to legislators | Partial |
+| all geocoded | all geocoded | `geom_point` (SRID 4326) | Spatial join via PostGIS | Reliable |
 
 ## Use Cases
 
@@ -184,14 +189,42 @@ Geocoded columns across datasets:
 
 | Database | Table | lat column | lon column | PostGIS geom | GIST index |
 |---|---|---|---|---|---|
-| usaspending | `recipient_geocode_index` | `latitude` | `longitude` | `geom_point` (Point, 4326) | `idx_rgi_geom_point` |
+| usaspending_db | `recipient_geocode_index` | `latitude` | `longitude` | `geom_point` (Point, 4326) | `idx_rgi_geom_point` |
+| usaspending_db | `all_entities` | `latitude` | `longitude` | `geom_point` | — |
+| usaspending_db | `mv_entity_spending_summary` | `latitude` | `longitude` | `geom_point` (Point, 4326) | `idx_mess_geom` |
 | irs_ng | `bmf_organizations` | `latitude` | `longitude` | `geom_point` (Point, 4326) | `idx_bmf_geom_point` |
 | irs_ng | `political_orgs_527` | `latitude` | `longitude` | `geom_point` (Point, 4326) | `idx_527_geom_point` |
-| samer | `sam_registrations` | `latitude` | `longitude` | `geom_point` (Point, 4326) | `idx_sam_geom_point` |
-| usp_cl | `district_offices` | `latitude` | `longitude` | `geom_point` (Point, 4326) | `idx_offices_geom_point` |
-| up_cdmaps | `congressional_districts` | — | — | `geom` (MultiPolygon, 3857) | `idx_cd_geom` |
+| irs_ng | `mv_nonprofit_profile` | `latitude` | `longitude` | `geom_point` (Point, 4326) | `idx_mnp_geom` |
+| sam_er | `sam_registrations` | `latitude` | `longitude` | `geom_point` (Point, 4326) | `idx_sam_geom_point` |
+| sam_er | `mv_contractor_registry` | `latitude` | `longitude` | `geom_point` (Point, 4326) | `idx_mcr_geom` |
+| us_project_cl | `district_offices` | `latitude` | `longitude` | `geom_point` (Point, 4326) | `idx_do_geom_point` |
+| ucla_polysci_cdmaps | `congressional_districts` | — | — | `geom` (MultiPolygon, 3857) | `idx_cd_geom` |
 
 All point geometries use SRID 4326 (WGS 84). The congressional districts polygon uses SRID 3857 (Web Mercator) — PostGIS can transform between them on-the-fly with `ST_Transform()`.
+
+## Materialized Views
+
+Pre-computed views that simplify common investigative queries. Refresh from your data import pipelines after each update.
+
+| Database | View | Purpose |
+|---|---|---|
+| usaspending_db | `mv_entity_spending_summary` | Unified entity profile with latest award context (~18M rows) |
+| usaspending_db | `mv_district_spending` | Spending aggregated by congressional district + fiscal year |
+| usaspending_db | `mv_covid_spending` | COVID-19 spending totals by fiscal year |
+| irs_ng | `mv_nonprofit_profile` | Nonprofit profile with financials, revocation, Pub78 status |
+| irs_ng | `mv_org_financial_health` | Multi-year financial health scoring (healthy/deficit/stable) |
+| sam_er | `mv_contractor_registry` | Active contractor registry with expiration status |
+| us_project_cl | `mv_current_lawmakers` | Current legislators with full profile + social media |
+| us_project_cl | `mv_committee_power` | Committee membership with legislator district info |
+
+## Spatial RPC Functions
+
+| Database | Function | Purpose |
+|---|---|---|
+| ucla_polysci_cdmaps | `rpc_find_district` | Find congressional district for a lat/lon point |
+| ucla_polysci_cdmaps | `rpc_districts_in_bbox` | Find districts intersecting a bounding box |
+| irs_ng | `rpc_nonprofits_nearby` | Find nonprofits within radius of a point |
+| irs_ng | `rpc_nonprofits_in_district` | Find nonprofits within a congressional district (point-in-polygon) |
 
 ## PostgREST Query Syntax
 

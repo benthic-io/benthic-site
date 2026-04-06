@@ -153,6 +153,50 @@ This is a single-table database. Cross-reference to other benthic.io datasets:
 - Same geocoding scheme (Photon API) enables spatial cross-referencing across all databases
 
 
+## Views
+
+### mv_contractor_registry
+
+Active contractor registry with expiration status classification. Filters `sam_registrations` to current records only and adds a computed `registration_status` column (`active`, `expiring_soon`, `expired`).
+
+| Column | Type | Description |
+|---|---|---|
+| `uei` | varchar(50) | Unique Entity Identifier |
+| `entity_id` | varchar(50) | SAM.gov entity ID |
+| `duns` | varchar(20) | DUNS number |
+| `legal_business_name` | varchar(255) | Legal business name |
+| `dba_name` | varchar(255) | DBA name |
+| `primary_naics` | varchar(10) | Primary NAICS code |
+| `naics_codes` | text | All NAICS codes |
+| `psc_codes` | text | Product/Service codes |
+| `physical_city` | varchar(100) | City |
+| `physical_state` | varchar(100) | State |
+| `physical_zip` | varchar(20) | ZIP |
+| `physical_country` | varchar(10) | Country |
+| `latitude` | double precision | Geocoded latitude |
+| `longitude` | double precision | Geocoded longitude |
+| `geom_point` | geometry | PostGIS point geometry |
+| `registration_expiration` | varchar(20) | Expiration date |
+| `last_update` | varchar(20) | Last update date |
+| `business_start_date` | varchar(20) | Business start date |
+| `corporate_url` | text | Corporate website |
+| `purpose_of_registration` | varchar(50) | Registration purpose |
+| `registration_status` | text | `active`, `expiring_soon`, or `expired` |
+
+#### Example queries
+
+```bash
+# Expired registrations
+curl "https://benthic.io/ngopen/samer/mv_contractor_registry?registration_status=eq.expired&select=uei,legal_business_name,registration_expiration&limit=25"
+
+# Expiring soon (within 90 days)
+curl "https://benthic.io/ngopen/samer/mv_contractor_registry?registration_status=eq.expiring_soon&select=uei,legal_business_name,registration_expiration,primary_naics&limit=25"
+
+# Active contractors by NAICS
+curl "https://benthic.io/ngopen/samer/mv_contractor_registry?registration_status=eq.active&primary_naics=eq.541512&select=uei,legal_business_name,physical_state&limit=50"
+```
+
+
 ## NAICS Code Reference
 
 NAICS (North American Industry Classification System) codes classify business establishments by type of economic activity. Common codes in federal contracting:

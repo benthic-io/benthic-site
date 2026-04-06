@@ -140,3 +140,50 @@ This is a single-table database. Cross-reference to other benthic.io datasets:
 - **USAspending** — match `statefp` + `district` to `ref_population_cong_district` for population data; use `financial_accounts_by_awards` to find spending in a district
 - **USP CL** — `legislator_terms` contains `state` and `district` columns that match this table
 - **IRS NG** — geocoded nonprofit locations can be spatial-joined to districts via `geom`
+
+## Spatial RPC Functions
+
+### rpc_find_district
+
+Find the congressional district for a lat/lon point. Returns the district that contains the given coordinate.
+
+| Parameter | Type | Description |
+|---|---|---|
+| `lat` | double precision | Latitude |
+| `lon` | double precision | Longitude |
+| `congress` | integer | Congress number (default: 118) |
+
+#### Example queries
+
+```bash
+# Find district for Washington DC coordinates
+curl -X POST "https://benthic.io/ngopen/up_cdmaps/rpc/rpc_find_district" \
+  -H "Content-Type: application/json" \
+  -d '{"lat": 38.9072, "lon": -77.0369}'
+
+# Find district for a specific congress
+curl -X POST "https://benthic.io/ngopen/up_cdmaps/rpc/rpc_find_district" \
+  -H "Content-Type: application/json" \
+  -d '{"lat": 34.0522, "lon": -118.2437, "congress": 117}'
+```
+
+### rpc_districts_in_bbox
+
+Find all districts intersecting a bounding box. Useful for map viewport queries.
+
+| Parameter | Type | Description |
+|---|---|---|
+| `min_lat` | double precision | Minimum latitude |
+| `max_lat` | double precision | Maximum latitude |
+| `min_lon` | double precision | Minimum longitude |
+| `max_lon` | double precision | Maximum longitude |
+| `congress` | integer | Congress number (default: 118) |
+
+#### Example queries
+
+```bash
+# Get districts in a viewport bounding box
+curl -X POST "https://benthic.io/ngopen/up_cdmaps/rpc/rpc_districts_in_bbox" \
+  -H "Content-Type: application/json" \
+  -d '{"min_lat": 32.0, "max_lat": 36.0, "min_lon": -120.0, "max_lon": -114.0}'
+```

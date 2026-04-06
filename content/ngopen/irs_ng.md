@@ -553,6 +553,107 @@ curl "https://benthic.io/ngopen/irs_ng/v_political_orgs?bmf_name=not.is.null&sel
 curl "https://benthic.io/ngopen/irs_ng/v_political_orgs?state=eq.FL&select=ein,political_name,org_type,latitude,longitude&limit=50"
 ```
 
+### mv_nonprofit_profile
+
+Unified nonprofit profile joining `bmf_organizations` with `pub78_eligible`, `revoked_organizations`, and most recent `form990_soi` financials. One row per current BMF organization.
+
+| Column | Type | Description |
+|---|---|---|
+| `ein` | varchar(20) | EIN |
+| `org_name_current` | text | Current organization name |
+| `org_name_sec` | text | Secondary/sort name |
+| `ntee_irs` | varchar(10) | NTEE code |
+| `nccs_level_1` | varchar(100) | NTEE major group |
+| `bmf_subsection_code` | varchar(10) | IRC subsection |
+| `f990_org_addr_city` | varchar(100) | City |
+| `f990_org_addr_state` | varchar(10) | State |
+| `org_addr_full` | text | Full address |
+| `latitude` | numeric | Geocoded latitude |
+| `longitude` | numeric | Geocoded longitude |
+| `geom_point` | geometry | PostGIS point geometry |
+| `org_ruling_year` | varchar(10) | IRS ruling year |
+| `pub78_eligible` | boolean | Pub78 deductibility status |
+| `revocation_date` | date | Revocation date (if revoked) |
+| `revocation_reason` | varchar(255) | Revocation reason |
+| `recent_revenue` | bigint | Most recent SOI revenue |
+| `recent_expenses` | bigint | Most recent SOI expenses |
+| `recent_assets` | bigint | Most recent SOI assets |
+| `latest_tax_year` | integer | Most recent tax year |
+| `compensation_officers` | bigint | Officer compensation |
+| `num_employees` | integer | Number of employees |
+
+#### Example queries
+
+```bash
+# Revoked nonprofits still on BMF
+curl "https://benthic.io/ngopen/irs_ng/mv_nonprofit_profile?revocation_date=not.is.null&select=ein,org_name_current,revocation_date,revocation_reason&limit=25"
+
+# Large nonprofits by revenue
+curl "https://benthic.io/ngopen/irs_ng/mv_nonprofit_profile?recent_revenue=gt.10000000&select=ein,org_name_current,f990_org_addr_state,recent_revenue,recent_expenses&order=recent_revenue.desc&limit=25"
+
+# Nonprofits in a state with Pub78 status
+curl "https://benthic.io/ngopen/irs_ng/mv_nonprofit_profile?f990_org_addr_state=eq.CA&select=ein,org_name_current,pub78_eligible,recent_revenue&order=recent_revenue.desc&limit=50"
+```
+
+### mv_org_financial_health
+
+Multi-year financial health scoring for organizations with 2+ years of SOI data. Classifies organizations as `healthy`, `deficit`, or `stable` based on average margin.
+
+| Column | Type | Description |
+|---|---|---|
+| `ein` | varchar(20) | EIN |
+| `years_of_data` | bigint | Years of SOI data available |
+| `first_year` | integer | First tax year |
+| `latest_year` | integer | Most recent tax year |
+| `avg_revenue` | numeric | Average annual revenue |
+| `avg_expenses` | numeric | Average annual expenses |
+| `avg_margin_pct` | numeric | Average profit margin % |
+| `total_contributions` | bigint | Sum of all contributions |
+| `total_grants_paid` | bigint | Sum of all grants paid |
+| `total_officer_comp` | bigint | Sum of officer compensation |
+| `ever_filed_990t` | boolean | Ever filed UBIT return |
+| `ever_lobbied` | boolean | Ever reported lobbying |
+| `ever_political` | boolean | Ever reported political activity |
+| `revenue_change` | bigint | Max revenue - min revenue |
+| `financial_health` | text | `healthy`, `deficit`, or `stable` |
+
+#### Example queries
+
+```bash
+# Organizations in deficit
+curl "https://benthic.io/ngopen/irs_ng/mv_org_financial_health?financial_health=eq.deficit&select=ein,avg_revenue,avg_margin_pct,years_of_data&order=avg_margin_pct&limit=25"
+
+# Healthy large nonprofits
+curl "https://benthic.io/ngopen/irs_ng/mv_org_financial_health?financial_health=eq.healthy&avg_revenue=gt.1000000&select=ein,avg_revenue,avg_margin_pct&order=avg_revenue.desc&limit=25"
+
+# Organizations with lobbying activity
+curl "https://benthic.io/ngopen/irs_ng/mv_org_financial_health?ever_lobbied=is.true&select=ein,avg_revenue,total_officer_comp&order=avg_revenue.desc&limit=25"
+```
+
+## Spatial RPC Functions
+
+### rpc_nonprofits_nearby
+
+Find nonprofits within a radius of a lat/lon point. Returns distance in meters.
+
+```bash
+# Find nonprofits within 5km of a point
+curl -X POST "https://benthic.io/ngopen/irs_ng/rpc/rpc_nonprofits_nearby" \
+  -H "Content-Type: application/json" \
+  -d '{"lat": 38.9072, "lon": -77.0369, "radius_meters": 5000}'
+```
+
+### rpc_nonprofits_in_district
+
+Find nonprofits within a specific congressional district using point-in-polygon spatial join via dblink to `ucla_polysci_cdmaps`.
+
+```bash
+# Find nonprofits in Texas District 7 (118th Congress)
+curl -X POST "https://benthic.io/ngopen/irs_ng/rpc/rpc_nonprofits_in_district" \
+  -H "Content-Type: application/json" \
+  -d '{"state_name": "Texas", "district_num": 7, "congress": 118}'
+```
+
 ## PostgREST Query Reference
 
 ### Filtering
