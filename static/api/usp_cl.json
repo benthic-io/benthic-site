@@ -1,0 +1,2685 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "",
+    "title": "standard public schema",
+    "version": "14.4"
+  },
+  "host": "127.0.0.1:3004",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json",
+    "application/vnd.pgrst.object+json;nulls=stripped",
+    "application/vnd.pgrst.object+json",
+    "text/csv"
+  ],
+  "produces": [
+    "application/json",
+    "application/vnd.pgrst.object+json;nulls=stripped",
+    "application/vnd.pgrst.object+json",
+    "text/csv"
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "produces": [
+          "application/openapi+json",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "summary": "OpenAPI description (this document)",
+        "tags": [
+          "Introspection"
+        ]
+      }
+    },
+    "/executive_terms": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.executive_terms.term_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.executive_terms.bioguide_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.executive_terms.term_type"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.executive_terms.start_date"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.executive_terms.end_date"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.executive_terms.party"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.executive_terms.how"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.executive_terms.created_at"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/order"
+          },
+          {
+            "$ref": "#/parameters/range"
+          },
+          {
+            "$ref": "#/parameters/rangeUnit"
+          },
+          {
+            "$ref": "#/parameters/offset"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/preferCount"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/executive_terms"
+              },
+              "type": "array"
+            }
+          },
+          "206": {
+            "description": "Partial Content"
+          }
+        },
+        "tags": [
+          "executive_terms"
+        ]
+      }
+    },
+    "/legislators": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.legislators.bioguide_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislators.thomas_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislators.lis_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislators.govtrack_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislators.opensecrets_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislators.votesmart_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislators.cspan_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislators.wikipedia_page"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislators.ballotpedia_page"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislators.maplight_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislators.house_history_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislators.icpsr_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislators.wikidata_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislators.google_entity_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislators.pictorial_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislators.fec_ids"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislators.bioguide_previous"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislators.first_name"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislators.middle_name"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislators.last_name"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislators.suffix"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislators.nickname"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislators.official_full"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislators.birthday"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislators.gender"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislators.is_current"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislators.first_term_start"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislators.last_term_end"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislators.created_at"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/order"
+          },
+          {
+            "$ref": "#/parameters/range"
+          },
+          {
+            "$ref": "#/parameters/rangeUnit"
+          },
+          {
+            "$ref": "#/parameters/offset"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/preferCount"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/legislators"
+              },
+              "type": "array"
+            }
+          },
+          "206": {
+            "description": "Partial Content"
+          }
+        },
+        "tags": [
+          "legislators"
+        ]
+      }
+    },
+    "/subcommittees": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.subcommittees.subcommittee_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.subcommittees.committee_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.subcommittees.thomas_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.subcommittees.name"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.subcommittees.address"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.subcommittees.phone"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.subcommittees.congresses"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.subcommittees.created_at"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/order"
+          },
+          {
+            "$ref": "#/parameters/range"
+          },
+          {
+            "$ref": "#/parameters/rangeUnit"
+          },
+          {
+            "$ref": "#/parameters/offset"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/preferCount"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/subcommittees"
+              },
+              "type": "array"
+            }
+          },
+          "206": {
+            "description": "Partial Content"
+          }
+        },
+        "tags": [
+          "subcommittees"
+        ]
+      }
+    },
+    "/district_offices": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.district_offices.office_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.district_offices.bioguide_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.district_offices.office_key"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.district_offices.address"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.district_offices.suite"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.district_offices.building"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.district_offices.city"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.district_offices.state"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.district_offices.zip"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.district_offices.latitude"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.district_offices.longitude"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.district_offices.phone"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.district_offices.fax"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.district_offices.hours"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.district_offices.created_at"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/order"
+          },
+          {
+            "$ref": "#/parameters/range"
+          },
+          {
+            "$ref": "#/parameters/rangeUnit"
+          },
+          {
+            "$ref": "#/parameters/offset"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/preferCount"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/district_offices"
+              },
+              "type": "array"
+            }
+          },
+          "206": {
+            "description": "Partial Content"
+          }
+        },
+        "tags": [
+          "district_offices"
+        ]
+      }
+    },
+    "/legislator_terms": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.legislator_terms.term_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_terms.bioguide_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_terms.congress_start"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_terms.congress_end"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_terms.term_start"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_terms.term_end"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_terms.term_type"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_terms.state"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_terms.district"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_terms.class"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_terms.state_rank"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_terms.party"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_terms.url"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_terms.address"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_terms.phone"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_terms.fax"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_terms.contact_form"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_terms.office"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_terms.rss_url"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_terms.how"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_terms.end_type"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_terms.created_at"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/order"
+          },
+          {
+            "$ref": "#/parameters/range"
+          },
+          {
+            "$ref": "#/parameters/rangeUnit"
+          },
+          {
+            "$ref": "#/parameters/offset"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/preferCount"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/legislator_terms"
+              },
+              "type": "array"
+            }
+          },
+          "206": {
+            "description": "Partial Content"
+          }
+        },
+        "tags": [
+          "legislator_terms"
+        ]
+      }
+    },
+    "/executives": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.executives.bioguide_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.executives.govtrack_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.executives.icpsr_prez_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.executives.first_name"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.executives.middle_name"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.executives.last_name"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.executives.suffix"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.executives.birthday"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.executives.gender"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.executives.created_at"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/order"
+          },
+          {
+            "$ref": "#/parameters/range"
+          },
+          {
+            "$ref": "#/parameters/rangeUnit"
+          },
+          {
+            "$ref": "#/parameters/offset"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/preferCount"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/executives"
+              },
+              "type": "array"
+            }
+          },
+          "206": {
+            "description": "Partial Content"
+          }
+        },
+        "tags": [
+          "executives"
+        ]
+      }
+    },
+    "/committee_membership": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.committee_membership.membership_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.committee_membership.committee_thomas_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.committee_membership.bioguide_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.committee_membership.legislator_name"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.committee_membership.party"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.committee_membership.rank"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.committee_membership.title"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.committee_membership.created_at"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/order"
+          },
+          {
+            "$ref": "#/parameters/range"
+          },
+          {
+            "$ref": "#/parameters/rangeUnit"
+          },
+          {
+            "$ref": "#/parameters/offset"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/preferCount"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/committee_membership"
+              },
+              "type": "array"
+            }
+          },
+          "206": {
+            "description": "Partial Content"
+          }
+        },
+        "tags": [
+          "committee_membership"
+        ]
+      }
+    },
+    "/legislator_social_media": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.legislator_social_media.social_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_social_media.bioguide_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_social_media.twitter"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_social_media.twitter_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_social_media.facebook"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_social_media.facebook_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_social_media.youtube"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_social_media.youtube_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_social_media.instagram"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_social_media.instagram_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_social_media.created_at"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/order"
+          },
+          {
+            "$ref": "#/parameters/range"
+          },
+          {
+            "$ref": "#/parameters/rangeUnit"
+          },
+          {
+            "$ref": "#/parameters/offset"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/preferCount"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/legislator_social_media"
+              },
+              "type": "array"
+            }
+          },
+          "206": {
+            "description": "Partial Content"
+          }
+        },
+        "tags": [
+          "legislator_social_media"
+        ]
+      }
+    },
+    "/legislator_other_names": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.legislator_other_names.name_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_other_names.bioguide_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_other_names.first_name"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_other_names.middle_name"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_other_names.last_name"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_other_names.suffix"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_other_names.start_date"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_other_names.end_date"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.legislator_other_names.created_at"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/order"
+          },
+          {
+            "$ref": "#/parameters/range"
+          },
+          {
+            "$ref": "#/parameters/rangeUnit"
+          },
+          {
+            "$ref": "#/parameters/offset"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/preferCount"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/legislator_other_names"
+              },
+              "type": "array"
+            }
+          },
+          "206": {
+            "description": "Partial Content"
+          }
+        },
+        "tags": [
+          "legislator_other_names"
+        ]
+      }
+    },
+    "/committees": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.committees.committee_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.committees.thomas_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.committees.house_committee_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.committees.senate_committee_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.committees.committee_type"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.committees.name"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.committees.url"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.committees.minority_url"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.committees.address"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.committees.phone"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.committees.jurisdiction"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.committees.rss_url"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.committees.youtube_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.committees.congresses"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.committees.is_current"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.committees.created_at"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/order"
+          },
+          {
+            "$ref": "#/parameters/range"
+          },
+          {
+            "$ref": "#/parameters/rangeUnit"
+          },
+          {
+            "$ref": "#/parameters/offset"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/preferCount"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/committees"
+              },
+              "type": "array"
+            }
+          },
+          "206": {
+            "description": "Partial Content"
+          }
+        },
+        "tags": [
+          "committees"
+        ]
+      }
+    },
+    "/rpc/show_trgm": {
+      "get": {
+        "parameters": [
+          {
+            "format": "text",
+            "in": "query",
+            "name": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/vnd.pgrst.object+json;nulls=stripped",
+          "application/vnd.pgrst.object+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "(rpc) show_trgm"
+        ]
+      }
+    },
+    "/rpc/show_limit": {
+      "get": {
+        "produces": [
+          "application/json",
+          "application/vnd.pgrst.object+json;nulls=stripped",
+          "application/vnd.pgrst.object+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "(rpc) show_limit"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "executive_terms": {
+      "required": [
+        "term_id"
+      ],
+      "properties": {
+        "term_id": {
+          "description": "Note:\nThis is a Primary Key.<pk/>",
+          "format": "integer",
+          "type": "integer"
+        },
+        "bioguide_id": {
+          "description": "Note:\nThis is a Foreign Key to `executives.bioguide_id`.<fk table='executives' column='bioguide_id'/>",
+          "format": "character varying",
+          "maxLength": 10,
+          "type": "string"
+        },
+        "term_type": {
+          "format": "character varying",
+          "maxLength": 20,
+          "type": "string"
+        },
+        "start_date": {
+          "format": "date",
+          "type": "string"
+        },
+        "end_date": {
+          "format": "date",
+          "type": "string"
+        },
+        "party": {
+          "format": "character varying",
+          "maxLength": 50,
+          "type": "string"
+        },
+        "how": {
+          "format": "character varying",
+          "maxLength": 50,
+          "type": "string"
+        },
+        "created_at": {
+          "default": "CURRENT_TIMESTAMP",
+          "format": "timestamp without time zone",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "legislators": {
+      "required": [
+        "bioguide_id"
+      ],
+      "properties": {
+        "bioguide_id": {
+          "description": "Note:\nThis is a Primary Key.<pk/>",
+          "format": "character varying",
+          "maxLength": 10,
+          "type": "string"
+        },
+        "thomas_id": {
+          "format": "character varying",
+          "maxLength": 10,
+          "type": "string"
+        },
+        "lis_id": {
+          "format": "character varying",
+          "maxLength": 10,
+          "type": "string"
+        },
+        "govtrack_id": {
+          "format": "integer",
+          "type": "integer"
+        },
+        "opensecrets_id": {
+          "format": "character varying",
+          "maxLength": 20,
+          "type": "string"
+        },
+        "votesmart_id": {
+          "format": "integer",
+          "type": "integer"
+        },
+        "cspan_id": {
+          "format": "integer",
+          "type": "integer"
+        },
+        "wikipedia_page": {
+          "format": "character varying",
+          "maxLength": 255,
+          "type": "string"
+        },
+        "ballotpedia_page": {
+          "format": "character varying",
+          "maxLength": 255,
+          "type": "string"
+        },
+        "maplight_id": {
+          "format": "integer",
+          "type": "integer"
+        },
+        "house_history_id": {
+          "format": "bigint",
+          "type": "integer"
+        },
+        "icpsr_id": {
+          "format": "integer",
+          "type": "integer"
+        },
+        "wikidata_id": {
+          "format": "character varying",
+          "maxLength": 20,
+          "type": "string"
+        },
+        "google_entity_id": {
+          "format": "character varying",
+          "maxLength": 100,
+          "type": "string"
+        },
+        "pictorial_id": {
+          "format": "integer",
+          "type": "integer"
+        },
+        "fec_ids": {
+          "format": "text[]",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "bioguide_previous": {
+          "format": "text[]",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "first_name": {
+          "format": "character varying",
+          "maxLength": 100,
+          "type": "string"
+        },
+        "middle_name": {
+          "format": "character varying",
+          "maxLength": 100,
+          "type": "string"
+        },
+        "last_name": {
+          "format": "character varying",
+          "maxLength": 100,
+          "type": "string"
+        },
+        "suffix": {
+          "format": "character varying",
+          "maxLength": 20,
+          "type": "string"
+        },
+        "nickname": {
+          "format": "character varying",
+          "maxLength": 100,
+          "type": "string"
+        },
+        "official_full": {
+          "format": "character varying",
+          "maxLength": 255,
+          "type": "string"
+        },
+        "birthday": {
+          "format": "date",
+          "type": "string"
+        },
+        "gender": {
+          "format": "character",
+          "maxLength": 1,
+          "type": "string"
+        },
+        "is_current": {
+          "default": false,
+          "format": "boolean",
+          "type": "boolean"
+        },
+        "first_term_start": {
+          "format": "date",
+          "type": "string"
+        },
+        "last_term_end": {
+          "format": "date",
+          "type": "string"
+        },
+        "created_at": {
+          "default": "CURRENT_TIMESTAMP",
+          "format": "timestamp without time zone",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "subcommittees": {
+      "required": [
+        "subcommittee_id"
+      ],
+      "properties": {
+        "subcommittee_id": {
+          "description": "Note:\nThis is a Primary Key.<pk/>",
+          "format": "integer",
+          "type": "integer"
+        },
+        "committee_id": {
+          "description": "Note:\nThis is a Foreign Key to `committees.committee_id`.<fk table='committees' column='committee_id'/>",
+          "format": "integer",
+          "type": "integer"
+        },
+        "thomas_id": {
+          "format": "character varying",
+          "maxLength": 10,
+          "type": "string"
+        },
+        "name": {
+          "format": "character varying",
+          "maxLength": 255,
+          "type": "string"
+        },
+        "address": {
+          "format": "text",
+          "type": "string"
+        },
+        "phone": {
+          "format": "character varying",
+          "maxLength": 50,
+          "type": "string"
+        },
+        "congresses": {
+          "format": "integer[]",
+          "items": {
+            "type": "integer"
+          },
+          "type": "array"
+        },
+        "created_at": {
+          "default": "CURRENT_TIMESTAMP",
+          "format": "timestamp without time zone",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "district_offices": {
+      "required": [
+        "office_id"
+      ],
+      "properties": {
+        "office_id": {
+          "description": "Note:\nThis is a Primary Key.<pk/>",
+          "format": "integer",
+          "type": "integer"
+        },
+        "bioguide_id": {
+          "description": "Note:\nThis is a Foreign Key to `legislators.bioguide_id`.<fk table='legislators' column='bioguide_id'/>",
+          "format": "character varying",
+          "maxLength": 10,
+          "type": "string"
+        },
+        "office_key": {
+          "format": "character varying",
+          "maxLength": 100,
+          "type": "string"
+        },
+        "address": {
+          "format": "text",
+          "type": "string"
+        },
+        "suite": {
+          "format": "character varying",
+          "maxLength": 255,
+          "type": "string"
+        },
+        "building": {
+          "format": "character varying",
+          "maxLength": 255,
+          "type": "string"
+        },
+        "city": {
+          "format": "character varying",
+          "maxLength": 100,
+          "type": "string"
+        },
+        "state": {
+          "format": "character",
+          "maxLength": 2,
+          "type": "string"
+        },
+        "zip": {
+          "format": "character varying",
+          "maxLength": 20,
+          "type": "string"
+        },
+        "latitude": {
+          "format": "double precision",
+          "type": "number"
+        },
+        "longitude": {
+          "format": "double precision",
+          "type": "number"
+        },
+        "phone": {
+          "format": "character varying",
+          "maxLength": 50,
+          "type": "string"
+        },
+        "fax": {
+          "format": "character varying",
+          "maxLength": 50,
+          "type": "string"
+        },
+        "hours": {
+          "format": "text",
+          "type": "string"
+        },
+        "created_at": {
+          "default": "CURRENT_TIMESTAMP",
+          "format": "timestamp without time zone",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "legislator_terms": {
+      "required": [
+        "term_id"
+      ],
+      "properties": {
+        "term_id": {
+          "description": "Note:\nThis is a Primary Key.<pk/>",
+          "format": "integer",
+          "type": "integer"
+        },
+        "bioguide_id": {
+          "description": "Note:\nThis is a Foreign Key to `legislators.bioguide_id`.<fk table='legislators' column='bioguide_id'/>",
+          "format": "character varying",
+          "maxLength": 10,
+          "type": "string"
+        },
+        "congress_start": {
+          "format": "character varying",
+          "maxLength": 3,
+          "type": "string"
+        },
+        "congress_end": {
+          "format": "character varying",
+          "maxLength": 3,
+          "type": "string"
+        },
+        "term_start": {
+          "format": "date",
+          "type": "string"
+        },
+        "term_end": {
+          "format": "date",
+          "type": "string"
+        },
+        "term_type": {
+          "format": "character varying",
+          "maxLength": 10,
+          "type": "string"
+        },
+        "state": {
+          "format": "character",
+          "maxLength": 2,
+          "type": "string"
+        },
+        "district": {
+          "format": "integer",
+          "type": "integer"
+        },
+        "class": {
+          "format": "integer",
+          "type": "integer"
+        },
+        "state_rank": {
+          "format": "character varying",
+          "maxLength": 10,
+          "type": "string"
+        },
+        "party": {
+          "format": "character varying",
+          "maxLength": 50,
+          "type": "string"
+        },
+        "url": {
+          "format": "character varying",
+          "maxLength": 500,
+          "type": "string"
+        },
+        "address": {
+          "format": "text",
+          "type": "string"
+        },
+        "phone": {
+          "format": "character varying",
+          "maxLength": 50,
+          "type": "string"
+        },
+        "fax": {
+          "format": "character varying",
+          "maxLength": 50,
+          "type": "string"
+        },
+        "contact_form": {
+          "format": "character varying",
+          "maxLength": 500,
+          "type": "string"
+        },
+        "office": {
+          "format": "character varying",
+          "maxLength": 255,
+          "type": "string"
+        },
+        "rss_url": {
+          "format": "character varying",
+          "maxLength": 500,
+          "type": "string"
+        },
+        "how": {
+          "format": "character varying",
+          "maxLength": 50,
+          "type": "string"
+        },
+        "end_type": {
+          "format": "character varying",
+          "maxLength": 50,
+          "type": "string"
+        },
+        "created_at": {
+          "default": "CURRENT_TIMESTAMP",
+          "format": "timestamp without time zone",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "executives": {
+      "required": [
+        "bioguide_id"
+      ],
+      "properties": {
+        "bioguide_id": {
+          "description": "Note:\nThis is a Primary Key.<pk/>",
+          "format": "character varying",
+          "maxLength": 10,
+          "type": "string"
+        },
+        "govtrack_id": {
+          "format": "integer",
+          "type": "integer"
+        },
+        "icpsr_prez_id": {
+          "format": "integer",
+          "type": "integer"
+        },
+        "first_name": {
+          "format": "character varying",
+          "maxLength": 100,
+          "type": "string"
+        },
+        "middle_name": {
+          "format": "character varying",
+          "maxLength": 100,
+          "type": "string"
+        },
+        "last_name": {
+          "format": "character varying",
+          "maxLength": 100,
+          "type": "string"
+        },
+        "suffix": {
+          "format": "character varying",
+          "maxLength": 20,
+          "type": "string"
+        },
+        "birthday": {
+          "format": "date",
+          "type": "string"
+        },
+        "gender": {
+          "format": "character",
+          "maxLength": 1,
+          "type": "string"
+        },
+        "created_at": {
+          "default": "CURRENT_TIMESTAMP",
+          "format": "timestamp without time zone",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "committee_membership": {
+      "required": [
+        "membership_id"
+      ],
+      "properties": {
+        "membership_id": {
+          "description": "Note:\nThis is a Primary Key.<pk/>",
+          "format": "integer",
+          "type": "integer"
+        },
+        "committee_thomas_id": {
+          "format": "character varying",
+          "maxLength": 20,
+          "type": "string"
+        },
+        "bioguide_id": {
+          "format": "character varying",
+          "maxLength": 10,
+          "type": "string"
+        },
+        "legislator_name": {
+          "format": "character varying",
+          "maxLength": 255,
+          "type": "string"
+        },
+        "party": {
+          "format": "character varying",
+          "maxLength": 20,
+          "type": "string"
+        },
+        "rank": {
+          "format": "integer",
+          "type": "integer"
+        },
+        "title": {
+          "format": "character varying",
+          "maxLength": 100,
+          "type": "string"
+        },
+        "created_at": {
+          "default": "CURRENT_TIMESTAMP",
+          "format": "timestamp without time zone",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "legislator_social_media": {
+      "required": [
+        "social_id"
+      ],
+      "properties": {
+        "social_id": {
+          "description": "Note:\nThis is a Primary Key.<pk/>",
+          "format": "integer",
+          "type": "integer"
+        },
+        "bioguide_id": {
+          "description": "Note:\nThis is a Foreign Key to `legislators.bioguide_id`.<fk table='legislators' column='bioguide_id'/>",
+          "format": "character varying",
+          "maxLength": 10,
+          "type": "string"
+        },
+        "twitter": {
+          "format": "character varying",
+          "maxLength": 100,
+          "type": "string"
+        },
+        "twitter_id": {
+          "format": "character varying",
+          "maxLength": 50,
+          "type": "string"
+        },
+        "facebook": {
+          "format": "character varying",
+          "maxLength": 100,
+          "type": "string"
+        },
+        "facebook_id": {
+          "format": "bigint",
+          "type": "integer"
+        },
+        "youtube": {
+          "format": "character varying",
+          "maxLength": 100,
+          "type": "string"
+        },
+        "youtube_id": {
+          "format": "character varying",
+          "maxLength": 100,
+          "type": "string"
+        },
+        "instagram": {
+          "format": "character varying",
+          "maxLength": 100,
+          "type": "string"
+        },
+        "instagram_id": {
+          "format": "bigint",
+          "type": "integer"
+        },
+        "created_at": {
+          "default": "CURRENT_TIMESTAMP",
+          "format": "timestamp without time zone",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "legislator_other_names": {
+      "required": [
+        "name_id"
+      ],
+      "properties": {
+        "name_id": {
+          "description": "Note:\nThis is a Primary Key.<pk/>",
+          "format": "integer",
+          "type": "integer"
+        },
+        "bioguide_id": {
+          "description": "Note:\nThis is a Foreign Key to `legislators.bioguide_id`.<fk table='legislators' column='bioguide_id'/>",
+          "format": "character varying",
+          "maxLength": 10,
+          "type": "string"
+        },
+        "first_name": {
+          "format": "character varying",
+          "maxLength": 100,
+          "type": "string"
+        },
+        "middle_name": {
+          "format": "character varying",
+          "maxLength": 100,
+          "type": "string"
+        },
+        "last_name": {
+          "format": "character varying",
+          "maxLength": 100,
+          "type": "string"
+        },
+        "suffix": {
+          "format": "character varying",
+          "maxLength": 20,
+          "type": "string"
+        },
+        "start_date": {
+          "format": "date",
+          "type": "string"
+        },
+        "end_date": {
+          "format": "date",
+          "type": "string"
+        },
+        "created_at": {
+          "default": "CURRENT_TIMESTAMP",
+          "format": "timestamp without time zone",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "committees": {
+      "required": [
+        "committee_id"
+      ],
+      "properties": {
+        "committee_id": {
+          "description": "Note:\nThis is a Primary Key.<pk/>",
+          "format": "integer",
+          "type": "integer"
+        },
+        "thomas_id": {
+          "format": "character varying",
+          "maxLength": 20,
+          "type": "string"
+        },
+        "house_committee_id": {
+          "format": "character varying",
+          "maxLength": 10,
+          "type": "string"
+        },
+        "senate_committee_id": {
+          "format": "character varying",
+          "maxLength": 10,
+          "type": "string"
+        },
+        "committee_type": {
+          "format": "character varying",
+          "maxLength": 20,
+          "type": "string"
+        },
+        "name": {
+          "format": "character varying",
+          "maxLength": 255,
+          "type": "string"
+        },
+        "url": {
+          "format": "character varying",
+          "maxLength": 500,
+          "type": "string"
+        },
+        "minority_url": {
+          "format": "character varying",
+          "maxLength": 500,
+          "type": "string"
+        },
+        "address": {
+          "format": "text",
+          "type": "string"
+        },
+        "phone": {
+          "format": "character varying",
+          "maxLength": 50,
+          "type": "string"
+        },
+        "jurisdiction": {
+          "format": "text",
+          "type": "string"
+        },
+        "rss_url": {
+          "format": "character varying",
+          "maxLength": 500,
+          "type": "string"
+        },
+        "youtube_id": {
+          "format": "character varying",
+          "maxLength": 50,
+          "type": "string"
+        },
+        "congresses": {
+          "format": "integer[]",
+          "items": {
+            "type": "integer"
+          },
+          "type": "array"
+        },
+        "is_current": {
+          "default": false,
+          "format": "boolean",
+          "type": "boolean"
+        },
+        "created_at": {
+          "default": "CURRENT_TIMESTAMP",
+          "format": "timestamp without time zone",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "parameters": {
+    "preferParams": {
+      "name": "Prefer",
+      "description": "Preference",
+      "required": false,
+      "in": "header",
+      "type": "string"
+    },
+    "preferReturn": {
+      "name": "Prefer",
+      "description": "Preference",
+      "required": false,
+      "enum": [
+        "return=representation",
+        "return=minimal",
+        "return=none"
+      ],
+      "in": "header",
+      "type": "string"
+    },
+    "preferCount": {
+      "name": "Prefer",
+      "description": "Preference",
+      "required": false,
+      "enum": [
+        "count=none"
+      ],
+      "in": "header",
+      "type": "string"
+    },
+    "preferPost": {
+      "name": "Prefer",
+      "description": "Preference",
+      "required": false,
+      "enum": [
+        "return=representation",
+        "return=minimal",
+        "return=none",
+        "resolution=ignore-duplicates",
+        "resolution=merge-duplicates"
+      ],
+      "in": "header",
+      "type": "string"
+    },
+    "select": {
+      "name": "select",
+      "description": "Filtering Columns",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "on_conflict": {
+      "name": "on_conflict",
+      "description": "On Conflict",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "order": {
+      "name": "order",
+      "description": "Ordering",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "range": {
+      "name": "Range",
+      "description": "Limiting and Pagination",
+      "required": false,
+      "in": "header",
+      "type": "string"
+    },
+    "rangeUnit": {
+      "name": "Range-Unit",
+      "description": "Limiting and Pagination",
+      "required": false,
+      "default": "items",
+      "in": "header",
+      "type": "string"
+    },
+    "offset": {
+      "name": "offset",
+      "description": "Limiting and Pagination",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "limit": {
+      "name": "limit",
+      "description": "Limiting and Pagination",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "body.executive_terms": {
+      "name": "executive_terms",
+      "description": "executive_terms",
+      "required": false,
+      "in": "body",
+      "schema": {
+        "$ref": "#/definitions/executive_terms"
+      }
+    },
+    "rowFilter.executive_terms.term_id": {
+      "name": "term_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.executive_terms.bioguide_id": {
+      "name": "bioguide_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.executive_terms.term_type": {
+      "name": "term_type",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.executive_terms.start_date": {
+      "name": "start_date",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.executive_terms.end_date": {
+      "name": "end_date",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.executive_terms.party": {
+      "name": "party",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.executive_terms.how": {
+      "name": "how",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.executive_terms.created_at": {
+      "name": "created_at",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "body.legislators": {
+      "name": "legislators",
+      "description": "legislators",
+      "required": false,
+      "in": "body",
+      "schema": {
+        "$ref": "#/definitions/legislators"
+      }
+    },
+    "rowFilter.legislators.bioguide_id": {
+      "name": "bioguide_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislators.thomas_id": {
+      "name": "thomas_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislators.lis_id": {
+      "name": "lis_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislators.govtrack_id": {
+      "name": "govtrack_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislators.opensecrets_id": {
+      "name": "opensecrets_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislators.votesmart_id": {
+      "name": "votesmart_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislators.cspan_id": {
+      "name": "cspan_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislators.wikipedia_page": {
+      "name": "wikipedia_page",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislators.ballotpedia_page": {
+      "name": "ballotpedia_page",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislators.maplight_id": {
+      "name": "maplight_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislators.house_history_id": {
+      "name": "house_history_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislators.icpsr_id": {
+      "name": "icpsr_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislators.wikidata_id": {
+      "name": "wikidata_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislators.google_entity_id": {
+      "name": "google_entity_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislators.pictorial_id": {
+      "name": "pictorial_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislators.fec_ids": {
+      "name": "fec_ids",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislators.bioguide_previous": {
+      "name": "bioguide_previous",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislators.first_name": {
+      "name": "first_name",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislators.middle_name": {
+      "name": "middle_name",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislators.last_name": {
+      "name": "last_name",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislators.suffix": {
+      "name": "suffix",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislators.nickname": {
+      "name": "nickname",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislators.official_full": {
+      "name": "official_full",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislators.birthday": {
+      "name": "birthday",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislators.gender": {
+      "name": "gender",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislators.is_current": {
+      "name": "is_current",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislators.first_term_start": {
+      "name": "first_term_start",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislators.last_term_end": {
+      "name": "last_term_end",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislators.created_at": {
+      "name": "created_at",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "body.subcommittees": {
+      "name": "subcommittees",
+      "description": "subcommittees",
+      "required": false,
+      "in": "body",
+      "schema": {
+        "$ref": "#/definitions/subcommittees"
+      }
+    },
+    "rowFilter.subcommittees.subcommittee_id": {
+      "name": "subcommittee_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.subcommittees.committee_id": {
+      "name": "committee_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.subcommittees.thomas_id": {
+      "name": "thomas_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.subcommittees.name": {
+      "name": "name",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.subcommittees.address": {
+      "name": "address",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.subcommittees.phone": {
+      "name": "phone",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.subcommittees.congresses": {
+      "name": "congresses",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.subcommittees.created_at": {
+      "name": "created_at",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "body.district_offices": {
+      "name": "district_offices",
+      "description": "district_offices",
+      "required": false,
+      "in": "body",
+      "schema": {
+        "$ref": "#/definitions/district_offices"
+      }
+    },
+    "rowFilter.district_offices.office_id": {
+      "name": "office_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.district_offices.bioguide_id": {
+      "name": "bioguide_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.district_offices.office_key": {
+      "name": "office_key",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.district_offices.address": {
+      "name": "address",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.district_offices.suite": {
+      "name": "suite",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.district_offices.building": {
+      "name": "building",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.district_offices.city": {
+      "name": "city",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.district_offices.state": {
+      "name": "state",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.district_offices.zip": {
+      "name": "zip",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.district_offices.latitude": {
+      "name": "latitude",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.district_offices.longitude": {
+      "name": "longitude",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.district_offices.phone": {
+      "name": "phone",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.district_offices.fax": {
+      "name": "fax",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.district_offices.hours": {
+      "name": "hours",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.district_offices.created_at": {
+      "name": "created_at",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "body.legislator_terms": {
+      "name": "legislator_terms",
+      "description": "legislator_terms",
+      "required": false,
+      "in": "body",
+      "schema": {
+        "$ref": "#/definitions/legislator_terms"
+      }
+    },
+    "rowFilter.legislator_terms.term_id": {
+      "name": "term_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_terms.bioguide_id": {
+      "name": "bioguide_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_terms.congress_start": {
+      "name": "congress_start",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_terms.congress_end": {
+      "name": "congress_end",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_terms.term_start": {
+      "name": "term_start",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_terms.term_end": {
+      "name": "term_end",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_terms.term_type": {
+      "name": "term_type",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_terms.state": {
+      "name": "state",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_terms.district": {
+      "name": "district",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_terms.class": {
+      "name": "class",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_terms.state_rank": {
+      "name": "state_rank",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_terms.party": {
+      "name": "party",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_terms.url": {
+      "name": "url",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_terms.address": {
+      "name": "address",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_terms.phone": {
+      "name": "phone",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_terms.fax": {
+      "name": "fax",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_terms.contact_form": {
+      "name": "contact_form",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_terms.office": {
+      "name": "office",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_terms.rss_url": {
+      "name": "rss_url",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_terms.how": {
+      "name": "how",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_terms.end_type": {
+      "name": "end_type",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_terms.created_at": {
+      "name": "created_at",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "body.executives": {
+      "name": "executives",
+      "description": "executives",
+      "required": false,
+      "in": "body",
+      "schema": {
+        "$ref": "#/definitions/executives"
+      }
+    },
+    "rowFilter.executives.bioguide_id": {
+      "name": "bioguide_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.executives.govtrack_id": {
+      "name": "govtrack_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.executives.icpsr_prez_id": {
+      "name": "icpsr_prez_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.executives.first_name": {
+      "name": "first_name",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.executives.middle_name": {
+      "name": "middle_name",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.executives.last_name": {
+      "name": "last_name",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.executives.suffix": {
+      "name": "suffix",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.executives.birthday": {
+      "name": "birthday",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.executives.gender": {
+      "name": "gender",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.executives.created_at": {
+      "name": "created_at",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "body.committee_membership": {
+      "name": "committee_membership",
+      "description": "committee_membership",
+      "required": false,
+      "in": "body",
+      "schema": {
+        "$ref": "#/definitions/committee_membership"
+      }
+    },
+    "rowFilter.committee_membership.membership_id": {
+      "name": "membership_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.committee_membership.committee_thomas_id": {
+      "name": "committee_thomas_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.committee_membership.bioguide_id": {
+      "name": "bioguide_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.committee_membership.legislator_name": {
+      "name": "legislator_name",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.committee_membership.party": {
+      "name": "party",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.committee_membership.rank": {
+      "name": "rank",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.committee_membership.title": {
+      "name": "title",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.committee_membership.created_at": {
+      "name": "created_at",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "body.legislator_social_media": {
+      "name": "legislator_social_media",
+      "description": "legislator_social_media",
+      "required": false,
+      "in": "body",
+      "schema": {
+        "$ref": "#/definitions/legislator_social_media"
+      }
+    },
+    "rowFilter.legislator_social_media.social_id": {
+      "name": "social_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_social_media.bioguide_id": {
+      "name": "bioguide_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_social_media.twitter": {
+      "name": "twitter",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_social_media.twitter_id": {
+      "name": "twitter_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_social_media.facebook": {
+      "name": "facebook",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_social_media.facebook_id": {
+      "name": "facebook_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_social_media.youtube": {
+      "name": "youtube",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_social_media.youtube_id": {
+      "name": "youtube_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_social_media.instagram": {
+      "name": "instagram",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_social_media.instagram_id": {
+      "name": "instagram_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_social_media.created_at": {
+      "name": "created_at",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "body.legislator_other_names": {
+      "name": "legislator_other_names",
+      "description": "legislator_other_names",
+      "required": false,
+      "in": "body",
+      "schema": {
+        "$ref": "#/definitions/legislator_other_names"
+      }
+    },
+    "rowFilter.legislator_other_names.name_id": {
+      "name": "name_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_other_names.bioguide_id": {
+      "name": "bioguide_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_other_names.first_name": {
+      "name": "first_name",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_other_names.middle_name": {
+      "name": "middle_name",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_other_names.last_name": {
+      "name": "last_name",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_other_names.suffix": {
+      "name": "suffix",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_other_names.start_date": {
+      "name": "start_date",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_other_names.end_date": {
+      "name": "end_date",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.legislator_other_names.created_at": {
+      "name": "created_at",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "body.committees": {
+      "name": "committees",
+      "description": "committees",
+      "required": false,
+      "in": "body",
+      "schema": {
+        "$ref": "#/definitions/committees"
+      }
+    },
+    "rowFilter.committees.committee_id": {
+      "name": "committee_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.committees.thomas_id": {
+      "name": "thomas_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.committees.house_committee_id": {
+      "name": "house_committee_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.committees.senate_committee_id": {
+      "name": "senate_committee_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.committees.committee_type": {
+      "name": "committee_type",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.committees.name": {
+      "name": "name",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.committees.url": {
+      "name": "url",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.committees.minority_url": {
+      "name": "minority_url",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.committees.address": {
+      "name": "address",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.committees.phone": {
+      "name": "phone",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.committees.jurisdiction": {
+      "name": "jurisdiction",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.committees.rss_url": {
+      "name": "rss_url",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.committees.youtube_id": {
+      "name": "youtube_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.committees.congresses": {
+      "name": "congresses",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.committees.is_current": {
+      "name": "is_current",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.committees.created_at": {
+      "name": "created_at",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    }
+  },
+  "externalDocs": {
+    "description": "PostgREST Documentation",
+    "url": "https://postgrest.org/en/v14/references/api.html"
+  }
+}

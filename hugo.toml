@@ -1,0 +1,34 @@
+baseURL = "/"
+languageCode = "en-us"
+title = "benthic.io | little data for big change"
+
+
+[params]
+  email = "brian@benthic.io"
+  x_handle = "@otherdrums"
+  x_link = "https://x.com/otherdrums"
+  facebook = "Brian Mulkern"
+  facebook_link = "https://www.facebook.com/brian.mulkern.5"
+  favicon = "/benthic_favicon.ico"
+[markup.goldmark.renderer]
+  unsafe = true
+
+[markup.highlight]
+  style = "dracula"
+  lineNos = false
+  noClasses = false
+  guessSyntax = true
+
+[menu]
+  [[menu.main]]
+    name = "Home"
+    url = "/"
+    weight = 10
+  [[menu.main]]
+    name = "APIs / Docs"
+    url = "/apis/"
+    weight = 20
+  [[menu.main]]
+    name = "About"
+    url = "/about/"
+    weight = 30

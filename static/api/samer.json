@@ -1,0 +1,633 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "",
+    "title": "standard public schema",
+    "version": "14.4"
+  },
+  "host": "127.0.0.1:3001",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json",
+    "application/vnd.pgrst.object+json;nulls=stripped",
+    "application/vnd.pgrst.object+json",
+    "text/csv"
+  ],
+  "produces": [
+    "application/json",
+    "application/vnd.pgrst.object+json;nulls=stripped",
+    "application/vnd.pgrst.object+json",
+    "text/csv"
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "produces": [
+          "application/openapi+json",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "summary": "OpenAPI description (this document)",
+        "tags": [
+          "Introspection"
+        ]
+      }
+    },
+    "/sam_registrations": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.sam_registrations.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.sam_registrations.uei"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.sam_registrations.entity_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.sam_registrations.duns"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.sam_registrations.legal_business_name"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.sam_registrations.dba_name"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.sam_registrations.physical_address_line1"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.sam_registrations.physical_city"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.sam_registrations.physical_state"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.sam_registrations.physical_zip"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.sam_registrations.physical_country"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.sam_registrations.mailing_address_line1"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.sam_registrations.mailing_city"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.sam_registrations.mailing_state"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.sam_registrations.mailing_zip"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.sam_registrations.mailing_country"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.sam_registrations.primary_naics"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.sam_registrations.naics_codes"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.sam_registrations.psc_codes"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.sam_registrations.registration_expiration"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.sam_registrations.last_update"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.sam_registrations.business_start_date"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.sam_registrations.corporate_url"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.sam_registrations.purpose_of_registration"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.sam_registrations.source_file"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.sam_registrations.imported_at"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.sam_registrations.is_current"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.sam_registrations.latitude"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.sam_registrations.longitude"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.sam_registrations.geocode_date"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.sam_registrations.geocode_system"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/order"
+          },
+          {
+            "$ref": "#/parameters/range"
+          },
+          {
+            "$ref": "#/parameters/rangeUnit"
+          },
+          {
+            "$ref": "#/parameters/offset"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/preferCount"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/sam_registrations"
+              },
+              "type": "array"
+            }
+          },
+          "206": {
+            "description": "Partial Content"
+          }
+        },
+        "tags": [
+          "sam_registrations"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "sam_registrations": {
+      "required": [
+        "id",
+        "uei"
+      ],
+      "properties": {
+        "id": {
+          "description": "Note:\nThis is a Primary Key.<pk/>",
+          "format": "integer",
+          "type": "integer"
+        },
+        "uei": {
+          "format": "character varying",
+          "maxLength": 50,
+          "type": "string"
+        },
+        "entity_id": {
+          "format": "character varying",
+          "maxLength": 50,
+          "type": "string"
+        },
+        "duns": {
+          "format": "character varying",
+          "maxLength": 20,
+          "type": "string"
+        },
+        "legal_business_name": {
+          "format": "character varying",
+          "maxLength": 255,
+          "type": "string"
+        },
+        "dba_name": {
+          "format": "character varying",
+          "maxLength": 255,
+          "type": "string"
+        },
+        "physical_address_line1": {
+          "format": "text",
+          "type": "string"
+        },
+        "physical_city": {
+          "format": "character varying",
+          "maxLength": 100,
+          "type": "string"
+        },
+        "physical_state": {
+          "format": "character varying",
+          "maxLength": 100,
+          "type": "string"
+        },
+        "physical_zip": {
+          "format": "character varying",
+          "maxLength": 20,
+          "type": "string"
+        },
+        "physical_country": {
+          "format": "character varying",
+          "maxLength": 10,
+          "type": "string"
+        },
+        "mailing_address_line1": {
+          "format": "text",
+          "type": "string"
+        },
+        "mailing_city": {
+          "format": "character varying",
+          "maxLength": 100,
+          "type": "string"
+        },
+        "mailing_state": {
+          "format": "character varying",
+          "maxLength": 100,
+          "type": "string"
+        },
+        "mailing_zip": {
+          "format": "character varying",
+          "maxLength": 50,
+          "type": "string"
+        },
+        "mailing_country": {
+          "format": "character varying",
+          "maxLength": 10,
+          "type": "string"
+        },
+        "primary_naics": {
+          "format": "character varying",
+          "maxLength": 10,
+          "type": "string"
+        },
+        "naics_codes": {
+          "format": "text",
+          "type": "string"
+        },
+        "psc_codes": {
+          "format": "text",
+          "type": "string"
+        },
+        "registration_expiration": {
+          "format": "character varying",
+          "maxLength": 20,
+          "type": "string"
+        },
+        "last_update": {
+          "format": "character varying",
+          "maxLength": 20,
+          "type": "string"
+        },
+        "business_start_date": {
+          "format": "character varying",
+          "maxLength": 20,
+          "type": "string"
+        },
+        "corporate_url": {
+          "format": "text",
+          "type": "string"
+        },
+        "purpose_of_registration": {
+          "format": "character varying",
+          "maxLength": 50,
+          "type": "string"
+        },
+        "source_file": {
+          "format": "character varying",
+          "maxLength": 255,
+          "type": "string"
+        },
+        "imported_at": {
+          "default": "CURRENT_TIMESTAMP",
+          "format": "timestamp without time zone",
+          "type": "string"
+        },
+        "is_current": {
+          "default": true,
+          "format": "boolean",
+          "type": "boolean"
+        },
+        "latitude": {
+          "format": "double precision",
+          "type": "number"
+        },
+        "longitude": {
+          "format": "double precision",
+          "type": "number"
+        },
+        "geocode_date": {
+          "format": "timestamp without time zone",
+          "type": "string"
+        },
+        "geocode_system": {
+          "format": "character varying",
+          "maxLength": 50,
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "parameters": {
+    "preferParams": {
+      "name": "Prefer",
+      "description": "Preference",
+      "required": false,
+      "in": "header",
+      "type": "string"
+    },
+    "preferReturn": {
+      "name": "Prefer",
+      "description": "Preference",
+      "required": false,
+      "enum": [
+        "return=representation",
+        "return=minimal",
+        "return=none"
+      ],
+      "in": "header",
+      "type": "string"
+    },
+    "preferCount": {
+      "name": "Prefer",
+      "description": "Preference",
+      "required": false,
+      "enum": [
+        "count=none"
+      ],
+      "in": "header",
+      "type": "string"
+    },
+    "preferPost": {
+      "name": "Prefer",
+      "description": "Preference",
+      "required": false,
+      "enum": [
+        "return=representation",
+        "return=minimal",
+        "return=none",
+        "resolution=ignore-duplicates",
+        "resolution=merge-duplicates"
+      ],
+      "in": "header",
+      "type": "string"
+    },
+    "select": {
+      "name": "select",
+      "description": "Filtering Columns",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "on_conflict": {
+      "name": "on_conflict",
+      "description": "On Conflict",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "order": {
+      "name": "order",
+      "description": "Ordering",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "range": {
+      "name": "Range",
+      "description": "Limiting and Pagination",
+      "required": false,
+      "in": "header",
+      "type": "string"
+    },
+    "rangeUnit": {
+      "name": "Range-Unit",
+      "description": "Limiting and Pagination",
+      "required": false,
+      "default": "items",
+      "in": "header",
+      "type": "string"
+    },
+    "offset": {
+      "name": "offset",
+      "description": "Limiting and Pagination",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "limit": {
+      "name": "limit",
+      "description": "Limiting and Pagination",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "body.sam_registrations": {
+      "name": "sam_registrations",
+      "description": "sam_registrations",
+      "required": false,
+      "in": "body",
+      "schema": {
+        "$ref": "#/definitions/sam_registrations"
+      }
+    },
+    "rowFilter.sam_registrations.id": {
+      "name": "id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.sam_registrations.uei": {
+      "name": "uei",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.sam_registrations.entity_id": {
+      "name": "entity_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.sam_registrations.duns": {
+      "name": "duns",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.sam_registrations.legal_business_name": {
+      "name": "legal_business_name",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.sam_registrations.dba_name": {
+      "name": "dba_name",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.sam_registrations.physical_address_line1": {
+      "name": "physical_address_line1",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.sam_registrations.physical_city": {
+      "name": "physical_city",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.sam_registrations.physical_state": {
+      "name": "physical_state",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.sam_registrations.physical_zip": {
+      "name": "physical_zip",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.sam_registrations.physical_country": {
+      "name": "physical_country",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.sam_registrations.mailing_address_line1": {
+      "name": "mailing_address_line1",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.sam_registrations.mailing_city": {
+      "name": "mailing_city",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.sam_registrations.mailing_state": {
+      "name": "mailing_state",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.sam_registrations.mailing_zip": {
+      "name": "mailing_zip",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.sam_registrations.mailing_country": {
+      "name": "mailing_country",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.sam_registrations.primary_naics": {
+      "name": "primary_naics",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.sam_registrations.naics_codes": {
+      "name": "naics_codes",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.sam_registrations.psc_codes": {
+      "name": "psc_codes",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.sam_registrations.registration_expiration": {
+      "name": "registration_expiration",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.sam_registrations.last_update": {
+      "name": "last_update",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.sam_registrations.business_start_date": {
+      "name": "business_start_date",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.sam_registrations.corporate_url": {
+      "name": "corporate_url",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.sam_registrations.purpose_of_registration": {
+      "name": "purpose_of_registration",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.sam_registrations.source_file": {
+      "name": "source_file",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.sam_registrations.imported_at": {
+      "name": "imported_at",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.sam_registrations.is_current": {
+      "name": "is_current",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.sam_registrations.latitude": {
+      "name": "latitude",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.sam_registrations.longitude": {
+      "name": "longitude",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.sam_registrations.geocode_date": {
+      "name": "geocode_date",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.sam_registrations.geocode_system": {
+      "name": "geocode_system",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    }
+  },
+  "externalDocs": {
+    "description": "PostgREST Documentation",
+    "url": "https://postgrest.org/en/v14/references/api.html"
+  }
+}
