@@ -220,13 +220,20 @@ table {
   overflow-x: auto;
 }
 
-th,
-td {
+th {
   padding: 0.75rem 1rem;
   text-align: left;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   color: var(--gray-text);
   white-space: nowrap;
+}
+
+td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--gray-text);
+  white-space: normal;
 }
 
 th {
