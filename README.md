@@ -1,6 +1,6 @@
 # benthic.io
 
-*Benthic: living in or relating to the lowest levels of the ocean or other body of water.*
+**Benthic** / bĕn′thĭk / *adjective*: living in or relating to the lowest levels of the ocean or other body of water.
 
 benthic.io is a free, open data platform. The mission: ensure data capable of public good remains freely available to the public, forever.
 
