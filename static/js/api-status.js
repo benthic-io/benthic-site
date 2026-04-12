@@ -3,14 +3,29 @@
     'use strict';
 
     const APIs = {
-        usaspending: { name: 'USAspending', path: '/ngopen/usaspending/' },
-        samer: { name: 'SAM Entity Registry', path: '/ngopen/samer/' },
-        irs_ng: { name: 'IRS Nonprofits', path: '/ngopen/irs_ng/' },
-        usp_cl: { name: 'Congress Legislators', path: '/ngopen/usp_cl/' },
-        up_cdmaps: { name: 'Congressional Districts', path: '/ngopen/up_cdmaps/' }
+        usaspending: { 
+            name: 'USAspending', 
+            healthCheck: '/ngopen/usaspending/toptier_agency?select=name&limit=1'
+        },
+        samer: { 
+            name: 'SAM Entity Registry', 
+            healthCheck: '/ngopen/samer/sam_registrations?select=uei&limit=1'
+        },
+        irs_ng: { 
+            name: 'IRS Nonprofits', 
+            healthCheck: '/ngopen/irs_ng/bmf_organizations?select=ein&limit=1'
+        },
+        usp_cl: { 
+            name: 'Congress Legislators', 
+            healthCheck: '/ngopen/usp_cl/legislators?select=bioguide_id&limit=1'
+        },
+        up_cdmaps: { 
+            name: 'Congressional Districts', 
+            healthCheck: '/ngopen/up_cdmaps/congressional_districts?select=id&limit=1'
+        }
     };
 
-    const TIMEOUT_MS = 10000; // 10 second timeout
+    const TIMEOUT_MS = 8000; // 8 second timeout
     const REFRESH_INTERVAL = 60000; // Auto-refresh every 60 seconds
 
     /**
@@ -26,8 +41,8 @@
             const controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(), TIMEOUT_MS);
             
-            // Try to fetch the root endpoint (returns OpenAPI spec)
-            const response = await fetch(api.path, {
+            // Use a lightweight query (limit=1 on a small table)
+            const response = await fetch(api.healthCheck, {
                 method: 'GET',
                 signal: controller.signal,
                 headers: {
