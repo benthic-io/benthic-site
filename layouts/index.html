@@ -1,7 +1,58 @@
 {{ define "main" }}
-<section class="content">
+<section class="api-status-dashboard">
     <div class="container">
-      {{ .Content }}
+        <div class="dashboard-box">
+            <div class="dashboard-header">
+                <div class="dashboard-title">
+                    <h3>Live APIs</h3>
+                </div>
+                <div class="dashboard-controls">
+                    <span class="last-updated">Last checked: <span id="last-updated">--</span></span>
+                    <button id="refresh-status" class="refresh-btn">Refresh</button>
+                </div>
+            </div>
+            <div class="dashboard-columns">
+                <div class="column-header">Endpoint / Documentation</div>
+                <div class="column-header">Status</div>
+                <div class="column-header">Response</div>
+            </div>
+            <div class="status-list" id="status-list">
+                <div class="status-item loading" data-api="usaspending">
+                    <div class="status-cell endpoint"><a href="/docs/usaspending/">https://benthic.io/ngopen/usaspending/</a></div>
+                    <div class="status-cell status"><span class="status-indicator"><span class="status-dot"></span> <span class="status-text">Checking...</span></span></div>
+                    <div class="status-cell response-time">-- ms</div>
+                </div>
+                <div class="status-item loading" data-api="samer">
+                    <div class="status-cell endpoint"><a href="/docs/samer/">https://benthic.io/ngopen/samer/</a></div>
+                    <div class="status-cell status"><span class="status-indicator"><span class="status-dot"></span> <span class="status-text">Checking...</span></span></div>
+                    <div class="status-cell response-time">-- ms</div>
+                </div>
+                <div class="status-item loading" data-api="irs_ng">
+                    <div class="status-cell endpoint"><a href="/docs/irs_ng/">https://benthic.io/ngopen/irs_ng/</a></div>
+                    <div class="status-cell status"><span class="status-indicator"><span class="status-dot"></span> <span class="status-text">Checking...</span></span></div>
+                    <div class="status-cell response-time">-- ms</div>
+                </div>
+                <div class="status-item loading" data-api="usp_cl">
+                    <div class="status-cell endpoint"><a href="/docs/usp_cl/">https://benthic.io/ngopen/usp_cl/</a></div>
+                    <div class="status-cell status"><span class="status-indicator"><span class="status-dot"></span> <span class="status-text">Checking...</span></span></div>
+                    <div class="status-cell response-time">-- ms</div>
+                </div>
+                <div class="status-item loading" data-api="up_cdmaps">
+                    <div class="status-cell endpoint"><a href="/docs/up_cdmaps/">https://benthic.io/ngopen/up_cdmaps/</a></div>
+                    <div class="status-cell status"><span class="status-indicator"><span class="status-dot"></span> <span class="status-text">Checking...</span></span></div>
+                    <div class="status-cell response-time">-- ms</div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
+
+<section class="content centered-content">
+    <div class="container">
+        {{ .Content }}
+    </div>
+</section>
+
+<script src="/js/api-status.js"></script>
+
 {{ end }}
