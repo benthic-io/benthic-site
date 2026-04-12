@@ -119,13 +119,21 @@
     }
 
     /**
-     * Update the last checked timestamp
+     * Update the last checked timestamp (EST/GMT-5)
      */
     function updateTimestamp() {
         const timestampEl = document.getElementById('last-updated');
         if (timestampEl) {
             const now = new Date();
-            timestampEl.textContent = now.toLocaleTimeString();
+            const estTime = now.toLocaleTimeString('en-US', { 
+                timeZone: 'America/New_York',
+                hour12: true,
+                hour: 'numeric',
+                minute: '2-digit'
+            });
+            const isDST = now.toLocaleTimeString('en-US', { timeZone: 'America/New_York', timeZoneName: 'short' }).includes('EDT');
+            const gmtOffset = isDST ? 'GMT-4' : 'GMT-5';
+            timestampEl.textContent = `${estTime} ${gmtOffset} (EST)`;
         }
     }
 
