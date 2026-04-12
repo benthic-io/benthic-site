@@ -8,7 +8,7 @@ Benthic.io's debut API collection, dubbed NGOpen, consists of five PostgREST API
 
 - **https://benthic.io/ngopen/usaspending/** – [USAspending.gov](https://www.usaspending.gov/) database enhanced with geocoding data. - [Documentation](/docs/usaspending/)
 
-- **https://benthic.io/ngopen/samer/** – SAM.gov entity registrations for federal contractors & vendors enhanced with geocoding data.- [Documentation](/docs/samer/)
+- **https://benthic.io/ngopen/samer/** – [SAM.gov](https://sam.gov/) entity registrations for federal contractors & vendors enhanced with geocoding data.- [Documentation](/docs/samer/)
 
 - **https://benthic.io/ngopen/up_cdmaps/** – UCLA Polysci's comprehesive [congressional district maps & boundaries](https://cdmaps.polisci.ucla.edu/) for every congress to present day. - [Documentation](/docs/up_cdmaps/)
 
