@@ -177,13 +177,15 @@ curl "https://benthic.io/ngopen/samer/sam_registrations?latitude=gte.38.8&latitu
 
 ## Geocoding
 
-All databases with address data were building using local [Photon](https://photon.komoot.io/) geocoder instances with [OpenStreetMap](https://www.openstreetmap.org) data for consistent spatial coordinates. This means:
+All databases with address data were built using local [Photon](https://photon.komoot.io/) geocoder instances with [OpenStreetMap](https://www.openstreetmap.org) data for consistent spatial coordinates. This means:
 
 - **Same coordinate system** across usaspending, irs_ng, and samer
 - **Direct spatial comparison** between federal spending recipients, nonprofits, and contractors
 - **Bounding box queries** work identically across all geocoded tables
 - **Spatial joins** between datasets require no coordinate transformation
 - **PostGIS `geom_point` columns** on all geocoded tables enable native spatial queries (ST_DWithin, ST_Intersects, etc.)
+
+The SAM.gov geocoder uses Photon's structured search endpoint (`/api/structured`) with per-row country-code bias derived from the SAM `physical_country` field, falling back to free-text search with `countrycode` filter. This prevents ambiguous city names (e.g. "Vienna", "Bellevue") from being matched to wrong countries. US-addressed entities geocoded outside US bounds are automatically detected and re-geocoded.
 
 Geocoded columns across datasets:
 
