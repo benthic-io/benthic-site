@@ -1,0 +1,110 @@
+{
+  "author_identity": "brian@benthic.io",
+  "author_pubkey": "qwG8vQQN7m/uB0Nwgor3s1EJCKjqZM/SNThV+V7XumM=",
+  "collection": "ngopen",
+  "column_count": 172,
+  "commit_hash": "48bc355712599d9fada078c0366ab50b0ef456b4",
+  "dataset_name": "usp_cl",
+  "description": "Members of Congress, their terms, committees, subcommittees, committee memberships, social media accounts, and geocoded district offices, plus executives and executive terms.",
+  "endpoints": [
+    {
+      "base_url": "https://benthic.io/ngopen/usp_cl/",
+      "transport_type": "postgrest_api"
+    }
+  ],
+  "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "manifest_bytes": 30652,
+  "manifest_payload_hash": "9daac64fa1a8eb52b9dd4ce5d1429750de7945bf0306f2f0b492b554598ab3e2",
+  "manifest_url": "https://benthic.io/bdp/ngopen/usp_cl/manifest.json",
+  "migration_status": "pending",
+  "queryable_relation_count": 12,
+  "relation_count": 12,
+  "relations": [
+    {
+      "column_count": 8,
+      "name": "committee_membership",
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 16,
+      "name": "committees",
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 16,
+      "name": "district_offices",
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 8,
+      "name": "executive_terms",
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 10,
+      "name": "executives",
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 9,
+      "name": "legislator_other_names",
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 11,
+      "name": "legislator_social_media",
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 22,
+      "name": "legislator_terms",
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 29,
+      "name": "legislators",
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 13,
+      "name": "mv_committee_power",
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "materialized_view"
+    },
+    {
+      "column_count": 22,
+      "name": "mv_current_lawmakers",
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "materialized_view"
+    },
+    {
+      "column_count": 8,
+      "name": "subcommittees",
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    }
+  ],
+  "repository_url": "https://github.com/benthic-io/ngopen-bdp-pipelines",
+  "title": "United States Congress Legislators"
+}

@@ -1,0 +1,152 @@
+{
+  "author_identity": "brian@benthic.io",
+  "author_pubkey": "qwG8vQQN7m/uB0Nwgor3s1EJCKjqZM/SNThV+V7XumM=",
+  "collection": "ngopen",
+  "column_count": 388,
+  "commit_hash": "48bc355712599d9fada078c0366ab50b0ef456b4",
+  "dataset_name": "irs_ng",
+  "description": "IRS tax-exempt organizations: Business Master File, Form 990/990-EZ/990-PF Statistics of Income extracts, Form 990 XML filings, Publication 78 eligibility, auto-revocations, 990-N postcards, 527 political organizations, and Census ACS demographics, with Photon geocoding.",
+  "endpoints": [
+    {
+      "base_url": "https://benthic.io/ngopen/irs_ng/",
+      "transport_type": "postgrest_api"
+    }
+  ],
+  "license": "https://www.irs.gov/charities-non-profits/tax-exempt-organization-search-bulk-data-downloads",
+  "manifest_bytes": 65532,
+  "manifest_payload_hash": "f4981a1b6b01374a57ae68485fc02a591ef35239d7a02bd313e374e32b61c35b",
+  "manifest_url": "https://benthic.io/bdp/ngopen/irs_ng/manifest.json",
+  "migration_status": "pending",
+  "queryable_relation_count": 18,
+  "relation_count": 18,
+  "relations": [
+    {
+      "column_count": 18,
+      "name": "bmf_organization_snapshots",
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 56,
+      "name": "bmf_organizations",
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 14,
+      "name": "census_demographics",
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 21,
+      "name": "form990_details",
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 9,
+      "name": "form990_schedule_o",
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 62,
+      "name": "form990_soi",
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 52,
+      "name": "form990_soi_private_foundation",
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 11,
+      "name": "form990_xml_import_log",
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 7,
+      "name": "form990n_small_orgs",
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 28,
+      "name": "form990t_details",
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 22,
+      "name": "mv_nonprofit_profile",
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "materialized_view"
+    },
+    {
+      "column_count": 15,
+      "name": "mv_org_financial_health",
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "materialized_view"
+    },
+    {
+      "column_count": 18,
+      "name": "political_orgs_527",
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 8,
+      "name": "pub78_eligible",
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 7,
+      "name": "revoked_organizations",
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 20,
+      "name": "v_org_financial_profile",
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "view"
+    },
+    {
+      "column_count": 10,
+      "name": "v_org_multi_year",
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "view"
+    },
+    {
+      "column_count": 10,
+      "name": "v_political_orgs",
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "view"
+    }
+  ],
+  "repository_url": "https://github.com/benthic-io/ngopen-bdp-pipelines",
+  "title": "IRS Nonprofit Organizations"
+}

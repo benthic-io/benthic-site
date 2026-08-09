@@ -1,0 +1,1210 @@
+{
+  "author_identity": "brian@benthic.io",
+  "author_pubkey": "qwG8vQQN7m/uB0Nwgor3s1EJCKjqZM/SNThV+V7XumM=",
+  "collection": "ngopen",
+  "created_at": "2026-08-09T00:00:00Z",
+  "cryptographic_signature": {
+    "algorithm": "EdDSA",
+    "canonicalization": "RFC8785",
+    "hash_algorithm": "SHA-256",
+    "payload_hash": "9daac64fa1a8eb52b9dd4ce5d1429750de7945bf0306f2f0b492b554598ab3e2",
+    "signature_base64": "jr6sn3vXD0sU6wJFg6Gk0rsIjqlyjoDA1Y9VKNE0BLyCNaVfkF7ERK+qJFPxamOqoSfEIyYhhr3+UuHZWIk6Aw==",
+    "signed_at": "2026-08-09T05:55:51Z"
+  },
+  "dataset_name": "usp_cl",
+  "description": "Members of Congress, their terms, committees, subcommittees, committee memberships, social media accounts, and geocoded district offices, plus executives and executive terms.",
+  "endpoints": [
+    {
+      "base_url": "https://benthic.io/ngopen/usp_cl/",
+      "description": "Live PostgREST API over PostgreSQL/PostGIS.",
+      "meta": {
+        "accept_profile": "public",
+        "max_rows": 1000,
+        "openapi_url": "https://benthic.io/ngopen/usp_cl/",
+        "postgrest_version": "14.8",
+        "requires_auth": false
+      },
+      "transport_type": "postgrest_api"
+    }
+  ],
+  "etl_provenance": {
+    "commit_hash": "48bc355712599d9fada078c0366ab50b0ef456b4",
+    "migration_status": "pending",
+    "pipeline_entrypoint": "pipelines/usp_cl/pipeline.py",
+    "repository_url": "https://github.com/benthic-io/ngopen-bdp-pipelines",
+    "source_attribution": [
+      {
+        "name": "unitedstates/congress-legislators",
+        "url": "https://github.com/unitedstates/congress-legislators"
+      }
+    ]
+  },
+  "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "protocol_version": "1.0.0",
+  "schema_definition": [
+    {
+      "columns": [
+        {
+          "name": "membership_id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "committee_thomas_id",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "bioguide_id",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "legislator_name",
+          "native_type": "character varying(255)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "party",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "rank",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "title",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "created_at",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        }
+      ],
+      "name": "committee_membership",
+      "primary_key": [
+        "membership_id"
+      ],
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "columns": [
+        {
+          "name": "committee_id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "thomas_id",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "house_committee_id",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "senate_committee_id",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "committee_type",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(255)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "url",
+          "native_type": "character varying(500)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "minority_url",
+          "native_type": "character varying(500)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "address",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "phone",
+          "native_type": "character varying(50)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "jurisdiction",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "rss_url",
+          "native_type": "character varying(500)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "youtube_id",
+          "native_type": "character varying(50)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "congresses",
+          "native_type": "integer[]",
+          "nullable": true,
+          "type": "array"
+        },
+        {
+          "name": "is_current",
+          "native_type": "boolean",
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "name": "created_at",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        }
+      ],
+      "name": "committees",
+      "primary_key": [
+        "committee_id"
+      ],
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "columns": [
+        {
+          "name": "office_id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "bioguide_id",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "office_key",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "address",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "suite",
+          "native_type": "character varying(255)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "building",
+          "native_type": "character varying(255)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "city",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "state",
+          "native_type": "character(2)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "zip",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "latitude",
+          "native_type": "double precision",
+          "nullable": true,
+          "type": "number"
+        },
+        {
+          "name": "longitude",
+          "native_type": "double precision",
+          "nullable": true,
+          "type": "number"
+        },
+        {
+          "name": "phone",
+          "native_type": "character varying(50)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "fax",
+          "native_type": "character varying(50)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "hours",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "created_at",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        },
+        {
+          "name": "geom_point",
+          "native_type": "geometry(Point,4326)",
+          "nullable": true,
+          "srid": 4326,
+          "type": "geometry"
+        }
+      ],
+      "name": "district_offices",
+      "primary_key": [
+        "office_id"
+      ],
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 1312
+    },
+    {
+      "columns": [
+        {
+          "name": "term_id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "bioguide_id",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "term_type",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "start_date",
+          "native_type": "date",
+          "nullable": true,
+          "type": "date"
+        },
+        {
+          "name": "end_date",
+          "native_type": "date",
+          "nullable": true,
+          "type": "date"
+        },
+        {
+          "name": "party",
+          "native_type": "character varying(50)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "how",
+          "native_type": "character varying(50)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "created_at",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        }
+      ],
+      "name": "executive_terms",
+      "primary_key": [
+        "term_id"
+      ],
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "columns": [
+        {
+          "name": "bioguide_id",
+          "native_type": "character varying(10)",
+          "nullable": false,
+          "type": "string"
+        },
+        {
+          "name": "govtrack_id",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "icpsr_prez_id",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "first_name",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "middle_name",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "last_name",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "suffix",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "birthday",
+          "native_type": "date",
+          "nullable": true,
+          "type": "date"
+        },
+        {
+          "name": "gender",
+          "native_type": "character(1)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "created_at",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        }
+      ],
+      "name": "executives",
+      "primary_key": [
+        "bioguide_id"
+      ],
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "columns": [
+        {
+          "name": "name_id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "bioguide_id",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "first_name",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "middle_name",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "last_name",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "suffix",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "start_date",
+          "native_type": "date",
+          "nullable": true,
+          "type": "date"
+        },
+        {
+          "name": "end_date",
+          "native_type": "date",
+          "nullable": true,
+          "type": "date"
+        },
+        {
+          "name": "created_at",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        }
+      ],
+      "name": "legislator_other_names",
+      "primary_key": [
+        "name_id"
+      ],
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "columns": [
+        {
+          "name": "social_id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "bioguide_id",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "twitter",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "twitter_id",
+          "native_type": "character varying(50)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "facebook",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "facebook_id",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "youtube",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "youtube_id",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "instagram",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "instagram_id",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "created_at",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        }
+      ],
+      "name": "legislator_social_media",
+      "primary_key": [
+        "social_id"
+      ],
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "columns": [
+        {
+          "name": "term_id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "bioguide_id",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "congress_start",
+          "native_type": "character varying(3)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "congress_end",
+          "native_type": "character varying(3)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "term_start",
+          "native_type": "date",
+          "nullable": true,
+          "type": "date"
+        },
+        {
+          "name": "term_end",
+          "native_type": "date",
+          "nullable": true,
+          "type": "date"
+        },
+        {
+          "name": "term_type",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "state",
+          "native_type": "character(2)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "district",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "class",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "state_rank",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "party",
+          "native_type": "character varying(50)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "url",
+          "native_type": "character varying(500)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "address",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "phone",
+          "native_type": "character varying(50)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "fax",
+          "native_type": "character varying(50)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "contact_form",
+          "native_type": "character varying(500)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "office",
+          "native_type": "character varying(255)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "rss_url",
+          "native_type": "character varying(500)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "how",
+          "native_type": "character varying(50)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "end_type",
+          "native_type": "character varying(50)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "created_at",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        }
+      ],
+      "name": "legislator_terms",
+      "primary_key": [
+        "term_id"
+      ],
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "columns": [
+        {
+          "name": "bioguide_id",
+          "native_type": "character varying(10)",
+          "nullable": false,
+          "type": "string"
+        },
+        {
+          "name": "thomas_id",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "lis_id",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "govtrack_id",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "opensecrets_id",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "votesmart_id",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "cspan_id",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "wikipedia_page",
+          "native_type": "character varying(255)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "ballotpedia_page",
+          "native_type": "character varying(255)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "maplight_id",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "house_history_id",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "icpsr_id",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "wikidata_id",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "google_entity_id",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "pictorial_id",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "fec_ids",
+          "native_type": "text[]",
+          "nullable": true,
+          "type": "array"
+        },
+        {
+          "name": "bioguide_previous",
+          "native_type": "text[]",
+          "nullable": true,
+          "type": "array"
+        },
+        {
+          "name": "first_name",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "middle_name",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "last_name",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "suffix",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "nickname",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "official_full",
+          "native_type": "character varying(255)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "birthday",
+          "native_type": "date",
+          "nullable": true,
+          "type": "date"
+        },
+        {
+          "name": "gender",
+          "native_type": "character(1)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "is_current",
+          "native_type": "boolean",
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "name": "first_term_start",
+          "native_type": "date",
+          "nullable": true,
+          "type": "date"
+        },
+        {
+          "name": "last_term_end",
+          "native_type": "date",
+          "nullable": true,
+          "type": "date"
+        },
+        {
+          "name": "created_at",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        }
+      ],
+      "name": "legislators",
+      "primary_key": [
+        "bioguide_id"
+      ],
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "columns": [
+        {
+          "name": "committee_id",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "thomas_id",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "committee_name",
+          "native_type": "character varying(255)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "committee_type",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "is_current",
+          "native_type": "boolean",
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "name": "bioguide_id",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "legislator_name",
+          "native_type": "character varying(255)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "party",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "rank",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "title",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "state",
+          "native_type": "character(2)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "district",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "term_end",
+          "native_type": "date",
+          "nullable": true,
+          "type": "date"
+        }
+      ],
+      "name": "mv_committee_power",
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "materialized_view"
+    },
+    {
+      "columns": [
+        {
+          "name": "bioguide_id",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "official_full",
+          "native_type": "character varying(255)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "first_name",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "last_name",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "gender",
+          "native_type": "character(1)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "birthday",
+          "native_type": "date",
+          "nullable": true,
+          "type": "date"
+        },
+        {
+          "name": "state",
+          "native_type": "character(2)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "district",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "term_type",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "party",
+          "native_type": "character varying(50)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "term_start",
+          "native_type": "date",
+          "nullable": true,
+          "type": "date"
+        },
+        {
+          "name": "term_end",
+          "native_type": "date",
+          "nullable": true,
+          "type": "date"
+        },
+        {
+          "name": "senate_class",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "state_rank",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "office_phone",
+          "native_type": "character varying(50)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "contact_form",
+          "native_type": "character varying(500)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "twitter",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "facebook",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "instagram",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "youtube",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "office_count",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "committee_count",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        }
+      ],
+      "name": "mv_current_lawmakers",
+      "primary_key": [
+        "bioguide_id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "materialized_view"
+    },
+    {
+      "columns": [
+        {
+          "name": "subcommittee_id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "committee_id",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "thomas_id",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(255)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "address",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "phone",
+          "native_type": "character varying(50)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "congresses",
+          "native_type": "integer[]",
+          "nullable": true,
+          "type": "array"
+        },
+        {
+          "name": "created_at",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        }
+      ],
+      "name": "subcommittees",
+      "primary_key": [
+        "subcommittee_id"
+      ],
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    }
+  ],
+  "title": "United States Congress Legislators"
+}

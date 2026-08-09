@@ -1,0 +1,313 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://benthic.io/bdp/v1/manifest.schema.json",
+  "title": "Benthic Data Protocol Manifest",
+  "description": "A BDP Manifest is a signed JSON document that proves who built a dataset, what code produced it, what shape the data has, and where it can be reached. It is transport-agnostic: the same manifest may advertise a live query API, static columnar files, or both. Consumers MUST verify the cryptographic_signature before trusting any other member of this document.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "protocol_version",
+    "author_identity",
+    "author_pubkey",
+    "dataset_name",
+    "etl_provenance",
+    "schema_definition",
+    "endpoints",
+    "cryptographic_signature"
+  ],
+  "properties": {
+    "protocol_version": {
+      "type": "string",
+      "description": "Semantic version of the BDP specification this manifest conforms to.",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "examples": ["1.0.0"]
+    },
+    "author_identity": {
+      "type": "string",
+      "description": "Human-readable identity of the publisher. Not authenticated by itself; trust derives from author_pubkey.",
+      "minLength": 1,
+      "maxLength": 128,
+      "examples": ["brian@benthic.io"]
+    },
+    "author_pubkey": {
+      "type": "string",
+      "description": "Ed25519 public key as the raw 32-byte key encoded with standard Base64 (with padding). This is NOT the OpenSSH 'ssh-ed25519 AAAA...' wire format.",
+      "pattern": "^[A-Za-z0-9+/]{43}=$"
+    },
+    "dataset_name": {
+      "type": "string",
+      "description": "Stable machine identifier for the dataset. Unique within a collection.",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9_-]*[A-Za-z0-9])?$",
+      "examples": ["usaspending"]
+    },
+    "collection": {
+      "type": "string",
+      "description": "Optional name of the BDP collection this dataset belongs to. Enables bidirectional verification against a signed collection document.",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9_-]*[A-Za-z0-9])?$",
+      "examples": ["ngopen"]
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable dataset title.",
+      "maxLength": 256
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable summary of what the dataset contains.",
+      "maxLength": 2048
+    },
+    "license": {
+      "type": "string",
+      "description": "License identifier or URL governing reuse of the data.",
+      "maxLength": 256
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "RFC 3339 timestamp at which this manifest revision was generated."
+    },
+    "etl_provenance": {
+      "$ref": "#/$defs/etl_provenance"
+    },
+    "schema_definition": {
+      "type": "array",
+      "description": "Curated allowlist of relations that form the published data contract. A relation absent from this array is NOT part of the contract even if a transport happens to expose it.",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/relation" }
+    },
+    "endpoints": {
+      "type": "array",
+      "description": "Available transport methods for reaching this dataset. At least one is required.",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/endpoint" }
+    },
+    "cryptographic_signature": {
+      "$ref": "#/$defs/signature"
+    }
+  },
+  "$defs": {
+    "etl_provenance": {
+      "type": "object",
+      "description": "Binds the dataset to the exact public source code that produced it, so an auditor can reproduce it.",
+      "additionalProperties": false,
+      "required": ["repository_url", "commit_hash"],
+      "properties": {
+        "repository_url": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^[a-zA-Z][a-zA-Z0-9+.-]*://",
+          "description": "URI of the publicly readable source repository containing the ETL code."
+        },
+        "commit_hash": {
+          "type": "string",
+          "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$",
+          "description": "Full Git commit SHA (SHA-1 40 hex, or SHA-256 64 hex) of the revision that produced this dataset."
+        },
+        "pipeline_entrypoint": {
+          "type": "string",
+          "maxLength": 512,
+          "description": "Repository-relative path to the executable entrypoint that builds this dataset."
+        },
+        "built_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "RFC 3339 timestamp of the ETL run that produced the currently served data."
+        },
+        "migration_status": {
+          "type": "string",
+          "enum": ["pending", "in_progress", "migrated"],
+          "default": "pending",
+          "description": "Honest declaration of how tightly commit_hash binds the served data. 'pending' means the referenced repository does not yet contain the code that produced the live data; provenance is aspirational and MUST NOT be treated as reproducible. 'in_progress' means partial migration. 'migrated' means commit_hash fully reproduces the served data."
+        },
+        "migrated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "RFC 3339 timestamp at which migration_status became 'migrated'."
+        },
+        "source_attribution": {
+          "type": "array",
+          "description": "Upstream data sources consumed by the pipeline.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name"],
+            "properties": {
+              "name": { "type": "string", "maxLength": 256 },
+              "url": { "type": "string", "format": "uri" },
+              "retrieved_at": { "type": "string", "format": "date-time" }
+            }
+          }
+        }
+      }
+    },
+    "relation": {
+      "type": "object",
+      "description": "A single table, view, materialized view, callable function, or file within the dataset.",
+      "additionalProperties": false,
+      "required": ["name", "columns"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9_.-]*[A-Za-z0-9])?$",
+          "description": "Relation name, optionally schema-qualified (e.g. 'rpt.award_search')."
+        },
+        "relation_type": {
+          "type": "string",
+          "enum": ["table", "view", "materialized_view", "function", "file"],
+          "default": "table"
+        },
+        "provenance": {
+          "type": "string",
+          "enum": ["upstream", "derived", "recovered"],
+          "description": "Origin of this relation. 'upstream' = shipped by the external source unchanged. 'derived' = produced by the ETL code referenced in etl_provenance. 'recovered' = exists in the served system but its defining DDL was reconstructed by introspection rather than taken from version-controlled source; treat its reproducibility as unproven."
+        },
+        "queryable": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether this relation is reachable through the declared endpoints. Relations are declared even when false so that the full provenance lineage is auditable."
+        },
+        "description": { "type": "string", "maxLength": 2048 },
+        "primary_key": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1, "maxLength": 128 },
+          "uniqueItems": true
+        },
+        "row_count_estimate": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Advisory only. Never authoritative; omitted when the source system cannot supply a trustworthy estimate."
+        },
+        "columns": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/column" }
+        }
+      }
+    },
+    "column": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "type"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "type": {
+          "type": "string",
+          "enum": [
+            "string",
+            "integer",
+            "number",
+            "boolean",
+            "date",
+            "timestamp",
+            "uuid",
+            "json",
+            "binary",
+            "array",
+            "geometry",
+            "unknown"
+          ],
+          "description": "Transport-neutral logical type."
+        },
+        "native_type": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Native type string from the originating engine, e.g. 'numeric(23,2)' or 'GEOMETRY(Point,4326)'."
+        },
+        "nullable": { "type": "boolean", "default": true },
+        "description": { "type": "string", "maxLength": 1024 },
+        "srid": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Spatial reference identifier. REQUIRED by convention when type is 'geometry'."
+        },
+        "unit": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "Unit of measure for numeric columns, e.g. 'USD'."
+        }
+      }
+    },
+    "endpoint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["transport_type", "base_url"],
+      "properties": {
+        "transport_type": {
+          "type": "string",
+          "enum": ["postgrest_api", "geoparquet", "parquet", "arrow_flight"]
+        },
+        "base_url": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^[a-zA-Z][a-zA-Z0-9+.-]*://",
+          "description": "Root URI of the API, storage bucket, content identifier, or gRPC service."
+        },
+        "description": { "type": "string", "maxLength": 1024 },
+        "meta": {
+          "type": "object",
+          "description": "Transport-specific settings. Intentionally open (additionalProperties true) so that new transports do not require a schema revision. The properties below are the conventional keys.",
+          "additionalProperties": true,
+          "properties": {
+            "accept_profile": {
+              "type": "string",
+              "description": "PostgREST schema exposed via the Accept-Profile / Content-Profile header."
+            },
+            "openapi_url": { "type": "string", "format": "uri" },
+            "max_rows": { "type": "integer", "minimum": 1 },
+            "requires_auth": { "type": "boolean", "default": false },
+            "region": { "type": "string" },
+            "files": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["relation", "path"],
+                "properties": {
+                  "relation": { "type": "string" },
+                  "path": { "type": "string" },
+                  "byte_size": { "type": "integer", "minimum": 0 },
+                  "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "signature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "payload_hash", "signature_base64"],
+      "properties": {
+        "algorithm": { "type": "string", "enum": ["EdDSA"] },
+        "canonicalization": {
+          "type": "string",
+          "enum": ["RFC8785"],
+          "default": "RFC8785"
+        },
+        "hash_algorithm": {
+          "type": "string",
+          "enum": ["SHA-256"],
+          "default": "SHA-256"
+        },
+        "payload_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "Lowercase hex SHA-256 of the RFC 8785 canonical form of this document with the cryptographic_signature member REMOVED."
+        },
+        "signature_base64": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9+/]{86}==$",
+          "description": "Standard Base64 (with padding) of the 64-byte Ed25519 signature computed over the 32 RAW bytes of the SHA-256 digest, never over its hex representation."
+        },
+        "signed_at": { "type": "string", "format": "date-time" }
+      }
+    }
+  }
+}

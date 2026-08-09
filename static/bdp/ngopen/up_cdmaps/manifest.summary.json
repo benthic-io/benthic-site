@@ -1,0 +1,33 @@
+{
+  "author_identity": "brian@benthic.io",
+  "author_pubkey": "qwG8vQQN7m/uB0Nwgor3s1EJCKjqZM/SNThV+V7XumM=",
+  "collection": "ngopen",
+  "column_count": 21,
+  "commit_hash": "48bc355712599d9fada078c0366ab50b0ef456b4",
+  "dataset_name": "up_cdmaps",
+  "description": "Congressional district boundary polygons for the 1st through 119th Congress, from the UCLA Political Science district shapefile collection. Geometry is stored in EPSG:3857, unlike every other spatial column in the collection which uses EPSG:4326; reprojection is required for cross-dataset spatial joins.",
+  "endpoints": [
+    {
+      "base_url": "https://benthic.io/ngopen/up_cdmaps/",
+      "transport_type": "postgrest_api"
+    }
+  ],
+  "license": "https://cdmaps.polisci.ucla.edu/",
+  "manifest_bytes": 5388,
+  "manifest_payload_hash": "e3442fd3f1489f0113d0ac15d9771ef7cadc0d4fcd60fc5e3e9fea8e0088616d",
+  "manifest_url": "https://benthic.io/bdp/ngopen/up_cdmaps/manifest.json",
+  "migration_status": "pending",
+  "queryable_relation_count": 1,
+  "relation_count": 1,
+  "relations": [
+    {
+      "column_count": 21,
+      "name": "congressional_districts",
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    }
+  ],
+  "repository_url": "https://github.com/benthic-io/ngopen-bdp-pipelines",
+  "title": "Historical Congressional District Boundaries"
+}

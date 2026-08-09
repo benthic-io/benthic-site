@@ -1,0 +1,185 @@
+{
+  "author_identity": "brian@benthic.io",
+  "author_pubkey": "qwG8vQQN7m/uB0Nwgor3s1EJCKjqZM/SNThV+V7XumM=",
+  "collection": "ngopen",
+  "created_at": "2026-08-09T00:00:00Z",
+  "cryptographic_signature": {
+    "algorithm": "EdDSA",
+    "canonicalization": "RFC8785",
+    "hash_algorithm": "SHA-256",
+    "payload_hash": "e3442fd3f1489f0113d0ac15d9771ef7cadc0d4fcd60fc5e3e9fea8e0088616d",
+    "signature_base64": "XGifmM2g+QDRDi0OeB3pzbXtkRW7enGnG9ZvkbkIanxKNgbNMHveWg+5FD1719O86Cw8rSP6MpSyJLQurRRnAw==",
+    "signed_at": "2026-08-09T05:55:52Z"
+  },
+  "dataset_name": "up_cdmaps",
+  "description": "Congressional district boundary polygons for the 1st through 119th Congress, from the UCLA Political Science district shapefile collection. Geometry is stored in EPSG:3857, unlike every other spatial column in the collection which uses EPSG:4326; reprojection is required for cross-dataset spatial joins.",
+  "endpoints": [
+    {
+      "base_url": "https://benthic.io/ngopen/up_cdmaps/",
+      "description": "Live PostgREST API over PostgreSQL/PostGIS.",
+      "meta": {
+        "accept_profile": "public",
+        "max_rows": 1000,
+        "openapi_url": "https://benthic.io/ngopen/up_cdmaps/",
+        "postgrest_version": "14.8",
+        "requires_auth": false
+      },
+      "transport_type": "postgrest_api"
+    }
+  ],
+  "etl_provenance": {
+    "commit_hash": "48bc355712599d9fada078c0366ab50b0ef456b4",
+    "migration_status": "pending",
+    "pipeline_entrypoint": "pipelines/up_cdmaps/pipeline.py",
+    "repository_url": "https://github.com/benthic-io/ngopen-bdp-pipelines",
+    "source_attribution": [
+      {
+        "name": "UCLA PolySci Congressional District Shapefiles",
+        "url": "https://cdmaps.polisci.ucla.edu/shp"
+      }
+    ]
+  },
+  "license": "https://cdmaps.polisci.ucla.edu/",
+  "protocol_version": "1.0.0",
+  "schema_definition": [
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "congress_number",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "statename",
+          "native_type": "character varying(80)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "district",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "startcong",
+          "native_type": "numeric(24,15)",
+          "nullable": true,
+          "type": "number"
+        },
+        {
+          "name": "endcong",
+          "native_type": "numeric(24,15)",
+          "nullable": true,
+          "type": "number"
+        },
+        {
+          "name": "district_id",
+          "native_type": "character varying(80)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "districtsi",
+          "native_type": "character varying(254)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "county",
+          "native_type": "character varying(227)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "page",
+          "native_type": "character varying(227)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "law",
+          "native_type": "character varying(254)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "note",
+          "native_type": "character varying(254)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "bestdec",
+          "native_type": "character varying(254)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "finalnote",
+          "native_type": "character varying(254)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "rnote",
+          "native_type": "character varying(254)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "lastchange",
+          "native_type": "date",
+          "nullable": true,
+          "type": "date"
+        },
+        {
+          "name": "fromcounty",
+          "native_type": "character varying(80)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "statefp",
+          "native_type": "character varying(80)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "geom",
+          "native_type": "geometry(MultiPolygon,3857)",
+          "nullable": true,
+          "srid": 3857,
+          "type": "geometry"
+        },
+        {
+          "name": "source_file",
+          "native_type": "character varying(255)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "imported_at",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        }
+      ],
+      "name": "congressional_districts",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    }
+  ],
+  "title": "Historical Congressional District Boundaries"
+}

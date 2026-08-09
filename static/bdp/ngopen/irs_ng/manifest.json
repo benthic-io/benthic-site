@@ -1,0 +1,2580 @@
+{
+  "author_identity": "brian@benthic.io",
+  "author_pubkey": "qwG8vQQN7m/uB0Nwgor3s1EJCKjqZM/SNThV+V7XumM=",
+  "collection": "ngopen",
+  "created_at": "2026-08-09T00:00:00Z",
+  "cryptographic_signature": {
+    "algorithm": "EdDSA",
+    "canonicalization": "RFC8785",
+    "hash_algorithm": "SHA-256",
+    "payload_hash": "f4981a1b6b01374a57ae68485fc02a591ef35239d7a02bd313e374e32b61c35b",
+    "signature_base64": "+O5XSyzAo5Mu493b86VOxz4ysYMcGN6S/hAvChp0ntvx5+YVESmhLxhGU1ChmPi9Xx5EEbrQ6ZXX2D0CNQyICQ==",
+    "signed_at": "2026-08-09T05:55:51Z"
+  },
+  "dataset_name": "irs_ng",
+  "description": "IRS tax-exempt organizations: Business Master File, Form 990/990-EZ/990-PF Statistics of Income extracts, Form 990 XML filings, Publication 78 eligibility, auto-revocations, 990-N postcards, 527 political organizations, and Census ACS demographics, with Photon geocoding.",
+  "endpoints": [
+    {
+      "base_url": "https://benthic.io/ngopen/irs_ng/",
+      "description": "Live PostgREST API over PostgreSQL/PostGIS.",
+      "meta": {
+        "accept_profile": "public",
+        "max_rows": 1000,
+        "openapi_url": "https://benthic.io/ngopen/irs_ng/",
+        "postgrest_version": "14.8",
+        "requires_auth": false
+      },
+      "transport_type": "postgrest_api"
+    }
+  ],
+  "etl_provenance": {
+    "commit_hash": "48bc355712599d9fada078c0366ab50b0ef456b4",
+    "migration_status": "pending",
+    "pipeline_entrypoint": "pipelines/irs_ng/pipeline.py",
+    "repository_url": "https://github.com/benthic-io/ngopen-bdp-pipelines",
+    "source_attribution": [
+      {
+        "name": "IRS Exempt Organizations Business Master File",
+        "url": "https://www.irs.gov/pub/irs-soi/"
+      },
+      {
+        "name": "NCCS Raw BMF Archive",
+        "url": "https://nccsdata.s3.amazonaws.com/raw/bmf/"
+      },
+      {
+        "name": "IRS Form 990 TEOS XML",
+        "url": "https://apps.irs.gov/pub/epostcard/990/xml/"
+      },
+      {
+        "name": "IRS 527 Political Organization Disclosures",
+        "url": "https://forms.irs.gov/app/pod/dataDownload/"
+      },
+      {
+        "name": "U.S. Census Bureau ACS 5-Year",
+        "url": "https://api.census.gov/data"
+      }
+    ]
+  },
+  "license": "https://www.irs.gov/charities-non-profits/tax-exempt-organization-search-bulk-data-downloads",
+  "protocol_version": "1.0.0",
+  "schema_definition": [
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "ein",
+          "native_type": "character varying(20)",
+          "nullable": false,
+          "type": "string"
+        },
+        {
+          "name": "release_date",
+          "native_type": "date",
+          "nullable": false,
+          "type": "date"
+        },
+        {
+          "name": "release_source",
+          "native_type": "character varying(255)",
+          "nullable": false,
+          "type": "string"
+        },
+        {
+          "name": "org_name",
+          "native_type": "character varying(500)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "bmf_status_code",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "bmf_subsection_code",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "ntee_irs",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "f990_org_addr_city",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "f990_org_addr_state",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "f990_org_addr_street",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "f990_org_addr_zip",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "f990_total_revenue",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "f990_total_income",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "f990_total_assets",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "org_ruling_date",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "org_year_first",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "org_year_last",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        }
+      ],
+      "name": "bmf_organization_snapshots",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "ein",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "ein2",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "ntee_irs",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "ntee_nccs",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "nteev2",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "nccs_level_1",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "nccs_level_2",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "nccs_level_3",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "f990_total_revenue_recent",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "f990_total_income_recent",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "f990_total_assets_recent",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "f990_org_addr_city",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "f990_org_addr_state",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "f990_org_addr_zip",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "f990_org_addr_street",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "census_cbsa_fips",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "census_cbsa_name",
+          "native_type": "character varying(200)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "census_block_fips",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "census_urban_area",
+          "native_type": "character varying(200)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "census_state_abbr",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "census_county_name",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "org_addr_full",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "org_addr_match",
+          "native_type": "character varying(200)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "latitude",
+          "native_type": "numeric(10,8)",
+          "nullable": true,
+          "type": "number"
+        },
+        {
+          "name": "longitude",
+          "native_type": "numeric(11,8)",
+          "nullable": true,
+          "type": "number"
+        },
+        {
+          "name": "geocoder_score",
+          "native_type": "numeric(5,2)",
+          "nullable": true,
+          "type": "number"
+        },
+        {
+          "name": "geocoder_match",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "geocode_date",
+          "native_type": "timestamp with time zone",
+          "nullable": true,
+          "type": "timestamp"
+        },
+        {
+          "name": "geocoding_source",
+          "native_type": "character varying(50)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "bmf_subsection_code",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "bmf_status_code",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "bmf_pf_filing_req_code",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "bmf_organization_code",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "bmf_income_code",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "bmf_group_exempt_num",
+          "native_type": "character varying(50)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "bmf_foundation_code",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "bmf_filing_req_code",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "bmf_deductibility_code",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "bmf_classification_code",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "bmf_asset_code",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "bmf_affiliation_code",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "org_ruling_date",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "org_fiscal_year",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "org_ruling_year",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "org_year_first",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "org_year_last",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "org_year_count",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "org_pers_ico",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "org_name_sec",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "org_name_current",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "org_fiscal_period",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "source_file",
+          "native_type": "character varying(255)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "imported_at",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        },
+        {
+          "name": "is_current",
+          "native_type": "boolean",
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "name": "geom_point",
+          "native_type": "geometry(Point,4326)",
+          "nullable": true,
+          "srid": 4326,
+          "type": "geometry"
+        }
+      ],
+      "name": "bmf_organizations",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "geoid",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "geo_type",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "year",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "total_population",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "median_household_income",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "poverty_count",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "white_count",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "black_count",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "hispanic_count",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "bachelors_count",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "housing_units",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "median_housing_value",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "source_file",
+          "native_type": "character varying(255)",
+          "nullable": true,
+          "type": "string"
+        }
+      ],
+      "name": "census_demographics",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "ein",
+          "native_type": "character varying(20)",
+          "nullable": false,
+          "type": "string"
+        },
+        {
+          "name": "tax_period",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "form_type",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "filing_date",
+          "native_type": "date",
+          "nullable": true,
+          "type": "date"
+        },
+        {
+          "name": "total_revenue",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "contributions_received",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "program_service_revenue",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "total_expenses",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "grants_paid",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "total_assets",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "total_liabilities",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "net_assets",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "source_file",
+          "native_type": "character varying(255)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "xml_path",
+          "native_type": "character varying(500)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "imported_at",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        },
+        {
+          "name": "has_disregarded_entity",
+          "native_type": "boolean",
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "name": "has_related_entity",
+          "native_type": "boolean",
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "name": "has_related_org_control",
+          "native_type": "boolean",
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "name": "has_transfer_to_noncharitable",
+          "native_type": "boolean",
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "name": "has_partnership_activity",
+          "native_type": "boolean",
+          "nullable": true,
+          "type": "boolean"
+        }
+      ],
+      "name": "form990_details",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "ein",
+          "native_type": "character varying(20)",
+          "nullable": false,
+          "type": "string"
+        },
+        {
+          "name": "tax_period",
+          "native_type": "character varying(6)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "form_type",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "program_accomplishments",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "governance_text",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "supplemental_info",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "source_file",
+          "native_type": "character varying(255)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "imported_at",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        }
+      ],
+      "name": "form990_schedule_o",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "ein",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "tax_year",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "org_name",
+          "native_type": "character varying(500)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "state",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "ntee_code",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "asset_size",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "total_revenue",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "total_expenses",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "total_assets",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "total_liabilities",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "net_assets",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "contributions",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "grants_paid",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "compensation_officers",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "revenue_less_expenses",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "total_programs",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "source_file",
+          "native_type": "character varying(255)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "form_type",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "subseccd",
+          "native_type": "character varying(5)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "is_501c3",
+          "native_type": "boolean",
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "name": "total_program_revenue",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "investment_income",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "royalty_income",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "net_rental_income",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "net_gains_losses",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "fundraising_income",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "gaming_income",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "tax_exempt_interest",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "legal_fees",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "accounting_fees",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "professional_fundraising",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "management_fees",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "investment_mgmt_fees",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "advertising",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "office_expenses",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "occupancy",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "travel",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "insurance",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "depreciation",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "interest_expense",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "other_salaries_wages",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "pension_contributions",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "employee_benefits",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "payroll_taxes",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "total_reportable_comp",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "total_estimated_comp",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "individuals_over_100k",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "land_buildings_equipment",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "investments_end",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "cash_end",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "num_employees",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "num_orgs",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "total_support",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "non_pf_reason",
+          "native_type": "character varying(5)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "filed_990t",
+          "native_type": "boolean",
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "name": "unrelated_business_income",
+          "native_type": "boolean",
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "name": "foreign_offices",
+          "native_type": "boolean",
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "name": "political_activities",
+          "native_type": "boolean",
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "name": "lobbying_activities",
+          "native_type": "boolean",
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "name": "operates_hospital",
+          "native_type": "boolean",
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "name": "donor_advised_funds",
+          "native_type": "boolean",
+          "nullable": true,
+          "type": "boolean"
+        }
+      ],
+      "name": "form990_soi",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "ein",
+          "native_type": "character varying(20)",
+          "nullable": false,
+          "type": "string"
+        },
+        {
+          "name": "tax_year",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "tax_period",
+          "native_type": "character varying(6)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "operating_cd",
+          "native_type": "character varying(5)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "fair_market_value",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "gross_contributions",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "interest_revenue",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "dividends",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "gross_rents",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "gross_sales_price",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "cost_of_goods_sold",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "gross_profit_business",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "other_income",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "total_receipts_books",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "compensation_officers",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "pension_benefits",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "legal_fees",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "accounting_fees",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "interest_expense",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "depreciation",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "occupancy",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "travel_conferences",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "printing_publications",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "total_expenses_books",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "contributions_paid",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "excess_receipts",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "net_investment_income",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "adjusted_net_income",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "total_cash",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "investments_govt_obligations",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "investments_corp_stock",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "investments_corp_bonds",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "total_investment_securities",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "mortgage_loans",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "other_investments",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "other_assets",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "total_assets",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "mortgage_notes_payable",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "other_liabilities",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "total_liabilities",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "fund_net_worth",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "fair_market_value_eoy",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "tax_due",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "excise_tax",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "distributions",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "undistributed_income",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "qualifying_distributions",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "minimum_investment_return",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "grants_approved_future",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "is_operating",
+          "native_type": "boolean",
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "name": "source_file",
+          "native_type": "character varying(255)",
+          "nullable": true,
+          "type": "string"
+        }
+      ],
+      "name": "form990_soi_private_foundation",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "zip_filename",
+          "native_type": "character varying(255)",
+          "nullable": false,
+          "type": "string"
+        },
+        {
+          "name": "xml_count",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "records_imported",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "records_990",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "records_990t",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "schedule_o_count",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "import_started_at",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        },
+        {
+          "name": "import_completed_at",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        },
+        {
+          "name": "import_status",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "notes",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        }
+      ],
+      "name": "form990_xml_import_log",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "ein",
+          "native_type": "character varying(20)",
+          "nullable": false,
+          "type": "string"
+        },
+        {
+          "name": "org_name",
+          "native_type": "character varying(500)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "tax_period",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "website",
+          "native_type": "character varying(500)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "source_file",
+          "native_type": "character varying(255)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "downloaded_at",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        }
+      ],
+      "name": "form990n_small_orgs",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "ein",
+          "native_type": "character varying(20)",
+          "nullable": false,
+          "type": "string"
+        },
+        {
+          "name": "tax_period",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "filing_date",
+          "native_type": "date",
+          "nullable": true,
+          "type": "date"
+        },
+        {
+          "name": "organization_501c_type",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "book_value_assets_eoy",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "total_ubti_computed",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "total_ubti",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "taxable_corporation",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "total_tax_computation",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "total_tax",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "estimated_tax_payments",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "specific_deduction",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "total_deduction",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "charitable_contributions_ded",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "capital_gain_net_income",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "total_ordinary_gain_loss",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "total_prtshp_scorp_income",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "other_income",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "interest_deduction",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "other_deductions",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "total_deductions",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "unrelated_bus_income",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "principal_business_activity_cd",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "trade_or_business_desc",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "source_file",
+          "native_type": "character varying(255)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "xml_path",
+          "native_type": "character varying(500)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "imported_at",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        }
+      ],
+      "name": "form990t_details",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "columns": [
+        {
+          "name": "ein",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "org_name_current",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "org_name_sec",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "ntee_irs",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "nccs_level_1",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "bmf_subsection_code",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "f990_org_addr_city",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "f990_org_addr_state",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "org_addr_full",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "latitude",
+          "native_type": "numeric(10,8)",
+          "nullable": true,
+          "type": "number"
+        },
+        {
+          "name": "longitude",
+          "native_type": "numeric(11,8)",
+          "nullable": true,
+          "type": "number"
+        },
+        {
+          "name": "geom_point",
+          "native_type": "geometry(Point,4326)",
+          "nullable": true,
+          "srid": 4326,
+          "type": "geometry"
+        },
+        {
+          "name": "org_ruling_year",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "pub78_eligible",
+          "native_type": "boolean",
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "name": "revocation_date",
+          "native_type": "date",
+          "nullable": true,
+          "type": "date"
+        },
+        {
+          "name": "revocation_reason",
+          "native_type": "character varying(255)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "recent_revenue",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "recent_expenses",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "recent_assets",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "latest_tax_year",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "compensation_officers",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "num_employees",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        }
+      ],
+      "name": "mv_nonprofit_profile",
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "materialized_view"
+    },
+    {
+      "columns": [
+        {
+          "name": "ein",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "years_of_data",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "first_year",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "latest_year",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "avg_revenue",
+          "native_type": "numeric",
+          "nullable": true,
+          "type": "number"
+        },
+        {
+          "name": "avg_expenses",
+          "native_type": "numeric",
+          "nullable": true,
+          "type": "number"
+        },
+        {
+          "name": "avg_margin_pct",
+          "native_type": "numeric",
+          "nullable": true,
+          "type": "number"
+        },
+        {
+          "name": "total_contributions",
+          "native_type": "numeric",
+          "nullable": true,
+          "type": "number"
+        },
+        {
+          "name": "total_grants_paid",
+          "native_type": "numeric",
+          "nullable": true,
+          "type": "number"
+        },
+        {
+          "name": "total_officer_comp",
+          "native_type": "numeric",
+          "nullable": true,
+          "type": "number"
+        },
+        {
+          "name": "ever_filed_990t",
+          "native_type": "boolean",
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "name": "ever_lobbied",
+          "native_type": "boolean",
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "name": "ever_political",
+          "native_type": "boolean",
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "name": "revenue_change",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "financial_health",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        }
+      ],
+      "name": "mv_org_financial_health",
+      "primary_key": [
+        "ein"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "materialized_view"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "ein",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "org_name",
+          "native_type": "character varying(500)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "filing_type",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "org_type",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "address",
+          "native_type": "character varying(500)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "city",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "state",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "zip",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "filing_date",
+          "native_type": "date",
+          "nullable": true,
+          "type": "date"
+        },
+        {
+          "name": "latitude",
+          "native_type": "numeric",
+          "nullable": true,
+          "type": "number"
+        },
+        {
+          "name": "longitude",
+          "native_type": "numeric",
+          "nullable": true,
+          "type": "number"
+        },
+        {
+          "name": "geocode_date",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        },
+        {
+          "name": "geocoding_source",
+          "native_type": "character varying(50)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "source_file",
+          "native_type": "character varying(255)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "geocoder_match",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "geocoder_score",
+          "native_type": "numeric(5,2)",
+          "nullable": true,
+          "type": "number"
+        },
+        {
+          "name": "geom_point",
+          "native_type": "geometry(Point,4326)",
+          "nullable": true,
+          "srid": 4326,
+          "type": "geometry"
+        }
+      ],
+      "name": "political_orgs_527",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "ein",
+          "native_type": "character varying(20)",
+          "nullable": false,
+          "type": "string"
+        },
+        {
+          "name": "org_name",
+          "native_type": "character varying(500)",
+          "nullable": false,
+          "type": "string"
+        },
+        {
+          "name": "city",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "state",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "is_deductible",
+          "native_type": "boolean",
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "name": "source_file",
+          "native_type": "character varying(255)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "downloaded_at",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        }
+      ],
+      "name": "pub78_eligible",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "ein",
+          "native_type": "character varying(20)",
+          "nullable": false,
+          "type": "string"
+        },
+        {
+          "name": "org_name",
+          "native_type": "character varying(500)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "revocation_date",
+          "native_type": "date",
+          "nullable": true,
+          "type": "date"
+        },
+        {
+          "name": "revocation_reason",
+          "native_type": "character varying(255)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "source_file",
+          "native_type": "character varying(255)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "downloaded_at",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        }
+      ],
+      "name": "revoked_organizations",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "columns": [
+        {
+          "name": "ein",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "org_name_current",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "f990_org_addr_state",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "ntee_irs",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "bmf_subsection_code",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "latitude",
+          "native_type": "numeric(10,8)",
+          "nullable": true,
+          "type": "number"
+        },
+        {
+          "name": "longitude",
+          "native_type": "numeric(11,8)",
+          "nullable": true,
+          "type": "number"
+        },
+        {
+          "name": "tax_year",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "form_type",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "total_revenue",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "total_expenses",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "total_assets",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "contributions",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "compensation_officers",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "grants_paid",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "investment_income",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "total_program_revenue",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "num_employees",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "filed_990t",
+          "native_type": "boolean",
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "name": "unrelated_business_income",
+          "native_type": "boolean",
+          "nullable": true,
+          "type": "boolean"
+        }
+      ],
+      "name": "v_org_financial_profile",
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "view"
+    },
+    {
+      "columns": [
+        {
+          "name": "ein",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "tax_year",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "total_revenue",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "total_expenses",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "total_assets",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "net_income",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "margin_pct",
+          "native_type": "numeric",
+          "nullable": true,
+          "type": "number"
+        },
+        {
+          "name": "contributions",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "grants_paid",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "compensation_officers",
+          "native_type": "bigint",
+          "nullable": true,
+          "type": "integer"
+        }
+      ],
+      "name": "v_org_multi_year",
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "view"
+    },
+    {
+      "columns": [
+        {
+          "name": "ein",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "political_name",
+          "native_type": "character varying(500)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "filing_type",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "org_type",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "city",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "state",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "latitude",
+          "native_type": "numeric",
+          "nullable": true,
+          "type": "number"
+        },
+        {
+          "name": "longitude",
+          "native_type": "numeric",
+          "nullable": true,
+          "type": "number"
+        },
+        {
+          "name": "bmf_name",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "bmf_state",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        }
+      ],
+      "name": "v_political_orgs",
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "view"
+    }
+  ],
+  "title": "IRS Nonprofit Organizations"
+}

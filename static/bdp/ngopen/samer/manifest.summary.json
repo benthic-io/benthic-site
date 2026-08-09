@@ -1,0 +1,40 @@
+{
+  "author_identity": "brian@benthic.io",
+  "author_pubkey": "qwG8vQQN7m/uB0Nwgor3s1EJCKjqZM/SNThV+V7XumM=",
+  "collection": "ngopen",
+  "column_count": 53,
+  "commit_hash": "48bc355712599d9fada078c0366ab50b0ef456b4",
+  "dataset_name": "samer",
+  "description": "Federal contractor and grantee entity registrations from the SAM.gov monthly public extract, with historical snapshots and Photon geocoding.",
+  "endpoints": [
+    {
+      "base_url": "https://benthic.io/ngopen/samer/",
+      "transport_type": "postgrest_api"
+    }
+  ],
+  "license": "https://sam.gov/content/about/terms-of-use",
+  "manifest_bytes": 10609,
+  "manifest_payload_hash": "64daff15983700e1b9744a3f0f7374c10051373879c65cd6a490978d39f11d42",
+  "manifest_url": "https://benthic.io/bdp/ngopen/samer/manifest.json",
+  "migration_status": "pending",
+  "queryable_relation_count": 2,
+  "relation_count": 2,
+  "relations": [
+    {
+      "column_count": 21,
+      "name": "mv_contractor_registry",
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "materialized_view"
+    },
+    {
+      "column_count": 32,
+      "name": "sam_registrations",
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    }
+  ],
+  "repository_url": "https://github.com/benthic-io/ngopen-bdp-pipelines",
+  "title": "SAM.gov Entity Registrations"
+}

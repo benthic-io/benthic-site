@@ -1,0 +1,23 @@
+{
+  "author_identity": "brian@benthic.io",
+  "collections": [
+    {
+      "collection_name": "ngopen",
+      "collection_url": "https://benthic.io/bdp/ngopen/collection.json",
+      "description": "Five federal open-data APIs published by benthic.io as a single connected collection, served over PostgREST from PostgreSQL/PostGIS.",
+      "member_count": 5,
+      "payload_hash": "e24ed02eb1943159d89b9b4a377fa02c1c0e878d064582005c562ef5090486b0",
+      "title": "NGOpen"
+    }
+  ],
+  "keys_url": "https://benthic.io/bdp/keys.json",
+  "notes": "This index is unsigned by design. It is a convenience entry point only; every assertion that matters is carried by the signed collection and manifest documents it points to. Verify those, not this.",
+  "protocol_version": "1.0.0",
+  "publisher": "benthic.io",
+  "repository_url": "https://github.com/benthic-io/bdp",
+  "schemas": {
+    "collection": "https://benthic.io/bdp/v1/collection.schema.json",
+    "manifest": "https://benthic.io/bdp/v1/manifest.schema.json"
+  },
+  "spec_url": "https://benthic.io/bdp/"
+}

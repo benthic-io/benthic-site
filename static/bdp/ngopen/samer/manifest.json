@@ -1,0 +1,390 @@
+{
+  "author_identity": "brian@benthic.io",
+  "author_pubkey": "qwG8vQQN7m/uB0Nwgor3s1EJCKjqZM/SNThV+V7XumM=",
+  "collection": "ngopen",
+  "created_at": "2026-08-09T00:00:00Z",
+  "cryptographic_signature": {
+    "algorithm": "EdDSA",
+    "canonicalization": "RFC8785",
+    "hash_algorithm": "SHA-256",
+    "payload_hash": "64daff15983700e1b9744a3f0f7374c10051373879c65cd6a490978d39f11d42",
+    "signature_base64": "mRk728aQWRRimczUjZGHvQsIAim5P1SnB8VrdvF7R/vr4kz5lD9L0QkWiDBGfiZsBu6pdLOp27WdaDMEmqvLDg==",
+    "signed_at": "2026-08-09T05:55:51Z"
+  },
+  "dataset_name": "samer",
+  "description": "Federal contractor and grantee entity registrations from the SAM.gov monthly public extract, with historical snapshots and Photon geocoding.",
+  "endpoints": [
+    {
+      "base_url": "https://benthic.io/ngopen/samer/",
+      "description": "Live PostgREST API over PostgreSQL/PostGIS.",
+      "meta": {
+        "accept_profile": "public",
+        "max_rows": 1000,
+        "openapi_url": "https://benthic.io/ngopen/samer/",
+        "postgrest_version": "14.8",
+        "requires_auth": false
+      },
+      "transport_type": "postgrest_api"
+    }
+  ],
+  "etl_provenance": {
+    "commit_hash": "48bc355712599d9fada078c0366ab50b0ef456b4",
+    "migration_status": "pending",
+    "pipeline_entrypoint": "pipelines/samer/pipeline.py",
+    "repository_url": "https://github.com/benthic-io/ngopen-bdp-pipelines",
+    "source_attribution": [
+      {
+        "name": "SAM.gov Entity Registration Data",
+        "url": "https://sam.gov/data-services/Entity%20Registration%20Data"
+      }
+    ]
+  },
+  "license": "https://sam.gov/content/about/terms-of-use",
+  "protocol_version": "1.0.0",
+  "schema_definition": [
+    {
+      "columns": [
+        {
+          "name": "uei",
+          "native_type": "character varying(50)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "entity_id",
+          "native_type": "character varying(50)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "duns",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "legal_business_name",
+          "native_type": "character varying(255)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "dba_name",
+          "native_type": "character varying(255)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "primary_naics",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "naics_codes",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "psc_codes",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "physical_city",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "physical_state",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "physical_zip",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "physical_country",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "latitude",
+          "native_type": "double precision",
+          "nullable": true,
+          "type": "number"
+        },
+        {
+          "name": "longitude",
+          "native_type": "double precision",
+          "nullable": true,
+          "type": "number"
+        },
+        {
+          "name": "geom_point",
+          "native_type": "geometry(Point,4326)",
+          "nullable": true,
+          "srid": 4326,
+          "type": "geometry"
+        },
+        {
+          "name": "registration_expiration",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "last_update",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "business_start_date",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "corporate_url",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "purpose_of_registration",
+          "native_type": "character varying(50)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "registration_status",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        }
+      ],
+      "name": "mv_contractor_registry",
+      "primary_key": [
+        "uei"
+      ],
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "materialized_view"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "uei",
+          "native_type": "character varying(50)",
+          "nullable": false,
+          "type": "string"
+        },
+        {
+          "name": "entity_id",
+          "native_type": "character varying(50)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "duns",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "legal_business_name",
+          "native_type": "character varying(255)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "dba_name",
+          "native_type": "character varying(255)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "physical_address_line1",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "physical_city",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "physical_state",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "physical_zip",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "physical_country",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "mailing_address_line1",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "mailing_city",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "mailing_state",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "mailing_zip",
+          "native_type": "character varying(50)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "mailing_country",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "primary_naics",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "naics_codes",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "psc_codes",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "registration_expiration",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "last_update",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "business_start_date",
+          "native_type": "character varying(20)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "corporate_url",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "purpose_of_registration",
+          "native_type": "character varying(50)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "source_file",
+          "native_type": "character varying(255)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "imported_at",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        },
+        {
+          "name": "is_current",
+          "native_type": "boolean",
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "name": "latitude",
+          "native_type": "double precision",
+          "nullable": true,
+          "type": "number"
+        },
+        {
+          "name": "longitude",
+          "native_type": "double precision",
+          "nullable": true,
+          "type": "number"
+        },
+        {
+          "name": "geocode_date",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        },
+        {
+          "name": "geocode_system",
+          "native_type": "character varying(50)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "geom_point",
+          "native_type": "geometry(Point,4326)",
+          "nullable": true,
+          "srid": 4326,
+          "type": "geometry"
+        }
+      ],
+      "name": "sam_registrations",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 856290
+    }
+  ],
+  "title": "SAM.gov Entity Registrations"
+}

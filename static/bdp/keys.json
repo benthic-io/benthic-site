@@ -1,0 +1,16 @@
+{
+  "keys": [
+    {
+      "algorithm": "Ed25519",
+      "author_identity": "brian@benthic.io",
+      "author_pubkey": "qwG8vQQN7m/uB0Nwgor3s1EJCKjqZM/SNThV+V7XumM=",
+      "encoding": "raw 32-byte public key, standard Base64 with padding",
+      "scope": "All benthic.io BDP manifests and collections.",
+      "status": "active",
+      "valid_from": "2026-08-08"
+    }
+  ],
+  "notes": "author_pubkey is the raw 32-byte Ed25519 public key in standard Base64. It is not an ssh-ed25519 wire-format blob and not a PEM SubjectPublicKeyInfo. See https://benthic.io/bdp/ for the full specification.",
+  "protocol_version": "1.0.0",
+  "revoked": []
+}

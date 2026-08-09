@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://benthic.io/bdp/v1/collection.schema.json",
+  "title": "Benthic Data Protocol Collection",
+  "description": "A BDP Collection is a signed JSON document that groups related datasets which are intended to be used together, and declares the verified join paths between them. Each member pins the exact payload_hash of a signed dataset manifest, so a collection is only valid against the precise manifest revisions it was signed over. Consumers MUST verify the cryptographic_signature before trusting any other member of this document.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "protocol_version",
+    "author_identity",
+    "author_pubkey",
+    "collection_name",
+    "members",
+    "cryptographic_signature"
+  ],
+  "properties": {
+    "protocol_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "examples": ["1.0.0"]
+    },
+    "author_identity": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "author_pubkey": {
+      "type": "string",
+      "description": "Ed25519 public key as the raw 32-byte key encoded with standard Base64 (with padding).",
+      "pattern": "^[A-Za-z0-9+/]{43}=$"
+    },
+    "collection_name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9_-]*[A-Za-z0-9])?$",
+      "examples": ["ngopen"]
+    },
+    "title": { "type": "string", "maxLength": 256 },
+    "description": { "type": "string", "maxLength": 2048 },
+    "purpose": {
+      "type": "string",
+      "maxLength": 4096,
+      "description": "Why this collection exists and what analytical question it is assembled to answer. Collections are curatorial statements, not merely folders."
+    },
+    "license": { "type": "string", "maxLength": 256 },
+    "created_at": { "type": "string", "format": "date-time" },
+    "members": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/member" }
+    },
+    "join_paths": {
+      "type": "array",
+      "description": "Declared relationships between member datasets, each labelled with an honest reliability assessment.",
+      "items": { "$ref": "#/$defs/join_path" }
+    },
+    "cryptographic_signature": { "$ref": "#/$defs/signature" }
+  },
+  "$defs": {
+    "member": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dataset_name", "manifest_url", "payload_hash"],
+      "properties": {
+        "dataset_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9_-]*[A-Za-z0-9])?$"
+        },
+        "manifest_url": { "type": "string", "format": "uri" },
+        "payload_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "The payload_hash of the exact signed manifest revision this collection was signed over. A consumer MUST reject a fetched manifest whose payload_hash does not match."
+        },
+        "title": { "type": "string", "maxLength": 256 }
+      }
+    },
+    "join_path": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["from", "to", "join_type", "reliability"],
+      "properties": {
+        "from": { "$ref": "#/$defs/join_ref" },
+        "to": { "$ref": "#/$defs/join_ref" },
+        "join_type": {
+          "type": "string",
+          "enum": ["identifier", "spatial", "heuristic"],
+          "description": "'identifier' = exact key equality. 'spatial' = geometric predicate. 'heuristic' = approximate or fuzzy correspondence that may produce false matches."
+        },
+        "reliability": {
+          "type": "string",
+          "enum": ["reliable", "partial", "heuristic"],
+          "description": "Honest quality assessment. 'reliable' = high-confidence, low false-match rate. 'partial' = correct where present but coverage is incomplete. 'heuristic' = unverified correspondence; results require manual review."
+        },
+        "notes": { "type": "string", "maxLength": 2048 }
+      }
+    },
+    "join_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dataset_name", "relation", "column"],
+      "properties": {
+        "dataset_name": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "relation": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "column": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "srid": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Present when the column is a geometry, so that consumers know whether a reprojection is required before the join."
+        }
+      }
+    },
+    "signature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "payload_hash", "signature_base64"],
+      "properties": {
+        "algorithm": { "type": "string", "enum": ["EdDSA"] },
+        "canonicalization": {
+          "type": "string",
+          "enum": ["RFC8785"],
+          "default": "RFC8785"
+        },
+        "hash_algorithm": {
+          "type": "string",
+          "enum": ["SHA-256"],
+          "default": "SHA-256"
+        },
+        "payload_hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "signature_base64": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9+/]{86}==$"
+        },
+        "signed_at": { "type": "string", "format": "date-time" }
+      }
+    }
+  }
+}

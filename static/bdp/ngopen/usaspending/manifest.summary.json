@@ -1,0 +1,628 @@
+{
+  "author_identity": "brian@benthic.io",
+  "author_pubkey": "qwG8vQQN7m/uB0Nwgor3s1EJCKjqZM/SNThV+V7XumM=",
+  "collection": "ngopen",
+  "column_count": 3621,
+  "commit_hash": "48bc355712599d9fada078c0366ab50b0ef456b4",
+  "dataset_name": "usaspending",
+  "description": "Federal contract and financial assistance awards from the USAspending.gov bulk database archive, augmented with benthic-derived entity resolution, award aggregation, and Photon geocoding. Includes the raw and intermediate lineage roots the derived relations are built from, declared but not queryable over the API.",
+  "endpoints": [
+    {
+      "base_url": "https://benthic.io/ngopen/usaspending/",
+      "transport_type": "postgrest_api"
+    }
+  ],
+  "license": "https://www.usaspending.gov/about",
+  "manifest_bytes": 579922,
+  "manifest_payload_hash": "cf8a8a150317df02103bff8bbb75c302e4eedd7e8baa0faf5a6f5f1af2b4ecc8",
+  "manifest_url": "https://benthic.io/bdp/ngopen/usaspending/manifest.json",
+  "migration_status": "pending",
+  "queryable_relation_count": 66,
+  "relation_count": 86,
+  "relations": [
+    {
+      "column_count": 19,
+      "name": "int.duns",
+      "provenance": "upstream",
+      "queryable": false,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 2,
+      "name": "int.transaction_delta",
+      "provenance": "upstream",
+      "queryable": false,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 7,
+      "name": "agency",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 3,
+      "name": "agency_by_subtier_and_optionally_toptier",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "materialized_view"
+    },
+    {
+      "column_count": 2,
+      "name": "agency_lookup",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "materialized_view"
+    },
+    {
+      "column_count": 28,
+      "name": "all_entities",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "materialized_view"
+    },
+    {
+      "column_count": 29,
+      "name": "appropriation_account_balances",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 2,
+      "name": "award_category",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 5,
+      "name": "budget_authority",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 3,
+      "name": "bureau_title_lookup",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 2,
+      "name": "c_to_d_linkage_updates",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 4,
+      "name": "cgac",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 8,
+      "name": "dabs_loader_queue",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 11,
+      "name": "dabs_submission_window_schedule",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 8,
+      "name": "disaster_emergency_fund_code",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 11,
+      "name": "download_job",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 5,
+      "name": "download_job_lookup",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 29,
+      "name": "entity_awards",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "materialized_view"
+    },
+    {
+      "column_count": 3,
+      "name": "external_data_load_date",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 5,
+      "name": "external_data_type",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 6,
+      "name": "federal_account",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 5,
+      "name": "filter_hash",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 60,
+      "name": "financial_accounts_by_awards",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 53,
+      "name": "financial_accounts_by_program_activity_object_class",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 4,
+      "name": "frec",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 6,
+      "name": "frec_map",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 25,
+      "name": "gtas_sf133_balances",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 6,
+      "name": "historic_parent_duns",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 25,
+      "name": "historical_appropriation_account_balances",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 5,
+      "name": "job_status",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 10,
+      "name": "mv_agency_autocomplete",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "materialized_view"
+    },
+    {
+      "column_count": 13,
+      "name": "mv_agency_office_autocomplete",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "materialized_view"
+    },
+    {
+      "column_count": 6,
+      "name": "mv_covid_spending",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "materialized_view"
+    },
+    {
+      "column_count": 8,
+      "name": "mv_district_spending",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "materialized_view"
+    },
+    {
+      "column_count": 18,
+      "name": "mv_entity_spending_summary",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "materialized_view"
+    },
+    {
+      "column_count": 5,
+      "name": "naics",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 9,
+      "name": "object_class",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 11,
+      "name": "office",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 5,
+      "name": "overall_totals",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 86,
+      "name": "prime_awards",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "materialized_view"
+    },
+    {
+      "column_count": 2,
+      "name": "program_activity_park",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 9,
+      "name": "psc",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 6,
+      "name": "recipient_geocode_index",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 17,
+      "name": "ref_city_county_state_code",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 8,
+      "name": "ref_country_code",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 6,
+      "name": "ref_population_cong_district",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 6,
+      "name": "ref_population_county",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 12,
+      "name": "ref_program_activity",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 44,
+      "name": "references_cfda",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 7,
+      "name": "references_definition",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 6,
+      "name": "reporting_agency_missing_tas",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 13,
+      "name": "reporting_agency_overview",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 8,
+      "name": "reporting_agency_tas",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 2,
+      "name": "rosetta",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 10,
+      "name": "state_data",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 103,
+      "name": "subawards",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "materialized_view"
+    },
+    {
+      "column_count": 16,
+      "name": "submission_attributes",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 6,
+      "name": "subtier_agency",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 9,
+      "name": "tas_autocomplete_matview",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "materialized_view"
+    },
+    {
+      "column_count": 11,
+      "name": "toptier_agency",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 32,
+      "name": "treasury_appropriation_account",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 3,
+      "name": "uei_crosswalk",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 3,
+      "name": "uei_crosswalk_2021",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 31,
+      "name": "vw_appropriation_account_balances_download",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "view"
+    },
+    {
+      "column_count": 62,
+      "name": "vw_financial_accounts_by_awards_download",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "view"
+    },
+    {
+      "column_count": 55,
+      "name": "vw_financial_accounts_by_program_activity_object_class_download",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "view"
+    },
+    {
+      "column_count": 6,
+      "name": "vw_published_dabs_toptier_agency",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "view"
+    },
+    {
+      "column_count": 7,
+      "name": "zips_grouped",
+      "provenance": "upstream",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 101,
+      "name": "raw.source_assistance_transaction",
+      "provenance": "upstream",
+      "queryable": false,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 101,
+      "name": "raw.source_assistance_transaction_backup",
+      "provenance": "upstream",
+      "queryable": false,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 309,
+      "name": "raw.source_procurement_transaction",
+      "provenance": "upstream",
+      "queryable": false,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 150,
+      "name": "rpt.award_search",
+      "provenance": "upstream",
+      "queryable": false,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 26,
+      "name": "rpt.covid_faba_spending",
+      "provenance": "upstream",
+      "queryable": false,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 13,
+      "name": "rpt.parent_award",
+      "provenance": "upstream",
+      "queryable": false,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 24,
+      "name": "rpt.recipient_lookup",
+      "provenance": "upstream",
+      "queryable": false,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 16,
+      "name": "rpt.recipient_profile",
+      "provenance": "upstream",
+      "queryable": false,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 28,
+      "name": "rpt.recipient_totals_lookup",
+      "provenance": "upstream",
+      "queryable": false,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 206,
+      "name": "rpt.subaward_search",
+      "provenance": "upstream",
+      "queryable": false,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 12,
+      "name": "rpt.summary_state_view",
+      "provenance": "upstream",
+      "queryable": false,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 374,
+      "name": "rpt.transaction_search",
+      "provenance": "upstream",
+      "queryable": false,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 374,
+      "name": "rpt.transaction_search_fabs",
+      "provenance": "upstream",
+      "queryable": false,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 374,
+      "name": "rpt.transaction_search_fpds",
+      "provenance": "upstream",
+      "queryable": false,
+      "relation_type": "table"
+    },
+    {
+      "column_count": 48,
+      "name": "rpt.vw_awards",
+      "provenance": "upstream",
+      "queryable": false,
+      "relation_type": "view"
+    },
+    {
+      "column_count": 97,
+      "name": "rpt.vw_transaction_fabs",
+      "provenance": "upstream",
+      "queryable": false,
+      "relation_type": "view"
+    },
+    {
+      "column_count": 287,
+      "name": "rpt.vw_transaction_fpds",
+      "provenance": "upstream",
+      "queryable": false,
+      "relation_type": "view"
+    },
+    {
+      "column_count": 29,
+      "name": "rpt.vw_transaction_normalized",
+      "provenance": "upstream",
+      "queryable": false,
+      "relation_type": "view"
+    }
+  ],
+  "repository_url": "https://github.com/benthic-io/ngopen-bdp-pipelines",
+  "title": "USAspending Federal Awards"
+}
