@@ -2,44 +2,42 @@
   "author_identity": "brian@benthic.io",
   "author_pubkey": "qwG8vQQN7m/uB0Nwgor3s1EJCKjqZM/SNThV+V7XumM=",
   "collection": "ngopen",
-  "created_at": "2026-08-09T00:00:00Z",
+  "created_at": "2026-08-11T15:11:24Z",
   "cryptographic_signature": {
     "algorithm": "EdDSA",
     "canonicalization": "RFC8785",
     "hash_algorithm": "SHA-256",
-    "payload_hash": "9daac64fa1a8eb52b9dd4ce5d1429750de7945bf0306f2f0b492b554598ab3e2",
-    "signature_base64": "jr6sn3vXD0sU6wJFg6Gk0rsIjqlyjoDA1Y9VKNE0BLyCNaVfkF7ERK+qJFPxamOqoSfEIyYhhr3+UuHZWIk6Aw==",
-    "signed_at": "2026-08-09T05:55:51Z"
+    "payload_hash": "e92dd7fcd04c3bf95bbd857bd1482d95bfcf708e884a222dd49ba961a8a1ff74",
+    "signature_base64": "nI5mKa64BCkk9NFty/AZ2eGwNYuUxAW6yxvvURehNobKNqQ76qXcQ8Y88W4QcxpYXxV3CHVDSz7YfhxUkdVyCQ==",
+    "signed_at": "2026-08-11T15:11:56Z"
   },
   "dataset_name": "usp_cl",
-  "description": "Members of Congress, their terms, committees, subcommittees, committee memberships, social media accounts, and geocoded district offices, plus executives and executive terms.",
   "endpoints": [
     {
       "base_url": "https://benthic.io/ngopen/usp_cl/",
-      "description": "Live PostgREST API over PostgreSQL/PostGIS.",
       "meta": {
         "accept_profile": "public",
         "max_rows": 1000,
         "openapi_url": "https://benthic.io/ngopen/usp_cl/",
-        "postgrest_version": "14.8",
         "requires_auth": false
       },
       "transport_type": "postgrest_api"
     }
   ],
   "etl_provenance": {
-    "commit_hash": "48bc355712599d9fada078c0366ab50b0ef456b4",
-    "migration_status": "pending",
+    "commit_hash": "66f585560f81c15b30fc1056303ddad274502136",
+    "migrated_at": "2026-08-11T15:11:24Z",
+    "migration_status": "migrated",
     "pipeline_entrypoint": "pipelines/usp_cl/pipeline.py",
     "repository_url": "https://github.com/benthic-io/ngopen-bdp-pipelines",
     "source_attribution": [
       {
-        "name": "unitedstates/congress-legislators",
-        "url": "https://github.com/unitedstates/congress-legislators"
+        "name": "usp_cl",
+        "url": "https://github.com/unitedstates/congress-legislators.git"
       }
     ]
   },
-  "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "license": "CC0",
   "protocol_version": "1.0.0",
   "schema_definition": [
     {

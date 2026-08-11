@@ -2,44 +2,42 @@
   "author_identity": "brian@benthic.io",
   "author_pubkey": "qwG8vQQN7m/uB0Nwgor3s1EJCKjqZM/SNThV+V7XumM=",
   "collection": "ngopen",
-  "created_at": "2026-08-09T00:00:00Z",
+  "created_at": "2026-08-11T15:10:28Z",
   "cryptographic_signature": {
     "algorithm": "EdDSA",
     "canonicalization": "RFC8785",
     "hash_algorithm": "SHA-256",
-    "payload_hash": "e3442fd3f1489f0113d0ac15d9771ef7cadc0d4fcd60fc5e3e9fea8e0088616d",
-    "signature_base64": "XGifmM2g+QDRDi0OeB3pzbXtkRW7enGnG9ZvkbkIanxKNgbNMHveWg+5FD1719O86Cw8rSP6MpSyJLQurRRnAw==",
-    "signed_at": "2026-08-09T05:55:52Z"
+    "payload_hash": "0b02c5300d154d3a640bf373e3696976d1f88dfedfcf75dc3ef152c6c6d108ba",
+    "signature_base64": "f44QNBn33RO2q46zd54Trg5k1+yCETjUetpOWft71EM/iK4znEBywdVtPN9mmV0tOBK4u56KLrZPOGJAJxaeBQ==",
+    "signed_at": "2026-08-11T15:12:45Z"
   },
   "dataset_name": "up_cdmaps",
-  "description": "Congressional district boundary polygons for the 1st through 119th Congress, from the UCLA Political Science district shapefile collection. Geometry is stored in EPSG:3857, unlike every other spatial column in the collection which uses EPSG:4326; reprojection is required for cross-dataset spatial joins.",
+  "description": "EPSG:3857 geometry; reprojection required for cross-dataset spatial joins with all other datasets which use EPSG:4326.",
   "endpoints": [
     {
       "base_url": "https://benthic.io/ngopen/up_cdmaps/",
-      "description": "Live PostgREST API over PostgreSQL/PostGIS.",
       "meta": {
         "accept_profile": "public",
         "max_rows": 1000,
         "openapi_url": "https://benthic.io/ngopen/up_cdmaps/",
-        "postgrest_version": "14.8",
         "requires_auth": false
       },
       "transport_type": "postgrest_api"
     }
   ],
   "etl_provenance": {
-    "commit_hash": "48bc355712599d9fada078c0366ab50b0ef456b4",
-    "migration_status": "pending",
+    "commit_hash": "66f585560f81c15b30fc1056303ddad274502136",
+    "migrated_at": "2026-08-11T15:10:28Z",
+    "migration_status": "migrated",
     "pipeline_entrypoint": "pipelines/up_cdmaps/pipeline.py",
     "repository_url": "https://github.com/benthic-io/ngopen-bdp-pipelines",
     "source_attribution": [
       {
-        "name": "UCLA PolySci Congressional District Shapefiles",
+        "name": "up_cdmaps",
         "url": "https://cdmaps.polisci.ucla.edu/shp"
       }
     ]
   },
-  "license": "https://cdmaps.polisci.ucla.edu/",
   "protocol_version": "1.0.0",
   "schema_definition": [
     {

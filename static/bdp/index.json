@@ -6,7 +6,7 @@
       "collection_url": "https://benthic.io/bdp/ngopen/collection.json",
       "description": "Five federal open-data APIs published by benthic.io as a single connected collection, served over PostgREST from PostgreSQL/PostGIS.",
       "member_count": 5,
-      "payload_hash": "e24ed02eb1943159d89b9b4a377fa02c1c0e878d064582005c562ef5090486b0",
+      "payload_hash": "3e92c62b6d2198a4ffe7b4bfe36e94832aac68a57e0528aacb5801d10cdd8e9e",
       "title": "NGOpen"
     }
   ],

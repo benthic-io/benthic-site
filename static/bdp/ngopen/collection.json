@@ -2,14 +2,14 @@
   "author_identity": "brian@benthic.io",
   "author_pubkey": "qwG8vQQN7m/uB0Nwgor3s1EJCKjqZM/SNThV+V7XumM=",
   "collection_name": "ngopen",
-  "created_at": "2026-08-09T00:00:00Z",
+  "created_at": "2026-08-11T15:14:04Z",
   "cryptographic_signature": {
     "algorithm": "EdDSA",
     "canonicalization": "RFC8785",
     "hash_algorithm": "SHA-256",
-    "payload_hash": "e24ed02eb1943159d89b9b4a377fa02c1c0e878d064582005c562ef5090486b0",
-    "signature_base64": "9IUtCRitV/9aBGC9g7jk29HHLXJ1Euy2XHk348o7mRT+wvm44JKm0XZUtlW5PIdoLXF7YAJjF2FrdECw2S17Ag==",
-    "signed_at": "2026-08-09T05:57:53Z"
+    "payload_hash": "3e92c62b6d2198a4ffe7b4bfe36e94832aac68a57e0528aacb5801d10cdd8e9e",
+    "signature_base64": "Y2fkVFiLr9f1X7GLw8w20BkQWGwUBrIjRa8KQIq2DMV6XQrzFDMJ49pGIsohIfQYMSEr13jQH8fe0O+wyJJzBw==",
+    "signed_at": "2026-08-11T15:14:21Z"
   },
   "description": "Five federal open-data APIs published by benthic.io as a single connected collection, served over PostgREST from PostgreSQL/PostGIS.",
   "join_paths": [
@@ -17,95 +17,59 @@
       "from": {
         "column": "uei",
         "dataset_name": "usaspending",
-        "relation": "public.all_entities"
+        "relation": "all_entities"
       },
       "join_type": "identifier",
-      "notes": "Unique Entity Identifier is the federal government's authoritative entity key and is issued by SAM.gov itself, so this join is exact. Use usaspending public.uei_crosswalk to resolve legacy DUNS numbers to UEI for awards predating the April 2022 transition.",
+      "notes": "DUNS-to-UEI transition: use uei_crosswalk for pre-2022 identifiers",
       "reliability": "reliable",
       "to": {
         "column": "uei",
         "dataset_name": "samer",
-        "relation": "public.sam_registrations"
+        "relation": "sam_registrations"
       }
     },
     {
       "from": {
         "column": "duns",
         "dataset_name": "usaspending",
-        "relation": "public.all_entities"
+        "relation": "all_entities"
       },
       "join_type": "heuristic",
-      "notes": "There is no authoritative crosswalk between federal award recipients and IRS tax-exempt organizations. Some nonprofit recipients register their EIN as their DUNS-era identifier, but the overlap is partial and unverified. Corroborate with name and address before relying on any match.",
       "reliability": "heuristic",
       "to": {
         "column": "ein",
         "dataset_name": "irs_ng",
-        "relation": "public.bmf_organizations"
+        "relation": "bmf_organizations"
       }
     },
     {
       "from": {
         "column": "duns",
         "dataset_name": "samer",
-        "relation": "public.sam_registrations"
+        "relation": "sam_registrations"
       },
       "join_type": "heuristic",
-      "notes": "Same caveat as the usaspending to irs_ng path; neither side publishes a crosswalk.",
       "reliability": "heuristic",
       "to": {
         "column": "ein",
         "dataset_name": "irs_ng",
-        "relation": "public.bmf_organizations"
+        "relation": "bmf_organizations"
       }
     },
     {
       "from": {
         "column": "geom_point",
         "dataset_name": "usaspending",
-        "relation": "public.all_entities",
+        "relation": "all_entities",
         "srid": 4326
       },
       "join_type": "spatial",
-      "notes": "Point-in-polygon containment. SRIDs differ: entity points are EPSG:4326 and district polygons are EPSG:3857, so one side must be reprojected with ST_Transform before ST_Contains. Use public.rpc_find_district, which performs the reprojection internally.",
+      "notes": "ST_Transform required; rpc_find_district and rpc_nonprofits_in_district do it internally",
       "reliability": "reliable",
       "to": {
         "column": "geom",
         "dataset_name": "up_cdmaps",
-        "relation": "public.congressional_districts",
-        "srid": 3857
-      }
-    },
-    {
-      "from": {
-        "column": "geom_point",
-        "dataset_name": "irs_ng",
-        "relation": "public.bmf_organizations",
-        "srid": 4326
-      },
-      "join_type": "spatial",
-      "notes": "Point-in-polygon containment; same reprojection caveat. See public.rpc_nonprofits_in_district.",
-      "reliability": "reliable",
-      "to": {
-        "column": "geom",
-        "dataset_name": "up_cdmaps",
-        "relation": "public.congressional_districts",
-        "srid": 3857
-      }
-    },
-    {
-      "from": {
-        "column": "geom_point",
-        "dataset_name": "samer",
-        "relation": "public.sam_registrations",
-        "srid": 4326
-      },
-      "join_type": "spatial",
-      "notes": "Point-in-polygon containment; same reprojection caveat.",
-      "reliability": "reliable",
-      "to": {
-        "column": "geom",
-        "dataset_name": "up_cdmaps",
-        "relation": "public.congressional_districts",
+        "relation": "congressional_districts",
         "srid": 3857
       }
     },
@@ -113,36 +77,34 @@
       "from": {
         "column": "geom_point",
         "dataset_name": "usp_cl",
-        "relation": "public.district_offices",
-        "srid": 4326
+        "relation": "district_offices"
       },
       "join_type": "spatial",
-      "notes": "District offices are frequently sited outside the district they serve, so containment locates the office building rather than the represented district. Join through usp_cl.legislator_terms.state and district for representation.",
+      "notes": "Office locations may sit outside the district they serve",
       "reliability": "partial",
       "to": {
         "column": "geom",
         "dataset_name": "up_cdmaps",
-        "relation": "public.congressional_districts",
-        "srid": 3857
+        "relation": "congressional_districts"
       }
     },
     {
       "from": {
         "column": "congressional_district",
         "dataset_name": "usaspending",
-        "relation": "public.all_entities"
+        "relation": "all_entities"
       },
       "join_type": "identifier",
-      "notes": "Districts are only comparable within the same Congress and must be paired with state. USAspending records the district in force at the time of the award, so the term's congress_start and congress_end must bracket the award's action_date.",
+      "notes": "Must pair with state; bracket action_date by congress_start/end",
       "reliability": "partial",
       "to": {
         "column": "district",
         "dataset_name": "usp_cl",
-        "relation": "public.legislator_terms"
+        "relation": "legislator_terms"
       }
     }
   ],
-  "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "license": "CC0",
   "members": [
     {
       "dataset_name": "usaspending",
@@ -151,31 +113,31 @@
       "title": "USAspending Federal Awards"
     },
     {
-      "dataset_name": "samer",
-      "manifest_url": "https://benthic.io/bdp/ngopen/samer/manifest.json",
-      "payload_hash": "64daff15983700e1b9744a3f0f7374c10051373879c65cd6a490978d39f11d42",
-      "title": "SAM.gov Entity Registrations"
-    },
-    {
       "dataset_name": "irs_ng",
       "manifest_url": "https://benthic.io/bdp/ngopen/irs_ng/manifest.json",
       "payload_hash": "f4981a1b6b01374a57ae68485fc02a591ef35239d7a02bd313e374e32b61c35b",
       "title": "IRS Nonprofit Organizations"
     },
     {
-      "dataset_name": "usp_cl",
-      "manifest_url": "https://benthic.io/bdp/ngopen/usp_cl/manifest.json",
-      "payload_hash": "9daac64fa1a8eb52b9dd4ce5d1429750de7945bf0306f2f0b492b554598ab3e2",
-      "title": "United States Congress Legislators"
+      "dataset_name": "samer",
+      "manifest_url": "https://benthic.io/bdp/ngopen/samer/manifest.json",
+      "payload_hash": "5534dc2a9c312c136255697c66e08f262dc1f9f474ee2bc757d233e37e85f83e",
+      "title": "SAM.gov Entity Registrations"
     },
     {
       "dataset_name": "up_cdmaps",
       "manifest_url": "https://benthic.io/bdp/ngopen/up_cdmaps/manifest.json",
-      "payload_hash": "e3442fd3f1489f0113d0ac15d9771ef7cadc0d4fcd60fc5e3e9fea8e0088616d",
+      "payload_hash": "0b02c5300d154d3a640bf373e3696976d1f88dfedfcf75dc3ef152c6c6d108ba",
       "title": "Historical Congressional District Boundaries"
+    },
+    {
+      "dataset_name": "usp_cl",
+      "manifest_url": "https://benthic.io/bdp/ngopen/usp_cl/manifest.json",
+      "payload_hash": "e92dd7fcd04c3bf95bbd857bd1482d95bfcf708e884a222dd49ba961a8a1ff74",
+      "title": "United States Congress Legislators"
     }
   ],
   "protocol_version": "1.0.0",
-  "purpose": "NGOpen exists to make federal spending traceable across the boundaries the government publishes it behind. Awards live at USAspending, the entities that receive them are registered at SAM.gov, the nonprofits among them file with the IRS, the districts they sit in are drawn by census cycle, and the legislators who represent those districts are catalogued separately again. Each source is public; none of them join. This collection geocodes and cross-references them so that a question like which nonprofits in a given congressional district received federal subawards can be answered in one query rather than five and a spreadsheet.\n\nThe collection is intended to grow. Additional APIs are admitted when they extend the traceability of public money, not merely because the data is available.",
+  "purpose": "NGOpen exists to make federal spending traceable across the boundaries government publishes it behind: awards at USAspending, entities at SAM.gov, nonprofits at IRS, districts by census cycle, legislators catalogued separately. Each is public. None join. The collection exists to join them, and is intended to grow, admitting APIs only when they extend traceability of public money.",
   "title": "NGOpen"
 }
