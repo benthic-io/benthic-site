@@ -1,5 +1,5 @@
 ---
-title: "Docs"
+title: "SAM Entity Registry"
 ---
 ### https://benthic.io/ngopen/samer/ – SAM.gov entity registrations (federal contractors/vendors)
 
@@ -13,7 +13,7 @@ The core theme of this database is federal contractors and vendors and it provid
 
 ### sam_registrations
 
-Entity registrations from the System for Award Management (SAM.gov). One row per entity registration. Geocoded via Photon API using structured search with US country-code bias for accuracy.
+Entity registrations from the System for Award Management (SAM.gov). One row per entity registration. Geocoded via Photon API (structured search with country-code bias).
 
 | Column | Type | Description |
 |---|---|---|
@@ -197,37 +197,6 @@ curl "https://benthic.io/ngopen/samer/mv_contractor_registry?registration_status
 ```
 
 
-## Data Pipeline
-
-SAM.gov entity registration data is updated automatically via `sam_pipeline.py`. The pipeline:
-
-1. **Downloads** the latest monthly SAM extract from SAM.gov bulk data service
-2. **Imports** new/updated registrations into the `sam_er` PostgreSQL database via `gov_to_pg.py`
-3. **Geocodes** new addresses using Photon's structured search endpoint (`/api/structured`) with per-row country-code bias, falling back to free-text search when structured results are unavailable
-4. **Fixes** erroneous geocodes by detecting US-addressed entities whose lat/lon fell outside US bounds and re-geocoding them
-5. **Refreshes** the `mv_contractor_registry` materialized view
-
-| Field | Value |
-|---|---|
-| Data source | SAM.gov monthly bulk extract |
-| Update frequency | Monthly (automated) |
-| Geocoder | Photon (self-hosted, OpenStreetMap data) |
-| Geocoding method | Structured search with country-code bias, free-text fallback |
-| Script | `sam_pipeline.py` |
-
-```bash
-# Run full pipeline
-python sam_pipeline.py
-
-# Run specific steps
-python sam_pipeline.py --download-only
-python sam_pipeline.py --import-only
-python sam_pipeline.py --geocode-only
-python sam_pipeline.py --fix-only
-python sam_pipeline.py --refresh-views
-```
-
-
 ## NAICS Code Reference
 
 NAICS (North American Industry Classification System) codes classify business establishments by type of economic activity. Common codes in federal contracting:
@@ -246,3 +215,6 @@ NAICS (North American Industry Classification System) codes classify business es
 | 334511 | Search, Detection, Navigation, Guidance, Aeronautical Systems |
 
 Use `primary_naics` to filter by primary classification or `naics_codes` to search across all registered codes.
+## Interactive API Explorer
+
+{{< openapi dataset="samer" >}}

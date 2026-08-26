@@ -1,5 +1,5 @@
 ---
-title: "USASpending"
+title: "USAspending"
 ---
 
 ## https://benthic.io/ngopen/usaspending/
@@ -1126,3 +1126,7 @@ curl "https://benthic.io/ngopen/usaspending/agency?select=id,toptier_agency(name
 `recipient_geocode_index.source_id` links to award recipient identifiers
 `ref_population_county` and `ref_population_cong_district` provide population denominators
 
+
+## Interactive API Explorer
+
+{{< openapi dataset="usaspending" >}}

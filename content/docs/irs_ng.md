@@ -1,5 +1,5 @@
 ---
-title: "Docs"
+title: "IRS Nonprofits"
 ---
 ### https://benthic.io/ngopen/irs_ng/
 This database provides geocoded versions of IRS Exempt Organizations Business Master File, Form 990/990-EZ/990-PF SOI financials, Publication 78 deductibility eligibility, auto-revocation list, Form 990-N e-Postcard, Form 990 XML filings with Schedule O narratives and Schedule R flags, Section 527 political organizations, and ACS census demographics.
@@ -831,3 +831,7 @@ Use `bmf_organizations.ntee_irs` to filter by code or `bmf_organizations.nccs_le
 | 71 | 501(n) — Charitable risk pools |
 | 81 | 501(c)(1) — Instrumentality of US (state) |
 | 92 | 4947(a)(1) — Nonexempt charitable trusts |
+
+## Interactive API Explorer
+
+{{< openapi dataset="irs_ng" >}}

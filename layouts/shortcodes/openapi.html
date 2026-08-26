@@ -1,6 +1,238 @@
-<html>
-<head>
-  
-</head>
+{{- $spec := .Get "spec" | default (printf "/api/%s.json" (.Get "dataset")) -}}
+<div
+  id="swagger-{{ .Ordinal }}"
+  class="swagger-wrapper"
+  data-spec="{{ $spec }}"
+>
+  <noscript
+    ><p>
+      The interactive API explorer requires JavaScript. Raw spec:
+      <a href="{{ $spec }}">{{ $spec }}</a>
+    </p></noscript
+  >
+</div>
 
-</html>
+<style>
+  /* Swagger UI embedded viewer — themed to benthic.io palette */
+  .swagger-wrapper {
+    margin: 2rem 0;
+  }
+  .swagger-wrapper.swagger-loading::before {
+    content: "Loading API explorer…";
+    color: var(--gray-text);
+  }
+  .swagger-wrapper .swagger-error {
+    color: #ff6b6b;
+  }
+  .swagger-wrapper .swagger-ui {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: transparent;
+  }
+  .swagger-wrapper .swagger-ui .topbar {
+    display: none;
+  }
+  .swagger-wrapper .swagger-ui .information-container.wrapper,
+  .swagger-wrapper .swagger-ui .scheme-container {
+    background: var(--content-bg);
+  }
+  .swagger-wrapper .swagger-ui .scheme-container {
+    border-bottom: 1px solid #333;
+    box-shadow: none;
+    padding: 0.75rem 0;
+  }
+  .swagger-wrapper .swagger-ui .info .title,
+  .swagger-wrapper .swagger-ui .info hgroup.main a {
+    color: var(--primary-blue);
+  }
+  .swagger-wrapper .swagger-ui .info .base-url {
+    color: var(--gray-text);
+  }
+  .swagger-wrapper .swagger-ui .info p,
+  .swagger-wrapper .swagger-ui .info li,
+  .swagger-wrapper .swagger-ui .title small {
+    color: var(--dark-text);
+  }
+  .swagger-wrapper .swagger-ui .info .main-version {
+    color: var(--gray-text);
+  }
+  .swagger-wrapper .swagger-ui select,
+  .swagger-wrapper .swagger-ui input,
+  .swagger-wrapper .swagger-ui textarea {
+    background: #1e293b !important;
+    color: var(--gray-text) !important;
+    border-color: #333 !important;
+  }
+  .swagger-wrapper .swagger-ui .opblock-tag {
+    color: var(--primary-blue);
+    border-bottom: 1px solid #333;
+  }
+  .swagger-wrapper .swagger-ui .opblock-tag small {
+    color: var(--gray-text);
+  }
+  .swagger-wrapper .swagger-ui .opblock {
+    background-color: rgba(16, 18, 48, 0.6);
+    border-color: #333;
+    box-shadow: none;
+  }
+  .swagger-wrapper .swagger-ui .opblock .opblock-summary-path,
+  .swagger-wrapper .swagger-ui .opblock .opblock-summary-path__deprecated {
+    color: var(--secondary-blue);
+  }
+  .swagger-wrapper .swagger-ui .opblock .opblock-summary-description {
+    color: var(--gray-text);
+  }
+  .swagger-wrapper .swagger-ui .opblock-description-wrapper p,
+  .swagger-wrapper .swagger-ui .responses-inner h4,
+  .swagger-wrapper .swagger-ui .response-col_status,
+  .swagger-wrapper .swagger-ui .response-col_description,
+  .swagger-wrapper .swagger-ui .parameter__type,
+  .swagger-wrapper .swagger-ui .parameter__in,
+  .swagger-wrapper .swagger-ui .parameter__description p,
+  .swagger-wrapper .swagger-ui table.headers td,
+  .swagger-wrapper .swagger-ui .response-col_links {
+    color: var(--gray-text);
+  }
+  .swagger-wrapper .swagger-ui .opblock .opblock-section-header {
+    background: rgba(24, 26, 58, 0.9);
+    box-shadow: none;
+  }
+  .swagger-wrapper .swagger-ui .opblock .opblock-section-header h4 {
+    color: var(--primary-blue);
+  }
+  .swagger-wrapper .swagger-ui .btn {
+    color: var(--gray-text);
+    border-color: #333;
+    box-shadow: none;
+  }
+  .swagger-wrapper .swagger-ui .btn.try-out__btn {
+    color: var(--secondary-blue);
+  }
+  .swagger-wrapper .swagger-ui .highlight-code,
+  .swagger-wrapper .swagger-ui .highlight-code .microlight,
+  .swagger-wrapper .swagger-ui .responses-inner pre {
+    background: #1e293b !important;
+    color: #e2e8f0 !important;
+  }
+  .swagger-wrapper .swagger-ui .body-param__text {
+    background: #1e293b !important;
+    color: #e2e8f0 !important;
+  }
+  .swagger-wrapper .swagger-ui section.models {
+    background: var(--content-bg);
+    border: 1px solid #333;
+    border-radius: 4px;
+  }
+  .swagger-wrapper .swagger-ui section.models h4 {
+    color: var(--primary-blue);
+  }
+  .swagger-wrapper .swagger-ui section.models.is-open h4 {
+    border-bottom: 1px solid #333;
+  }
+  .swagger-wrapper .swagger-ui .model-title {
+    color: var(--secondary-blue);
+  }
+  .swagger-wrapper .swagger-ui .model .property,
+  .swagger-wrapper .swagger-ui .model .primitive {
+    color: var(--gray-text);
+  }
+  .swagger-wrapper .swagger-ui table thead tr th,
+  .swagger-wrapper .swagger-ui table thead tr td {
+    color: var(--dark-text);
+    border-bottom: 1px solid #333;
+  }
+  .swagger-wrapper .swagger-ui table tbody tr td {
+    color: var(--gray-text);
+    border-bottom: 1px solid rgba(51, 51, 51, 0.5);
+  }
+  .swagger-wrapper .swagger-ui a.nostyle {
+    color: inherit;
+  }
+  .swagger-wrapper .swagger-ui a.nostyle:hover {
+    color: var(--primary-blue);
+  }
+  .swagger-wrapper .swagger-ui .auth-container,
+  .swagger-wrapper .swagger-ui .modal {
+    background: var(--content-bg);
+    border-color: #333;
+  }
+  .swagger-wrapper .swagger-ui .auth-btn-wrapper .authorize {
+    background: var(--accent-green);
+    border-color: var(--accent-green);
+  }
+  .swagger-wrapper .swagger-ui .errors-wrapper {
+    background: rgba(255, 107, 107, 0.08);
+    border-color: #ff6b6b;
+  }
+</style>
+
+<script>
+  (function () {
+    "use strict";
+    var SWAGGER_BASE = "https://unpkg.com/swagger-ui-dist@5.17.14/";
+    function loadAsset(src, isCss) {
+      return new Promise(function (resolve, reject) {
+        var el;
+        if (isCss) {
+          el = document.createElement("link");
+          el.rel = "stylesheet";
+          el.href = src;
+        } else {
+          el = document.createElement("script");
+          el.src = src;
+        }
+        el.onload = resolve;
+        el.onerror = reject;
+        document.head.appendChild(el);
+      });
+    }
+    function init() {
+      var host = document.getElementById("swagger-{{ .Ordinal }}");
+      if (!host || host.dataset.ready === "true") return;
+      host.dataset.ready = "true";
+      host.classList.add("swagger-loading");
+      var specUrl = new URL(host.dataset.spec, window.location.origin).href;
+      Promise.all([
+        loadAsset(SWAGGER_BASE + "swagger-ui.css", true),
+        loadAsset(SWAGGER_BASE + "swagger-ui-bundle.js", false),
+      ])
+        .then(function () {
+          window.SwaggerUIBundle({
+            url: specUrl,
+            dom_id: "#" + host.id,
+            deepLinking: true,
+            docExpansion: "none",
+            filter: true,
+            showExtensions: true,
+            tryItOutEnabled: false,
+            presets: [window.SwaggerUIBundle.presets.apis],
+            onComplete: function () {
+              host.classList.remove("swagger-loading");
+            },
+            onFailure: function () {
+              host.classList.remove("swagger-loading");
+              host.innerHTML =
+                '<p class="swagger-error">Failed to load spec <a href="' +
+                host.dataset.spec +
+                '">' +
+                host.dataset.spec +
+                "</a>.</p>";
+            },
+          });
+        })
+        .catch(function () {
+          host.classList.remove("swagger-loading");
+          host.innerHTML =
+            '<p class="swagger-error">Unable to load the API explorer. Raw spec: <a href="' +
+            host.dataset.spec +
+            '">' +
+            host.dataset.spec +
+            "</a></p>";
+        });
+    }
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init);
+    } else {
+      init();
+    }
+  })();
+</script>

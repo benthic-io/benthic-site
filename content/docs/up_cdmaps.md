@@ -1,7 +1,9 @@
 ---
-title: "Docs"
+title: "Congressional District Maps"
 ---
+
 ### https://benthic.io/ngopen/up_cdmaps/ – Congressional district maps/boundaries
+
 The core theme of this database, created using UCLA Polysci's excellent [congressional district dataset](https://cdmaps.polisci.ucla.edu/), is boundaries of congressional districts historic and current.
 
 ## Tables
@@ -10,29 +12,29 @@ The core theme of this database, created using UCLA Polysci's excellent [congres
 
 Historical and current U.S. congressional district boundaries with geometry. One row per district definition from Congressional redistricting data.
 
-| Column | Type | Description |
-|---|---|---|
-| `id` | integer | Primary key |
-| `congress_number` | integer | Congress number (e.g. 118 = 118th Congress) |
-| `statename` | varchar | State name |
-| `district` | integer | District number (0 for at-large) |
-| `startcong` | numeric | Starting Congress number for this district definition |
-| `endcong` | numeric | Ending Congress number for this district definition |
-| `district_id` | varchar | District identifier |
-| `districtsi` | varchar | District significance code |
-| `county` | varchar | County name |
-| `page` | varchar | Source page reference |
-| `law` | varchar | Public law reference |
-| `note` | varchar | Notes |
-| `bestdec` | varchar | Best decision indicator |
-| `finalnote` | varchar | Final note |
-| `rnote` | varchar | Redistricting note |
-| `lastchange` | date | Date of last change |
-| `fromcounty` | varchar | Source county |
-| `statefp` | varchar | State FIPS code |
-| `geom` | geometry(MultiPolygon, 3857) | District boundary geometry (Web Mercator) |
-| `source_file` | varchar | Source filename |
-| `imported_at` | timestamp | When this row was imported |
+| Column            | Type                         | Description                                           |
+| ----------------- | ---------------------------- | ----------------------------------------------------- |
+| `id`              | integer                      | Primary key                                           |
+| `congress_number` | integer                      | Congress number (e.g. 118 = 118th Congress)           |
+| `statename`       | varchar                      | State name                                            |
+| `district`        | integer                      | District number (0 for at-large)                      |
+| `startcong`       | numeric                      | Starting Congress number for this district definition |
+| `endcong`         | numeric                      | Ending Congress number for this district definition   |
+| `district_id`     | varchar                      | District identifier                                   |
+| `districtsi`      | varchar                      | District significance code                            |
+| `county`          | varchar                      | County name                                           |
+| `page`            | varchar                      | Source page reference                                 |
+| `law`             | varchar                      | Public law reference                                  |
+| `note`            | varchar                      | Notes                                                 |
+| `bestdec`         | varchar                      | Best decision indicator                               |
+| `finalnote`       | varchar                      | Final note                                            |
+| `rnote`           | varchar                      | Redistricting note                                    |
+| `lastchange`      | date                         | Date of last change                                   |
+| `fromcounty`      | varchar                      | Source county                                         |
+| `statefp`         | varchar                      | State FIPS code                                       |
+| `geom`            | geometry(MultiPolygon, 3857) | District boundary geometry (Web Mercator)             |
+| `source_file`     | varchar                      | Source filename                                       |
+| `imported_at`     | timestamp                    | When this row was imported                            |
 
 #### Example queries
 
@@ -58,56 +60,48 @@ curl "https://benthic.io/ngopen/up_cdmaps/congressional_districts?select=statena
 
 ## PostGIS Spatial Queries
 
-This database exposes 263 PostGIS functions via RPC endpoints. The `geom` column uses SRID 3857 (Web Mercator).
+The `geom` column is a PostGIS MultiPolygon stored in SRID 3857 (Web Mercator). Two purpose-built RPC functions handle the most common spatial lookups; both accept and return standard GeoJSON-friendly values.
 
-### Common spatial operations
+### rpc_find_district
+
+Point-in-polygon lookup: which district contains this coordinate?
 
 ```bash
-# Check if a point is within a district
-curl -X POST "https://benthic.io/ngopen/up_cdmaps/rpc/st_intersects" \
+curl -X POST "https://benthic.io/ngopen/up_cdmaps/rpc/rpc_find_district" \
   -H "Content-Type: application/json" \
-  -d '{"geom1": {"type": "Point", "coordinates": [-77.0369, 38.9072]}}'
-
-# Get district area (in square meters for SRID 3857)
-curl -X POST "https://benthic.io/ngopen/up_cdmaps/rpc/st_area" \
-  -H "Content-Type: application/json" \
-  -d 'geom_value_here'
+  -d '{"lat": 38.9072, "lon": -77.0369, "congress": 118}'
 ```
 
-### Available PostGIS functions (sample)
+### rpc_districts_in_bbox
 
-| Function | Description |
-|---|---|
-| `st_intersects` | Test if two geometries intersect |
-| `st_contains` | Test if geometry contains another |
-| `st_distance` | Distance between geometries |
-| `st_area` | Area of a geometry |
-| `st_length` | Length of a linear geometry |
-| `st_transform` | Transform between coordinate systems |
-| `st_buffer` | Create buffer around geometry |
-| `st_centroid` | Get center point of geometry |
-| `st_asgeojson` | Convert geometry to GeoJSON |
-| `st_geomfromtext` | Create geometry from WKT |
-| `st_geomfromgeojson` | Create geometry from GeoJSON |
+All districts intersecting a bounding box:
 
-See the full list of 263 functions at the endpoint root.
+```bash
+curl -X POST "https://benthic.io/ngopen/up_cdmaps/rpc/rpc_districts_in_bbox" \
+  -H "Content-Type: application/json" \
+  -d '{"min_lat": 32.0, "max_lat": 36.0, "min_lon": -120.0, "max_lon": -114.0, "congress": 118}'
+```
+
+### Working with geometries directly
+
+You can request raw geometry as GeoJSON (`select=id,statename,district,geom`) and run any further geometric analysis client-side (e.g. with Shapely, Turf.js, or QGIS). If you join `geom` polygons against geocoded point columns from other NGOpen datasets, remember those points are EPSG:4326 while these polygons are EPSG:3857 — reproject before comparing (`ST_Transform` server-side, or an equivalent in your GIS library).
 
 ## PostgREST Query Reference
 
 ### Filtering
 
-| Operator | Syntax | Example |
-|---|---|---|
-| Equals | `?col=value` | `?statename=eq.California` |
-| Not equal | `?col=neq.value` | `?district=neq.0` |
-| Greater than | `?col=gt.value` | `?congress_number=gt.110` |
-| Less than | `?col=lt.value` | `?congress_number=lt.118` |
-| Greater/eq | `?col=gte.value` | `?congress_number=gte.118` |
-| Less/eq | `?col=lte.value` | `?congress_number=lte.118` |
-| ILIKE | `?col=ilike.PATTERN` | `?statename=ilike.%25new%25` |
-| IS null | `?col=is.null` | `?endcong=is.null` |
-| IS NOT null | `?col=not.is.null` | `?lastchange=not.is.null` |
-| IN | `?col=in.(val1,val2)` | `?statename=in.(California,Texas,New%20York)` |
+| Operator     | Syntax                | Example                                       |
+| ------------ | --------------------- | --------------------------------------------- |
+| Equals       | `?col=value`          | `?statename=eq.California`                    |
+| Not equal    | `?col=neq.value`      | `?district=neq.0`                             |
+| Greater than | `?col=gt.value`       | `?congress_number=gt.110`                     |
+| Less than    | `?col=lt.value`       | `?congress_number=lt.118`                     |
+| Greater/eq   | `?col=gte.value`      | `?congress_number=gte.118`                    |
+| Less/eq      | `?col=lte.value`      | `?congress_number=lte.118`                    |
+| ILIKE        | `?col=ilike.PATTERN`  | `?statename=ilike.%25new%25`                  |
+| IS null      | `?col=is.null`        | `?endcong=is.null`                            |
+| IS NOT null  | `?col=not.is.null`    | `?lastchange=not.is.null`                     |
+| IN           | `?col=in.(val1,val2)` | `?statename=in.(California,Texas,New%20York)` |
 
 ### Selecting columns
 
@@ -147,11 +141,11 @@ This is a single-table database. Cross-reference to other benthic.io datasets:
 
 Find the congressional district for a lat/lon point. Returns the district that contains the given coordinate.
 
-| Parameter | Type | Description |
-|---|---|---|
-| `lat` | double precision | Latitude |
-| `lon` | double precision | Longitude |
-| `congress` | integer | Congress number (default: 118) |
+| Parameter  | Type             | Description                    |
+| ---------- | ---------------- | ------------------------------ |
+| `lat`      | double precision | Latitude                       |
+| `lon`      | double precision | Longitude                      |
+| `congress` | integer          | Congress number (default: 118) |
 
 #### Example queries
 
@@ -171,13 +165,13 @@ curl -X POST "https://benthic.io/ngopen/up_cdmaps/rpc/rpc_find_district" \
 
 Find all districts intersecting a bounding box. Useful for map viewport queries.
 
-| Parameter | Type | Description |
-|---|---|---|
-| `min_lat` | double precision | Minimum latitude |
-| `max_lat` | double precision | Maximum latitude |
-| `min_lon` | double precision | Minimum longitude |
-| `max_lon` | double precision | Maximum longitude |
-| `congress` | integer | Congress number (default: 118) |
+| Parameter  | Type             | Description                    |
+| ---------- | ---------------- | ------------------------------ |
+| `min_lat`  | double precision | Minimum latitude               |
+| `max_lat`  | double precision | Maximum latitude               |
+| `min_lon`  | double precision | Minimum longitude              |
+| `max_lon`  | double precision | Maximum longitude              |
+| `congress` | integer          | Congress number (default: 118) |
 
 #### Example queries
 
@@ -187,3 +181,7 @@ curl -X POST "https://benthic.io/ngopen/up_cdmaps/rpc/rpc_districts_in_bbox" \
   -H "Content-Type: application/json" \
   -d '{"min_lat": 32.0, "max_lat": 36.0, "min_lon": -120.0, "max_lon": -114.0}'
 ```
+
+## Interactive API Explorer
+
+{{< openapi dataset="up_cdmaps" >}}

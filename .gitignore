@@ -1,2 +1,4 @@
 public/
 .hugo_build.lock
+ignore pyc
+__pycache__/

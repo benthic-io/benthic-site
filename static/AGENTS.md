@@ -4,22 +4,52 @@ Government spending investigative data toolkit. Five PostgREST APIs backed by Po
 
 ## System Overview
 
-| Service | URL | Database | Purpose |
-|---------|-----|----------|---------|
-| USAspending | `/ngopen/usaspending/` | usaspending_db | Federal grants, contracts, loans, subawards |
-| SAM.gov | `/ngopen/samer/` | sam_er | Entity registration, NAICS/PSC codes |
-| IRS NGO | `/ngopen/irs_ng/` | irs_ng | 501(c)(3) nonprofits, Form 990, 527 political orgs |
-| Congress-Leg | `/ngopen/usp_cl/` | us_project_cl | Legislators, committees, leadership history |
-| CD Maps | `/ngopen/up_cdmaps/` | ucla_polysci_cdmaps | Congressional district boundaries, demographics |
+| Service      | URL                    | Database            | Purpose                                            |
+| ------------ | ---------------------- | ------------------- | -------------------------------------------------- |
+| USAspending  | `/ngopen/usaspending/` | usaspending_db      | Federal grants, contracts, loans, subawards        |
+| SAM.gov      | `/ngopen/samer/`       | sam_er              | Entity registration, NAICS/PSC codes               |
+| IRS NGO      | `/ngopen/irs_ng/`      | irs_ng              | 501(c)(3) nonprofits, Form 990, 527 political orgs |
+| Congress-Leg | `/ngopen/usp_cl/`      | us_project_cl       | Legislators, committees, leadership history        |
+| CD Maps      | `/ngopen/up_cdmaps/`   | ucla_polysci_cdmaps | Congressional district boundaries, demographics    |
 
 Base URL for all examples: `https://benthic.io`
 
 Full OpenAPI specs:
+
 - [usaspending.json](/api/usaspending.json)
 - [samer.json](/api/samer.json)
 - [irs_ng.json](/api/irs_ng.json)
 - [usp_cl.json](/api/usp_cl.json)
 - [up_cdmaps.json](/api/up_cdmaps.json)
+
+## BDP Verifiable Manifests
+
+Every dataset publishes a signed **BDP (Benthic Data Protocol)** manifest describing its exact published schema, ETL provenance, and endpoints. Signatures use Ed25519 over an RFC 8785-canonicalized SHA-256 digest, so agents can verify that a manifest is authentic and unmodified before trusting it.
+
+**Discovery chain:**
+
+```bash
+curl -s https://benthic.io/bdp/index.json | jq .                      # unsigned registry
+curl -s https://benthic.io/bdp/ngopen/collection.json | jq .          # signed collection, pins members by payload_hash
+curl -s https://benthic.io/bdp/ngopen/usaspending/manifest.json | jq .  # signed per-dataset manifest
+```
+
+Unsigned convenience summaries live next to each manifest at `manifest.summary.json`.
+
+**Verification:** install the reference tool (`pip install git+https://github.com/benthic-io/bdp`) and run:
+
+```bash
+curl -s https://benthic.io/bdp/ngopen/collection.json | bdp verify -
+```
+
+Or verify in Python without the tool: pop the `cryptographic_signature` member, hash the remaining document canonically with `rfc8785` + SHA-256, compare against `payload_hash`, then Ed25519-verify the raw digest using `author_pubkey` (raw 32-byte base64 — not PEM or SSH format).
+
+Key facts for agents:
+
+- `schema_definition` is a **curated allowlist**: relations absent from the manifest are not part of the published contract, even if the transport exposes them.
+- Provenance grades: `upstream` (loaded from source), `derived` (built by pipeline SQL), `recovered` (reconstructed from production catalogs — weaker, honestly declared).
+- `etl_provenance.migration_status` advances from `pending` → `in_progress` → `migrated`; check the current value before assuming parity with legacy systems.
+- The full spec lives at [github.com/benthic-io/bdp](https://github.com/benthic-io/bdp); landing page at [/bdp/](/bdp/).
 
 ## PostgREST Quick Reference
 
@@ -31,18 +61,18 @@ Full documentation: [PostgREST Docs](https://postgrest.org/en/stable/references/
 GET /table?select=col1,col2&col3=eq.value&order=col1.desc&limit=100
 ```
 
-| Parameter | Example | Description |
-|-----------|---------|-------------|
-| `select` | `select=*,related_table(col1,col2)` | Columns + embedded joins |
-| `eq` | `name=eq.Acme` | Exact match |
-| `ilike` | `name=ilike.*acme*` | Case-insensitive pattern |
-| `gt/gte/lt/lte` | `amount=gt.1000000` | Numeric comparison |
-| `in` | `state=in.(CA,NY,TX)` | Set membership |
-| `order` | `order=date.desc` | Sort direction |
-| `limit/offset` | `limit=100&offset=200` | Pagination |
-| `or` | `or=(name.ilike.*acme*,alias.ilike.*acme*)` | OR logic |
-| `not` | `name=not.is.null` | NOT null |
-| `csv` | Append `&format=csv` | CSV output |
+| Parameter       | Example                                     | Description              |
+| --------------- | ------------------------------------------- | ------------------------ |
+| `select`        | `select=*,related_table(col1,col2)`         | Columns + embedded joins |
+| `eq`            | `name=eq.Acme`                              | Exact match              |
+| `ilike`         | `name=ilike.*acme*`                         | Case-insensitive pattern |
+| `gt/gte/lt/lte` | `amount=gt.1000000`                         | Numeric comparison       |
+| `in`            | `state=in.(CA,NY,TX)`                       | Set membership           |
+| `order`         | `order=date.desc`                           | Sort direction           |
+| `limit/offset`  | `limit=100&offset=200`                      | Pagination               |
+| `or`            | `or=(name.ilike.*acme*,alias.ilike.*acme*)` | OR logic                 |
+| `not`           | `name=not.is.null`                          | NOT null                 |
+| `csv`           | Append `&format=csv`                        | CSV output               |
 
 ### Embedded Joins
 
@@ -105,40 +135,40 @@ GET /ngopen/irs_ng/bmf_organizations?select=f990_org_addr_state&is_current=is.tr
 
 ### Identifiers
 
-| Identifier | Format | Source | Reliability |
-|------------|--------|--------|-------------|
-| UEI | 12-char alphanumeric (e.g., `A1B2C3D4E5F6`) | SAM.gov, USAspending | Highest - current standard |
-| DUNS | 9-digit (e.g., `123456789`) | Legacy USAspending, SAM.gov | High - phased out 2022 |
-| EIN | XX-XXXXXXX (e.g., `12-3456789`) | IRS Form 990 | High for nonprofits |
-| CAGE | 5-char alphanumeric | SAM.gov, Defense contracts | High for contractors |
+| Identifier | Format                                      | Source                      | Reliability                |
+| ---------- | ------------------------------------------- | --------------------------- | -------------------------- |
+| UEI        | 12-char alphanumeric (e.g., `A1B2C3D4E5F6`) | SAM.gov, USAspending        | Highest - current standard |
+| DUNS       | 9-digit (e.g., `123456789`)                 | Legacy USAspending, SAM.gov | High - phased out 2022     |
+| EIN        | XX-XXXXXXX (e.g., `12-3456789`)             | IRS Form 990                | High for nonprofits        |
+| CAGE       | 5-char alphanumeric                         | SAM.gov, Defense contracts  | High for contractors       |
 
 ### Cross-Database Join Patterns
 
 These are the primary keys for linking across APIs. Cross-database joins must be done client-side (two sequential API calls).
 
-| From | To | Key | Method | Reliability |
-|------|----|-----|--------|-------------|
-| `usaspending.prime_awards.recipient_uei` | `samer.sam_registrations.uei` | UEI | Direct match | Reliable |
-| `usaspending.prime_awards.parent_duns` | `samer.sam_registrations.duns` | DUNS | Direct match | Reliable |
-| `usaspending.uei_crosswalk.awardee_or_recipient_uniqu` | `usaspending.uei_crosswalk.uei` | DUNS→UEI | Crosswalk table | Reliable |
-| `usaspending.prime_awards.recipient_name` | `irs_ng.bmf_organizations.org_name_current` | Name | Heuristic match | Partial |
-| `irs_ng.bmf_organizations.ein` | `irs_ng.form990_soi.ein` | EIN | Direct match | Reliable |
-| `irs_ng.bmf_organizations.ein` | `irs_ng.political_orgs_527.ein` | EIN | Direct match | Reliable |
-| `usp_cl.legislator_terms.bioguide_id` | `usp_cl.committee_membership.bioguide_id` | bioguide_id | Direct match | Reliable |
-| `usp_cl.legislator_terms.bioguide_id` | `usp_cl.district_offices.bioguide_id` | bioguide_id | Direct match | Reliable |
-| `usp_cl.legislator_terms.state` + `district` | `up_cdmaps.congressional_districts.statename` + `district` | State+District | Direct match | Reliable |
-| All geocoded tables | All geocoded tables | `geom_point` (SRID 4326) | Spatial join via RPC | Reliable |
+| From                                                   | To                                                         | Key                      | Method               | Reliability |
+| ------------------------------------------------------ | ---------------------------------------------------------- | ------------------------ | -------------------- | ----------- |
+| `usaspending.prime_awards.recipient_uei`               | `samer.sam_registrations.uei`                              | UEI                      | Direct match         | Reliable    |
+| `usaspending.prime_awards.parent_duns`                 | `samer.sam_registrations.duns`                             | DUNS                     | Direct match         | Reliable    |
+| `usaspending.uei_crosswalk.awardee_or_recipient_uniqu` | `usaspending.uei_crosswalk.uei`                            | DUNS→UEI                 | Crosswalk table      | Reliable    |
+| `usaspending.prime_awards.recipient_name`              | `irs_ng.bmf_organizations.org_name_current`                | Name                     | Heuristic match      | Partial     |
+| `irs_ng.bmf_organizations.ein`                         | `irs_ng.form990_soi.ein`                                   | EIN                      | Direct match         | Reliable    |
+| `irs_ng.bmf_organizations.ein`                         | `irs_ng.political_orgs_527.ein`                            | EIN                      | Direct match         | Reliable    |
+| `usp_cl.legislator_terms.bioguide_id`                  | `usp_cl.committee_membership.bioguide_id`                  | bioguide_id              | Direct match         | Reliable    |
+| `usp_cl.legislator_terms.bioguide_id`                  | `usp_cl.district_offices.bioguide_id`                      | bioguide_id              | Direct match         | Reliable    |
+| `usp_cl.legislator_terms.state` + `district`           | `up_cdmaps.congressional_districts.statename` + `district` | State+District           | Direct match         | Reliable    |
+| All geocoded tables                                    | All geocoded tables                                        | `geom_point` (SRID 4326) | Spatial join via RPC | Reliable    |
 
 ### Entity Reliability Ratings
 
-| Match Type | Confidence | Notes |
-|------------|-----------|-------|
-| UEI exact match | ★★★★★ | Authoritative |
-| EIN exact match | ★★★★★ | Authoritative for nonprofits |
-| DUNS exact match | ★★★★☆ | Legacy but reliable |
-| Name + city + state | ★★★☆☆ | False positives possible |
-| Name only | ★★☆☆☆ | Many false positives |
-| Fuzzy name match | ★★☆☆☆ | Requires manual review |
+| Match Type          | Confidence | Notes                        |
+| ------------------- | ---------- | ---------------------------- |
+| UEI exact match     | ★★★★★      | Authoritative                |
+| EIN exact match     | ★★★★★      | Authoritative for nonprofits |
+| DUNS exact match    | ★★★★☆      | Legacy but reliable          |
+| Name + city + state | ★★★☆☆      | False positives possible     |
+| Name only           | ★★☆☆☆      | Many false positives         |
+| Fuzzy name match    | ★★☆☆☆      | Requires manual review       |
 
 ## Key Tables Reference
 
@@ -148,121 +178,121 @@ Full schema: load any OpenAPI JSON file from `/api/*.json` into an OpenAPI viewe
 
 Size warnings: `prime_awards` ~50M+ rows, `financial_accounts_by_awards` ~820M+ rows. Always use filters.
 
-| Table | Purpose | Key Columns |
-|-------|---------|-------------|
-| `prime_awards` | All federal prime awards | `award_id, piid, parent_duns, parent_uei, recipient_uei, recipient_duns, recipient_name, award_amount, action_date, date_signed, fiscal_year, award_type, awarding_agency, awarding_agency_code, funding_agency, funding_agency_code, naics_code, naics_description, product_or_service_code, product_or_service_description, description, pop_state, pop_city, pop_country, pop_congressional_district, recipient_state, recipient_city, recipient_country, total_obligation, total_outlays, total_covid_obligation, total_covid_outlay, cfda_number, cfda_program_title, extent_competed, period_of_performance_start_date, period_of_performance_current_end_date, business_categories, disaster_emergency_fund_codes` |
-| `subawards` | Subcontract/subgrant data | `subaward_id, parent_award_id, subrecipient_uei, subrecipient_duns, subrecipient_name, subaward_amount, subaward_description, sub_action_date, prime_recipient_uei, prime_recipient_name, prime_award_amount, prime_award_piid_fain, pop_state, sub_state, sub_city, sub_country, fiscal_year, awarding_agency_name, funding_agency_name, sub_naics, sub_naics_description` |
-| `all_entities` | Unified entity registry | `entity_id, legal_business_name, uei, duns, entity_type, total_obligation, award_count, prime_subaward_count, prime_subaward_amount, subaward_received_amount, subaward_received_count, city, state, country_code, congressional_district, address_line_1, address_line_2, zip5, geohash_6, is_geocoded, parent_uei, date_first_award, date_last_award, latitude, longitude, geom_point` |
-| `entity_awards` | Entity-aggregate spending | `entity_id, uei, total_award_amount, award_count, first_date, last_date` |
-| `financial_accounts_by_awards` | Award-level financial data | `fain, piid, obligations_incurred_total_by_award_cpe, gross_outlay_amount_by_award_cpe, treasury_appropriation_account, reporting_period_end` |
-| `financial_accounts_by_program_activity_object_class` | Program+object class spending | `obligations_incurred_by_program_object_class_cpe, program_activity_code, program_activity_name, object_class_code, object_class_name, treasury_appropriation_account` |
-| `recipient_geocode_index` | Geocoded recipients | `source_id, latitude, longitude, geom_point` |
-| `uei_crosswalk` | UEI/DUNS mapping | `uei, awardee_or_recipient_uniqu, legal_business_name, entity_type` |
-| `agency` | Federal agencies | `agency_id, agency_name, toptier_flag, subtier_agency_id, toptier_agency_id` |
-| `toptier_agency` | Top-tier agencies | `toptier_agency_id, name, abbreviation` |
-| `subtier_agency` | Sub-tier agencies | `subtier_agency_id, name, abbreviation, toptier_agency_id` |
-| `budget_authority` | Budget authority by agency/year | `agency_identifier, year, amount` |
-| `naics` | NAICS code definitions | `code, description` |
-| `psc` | Product/Service codes | `code, description` |
-| `references_cfda` | CFDA program listings | `program_number, program_title` |
-| `appropriation_account_balances` | Account-level budget data | `treasury_account_identifier, agency_identifier, fiscal_year, obligations_incurred_total` |
-| `object_class` | Object class definitions | `object_class_code, object_class_name` |
-| `ref_program_activity` | Program activity reference | `program_activity_code, program_activity_name` |
-| `disaster_emergency_fund_code` | DEF fund codes | `code, title, public_law` |
-| `federal_account` | Federal account reference | `federal_account_code, federal_account_name` |
-| `office` | Agency offices | `office_id, office_name, agency_id` |
+| Table                                                 | Purpose                         | Key Columns                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| ----------------------------------------------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `prime_awards`                                        | All federal prime awards        | `award_id, piid, parent_duns, parent_uei, recipient_uei, recipient_duns, recipient_name, award_amount, action_date, date_signed, fiscal_year, award_type, awarding_agency, awarding_agency_code, funding_agency, funding_agency_code, naics_code, naics_description, product_or_service_code, product_or_service_description, description, pop_state, pop_city, pop_country, pop_congressional_district, recipient_state, recipient_city, recipient_country, total_obligation, total_outlays, total_covid_obligation, total_covid_outlay, cfda_number, cfda_program_title, extent_competed, period_of_performance_start_date, period_of_performance_current_end_date, business_categories, disaster_emergency_fund_codes` |
+| `subawards`                                           | Subcontract/subgrant data       | `subaward_id, parent_award_id, subrecipient_uei, subrecipient_duns, subrecipient_name, subaward_amount, subaward_description, sub_action_date, prime_recipient_uei, prime_recipient_name, prime_award_amount, prime_award_piid_fain, pop_state, sub_state, sub_city, sub_country, fiscal_year, awarding_agency_name, funding_agency_name, sub_naics, sub_naics_description`                                                                                                                                                                                                                                                                                                                                               |
+| `all_entities`                                        | Unified entity registry         | `entity_id, legal_business_name, uei, duns, entity_type, total_obligation, award_count, prime_subaward_count, prime_subaward_amount, subaward_received_amount, subaward_received_count, city, state, country_code, congressional_district, address_line_1, address_line_2, zip5, geohash_6, is_geocoded, parent_uei, date_first_award, date_last_award, latitude, longitude, geom_point`                                                                                                                                                                                                                                                                                                                                  |
+| `entity_awards`                                       | Entity-aggregate spending       | `entity_id, uei, total_award_amount, award_count, first_date, last_date`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `financial_accounts_by_awards`                        | Award-level financial data      | `fain, piid, obligations_incurred_total_by_award_cpe, gross_outlay_amount_by_award_cpe, treasury_appropriation_account, reporting_period_end`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `financial_accounts_by_program_activity_object_class` | Program+object class spending   | `obligations_incurred_by_program_object_class_cpe, program_activity_code, program_activity_name, object_class_code, object_class_name, treasury_appropriation_account`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `recipient_geocode_index`                             | Geocoded recipients             | `source_id, latitude, longitude, geom_point`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `uei_crosswalk`                                       | UEI/DUNS mapping                | `uei, awardee_or_recipient_uniqu, legal_business_name, entity_type`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `agency`                                              | Federal agencies                | `agency_id, agency_name, toptier_flag, subtier_agency_id, toptier_agency_id`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `toptier_agency`                                      | Top-tier agencies               | `toptier_agency_id, name, abbreviation`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `subtier_agency`                                      | Sub-tier agencies               | `subtier_agency_id, name, abbreviation, toptier_agency_id`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `budget_authority`                                    | Budget authority by agency/year | `agency_identifier, year, amount`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `naics`                                               | NAICS code definitions          | `code, description`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `psc`                                                 | Product/Service codes           | `code, description`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `references_cfda`                                     | CFDA program listings           | `program_number, program_title`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `appropriation_account_balances`                      | Account-level budget data       | `treasury_account_identifier, agency_identifier, fiscal_year, obligations_incurred_total`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `object_class`                                        | Object class definitions        | `object_class_code, object_class_name`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `ref_program_activity`                                | Program activity reference      | `program_activity_code, program_activity_name`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `disaster_emergency_fund_code`                        | DEF fund codes                  | `code, title, public_law`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `federal_account`                                     | Federal account reference       | `federal_account_code, federal_account_name`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `office`                                              | Agency offices                  | `office_id, office_name, agency_id`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 
 **Materialized views (usaspending):**
 
-| Table | Purpose | Key Columns |
-|-------|---------|-------------|
-| `mv_agency_autocomplete` | Fast agency search | `agency_id, agency_name, agency_code` |
-| `mv_agency_office_autocomplete` | Agency+office search | `agency_id, office_id, name` |
-| `tas_autocomplete_matview` | TAS search | `tas_rendering_label, agency_name` |
+| Table                           | Purpose              | Key Columns                           |
+| ------------------------------- | -------------------- | ------------------------------------- |
+| `mv_agency_autocomplete`        | Fast agency search   | `agency_id, agency_name, agency_code` |
+| `mv_agency_office_autocomplete` | Agency+office search | `agency_id, office_id, name`          |
+| `tas_autocomplete_matview`      | TAS search           | `tas_rendering_label, agency_name`    |
 
 **Download views (usaspending):** Pre-joined views with agency names included.
 
-| Table | Purpose |
-|-------|---------|
-| `vw_appropriation_account_balances_download` | Account balances + agency_identifier_name |
-| `vw_financial_accounts_by_awards_download` | Award financials + agency names |
-| `vw_financial_accounts_by_program_activity_object_class_download` | Program spending + agency names |
-| `vw_published_dabs_toptier_agency` | Agencies with published DABS submissions |
+| Table                                                             | Purpose                                   |
+| ----------------------------------------------------------------- | ----------------------------------------- |
+| `vw_appropriation_account_balances_download`                      | Account balances + agency_identifier_name |
+| `vw_financial_accounts_by_awards_download`                        | Award financials + agency names           |
+| `vw_financial_accounts_by_program_activity_object_class_download` | Program spending + agency names           |
+| `vw_published_dabs_toptier_agency`                                | Agencies with published DABS submissions  |
 
 **Reference tables (usaspending):**
 
-| Table | Purpose |
-|-------|---------|
-| `ref_population_cong_district` | Congressional district population by state/district |
-| `ref_population_county` | County population by state/county |
-| `ref_city_county_state_code` | City/county/state reference with FIPS codes |
-| `ref_country_code` | Country code to country name mapping |
-| `gtas_sf133_balances` | GTAS SF-133 budget data by TAS/fiscal year |
-| `historic_parent_duns` | Historical parent DUNS mappings |
-| `submission_attributes` | Submission tracking (submission_id, reporting_fiscal_year) |
-| `download_job` | Download job tracking (job_id, status, file_url) |
+| Table                          | Purpose                                                    |
+| ------------------------------ | ---------------------------------------------------------- |
+| `ref_population_cong_district` | Congressional district population by state/district        |
+| `ref_population_county`        | County population by state/county                          |
+| `ref_city_county_state_code`   | City/county/state reference with FIPS codes                |
+| `ref_country_code`             | Country code to country name mapping                       |
+| `gtas_sf133_balances`          | GTAS SF-133 budget data by TAS/fiscal year                 |
+| `historic_parent_duns`         | Historical parent DUNS mappings                            |
+| `submission_attributes`        | Submission tracking (submission_id, reporting_fiscal_year) |
+| `download_job`                 | Download job tracking (job_id, status, file_url)           |
 
 **Agency lookup helpers:**
 
-| Table | Purpose |
-|-------|---------|
-| `agency_by_subtier_and_optionally_toptier` | Resolve subtier→toptier agency |
-| `agency_lookup` | Quick agency_id→agency_name lookup |
+| Table                                      | Purpose                            |
+| ------------------------------------------ | ---------------------------------- |
+| `agency_by_subtier_and_optionally_toptier` | Resolve subtier→toptier agency     |
+| `agency_lookup`                            | Quick agency_id→agency_name lookup |
 
 ### SAM.gov (`sam_er`)
 
-| Table | Purpose | Key Columns |
-|-------|---------|-------------|
+| Table               | Purpose             | Key Columns                                                                                                                                                                                                                                                                                                         |
+| ------------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `sam_registrations` | Registered entities | `uei, duns, legal_business_name, dba_name, physical_address_line1, physical_city, physical_state, physical_country, physical_zip, mailing_city, mailing_state, primary_naics, naics_codes, psc_codes, registration_expiration, is_current, latitude, longitude, geom_point, corporate_url, purpose_of_registration` |
 
 ### IRS NGO (`irs_ng`)
 
 Size warning: `bmf_organizations` ~1.2M rows. Ordering by revenue without filters is slow.
 
-| Table | Purpose | Key Columns |
-|-------|---------|-------------|
-| `bmf_organizations` | Business Master File orgs | `ein, org_name_current, org_name_sec, ntee_irs, ntee_nccs, bmf_subsection_code, bmf_foundation_code, bmf_classification_code, bmf_organization_code, bmf_affiliation_code, bmf_group_exempt_num, bmf_income_code, bmf_asset_code, bmf_deductibility_code, org_fiscal_year, org_fiscal_period, f990_org_addr_street, f990_org_addr_city, f990_org_addr_state, f990_org_addr_zip, org_addr_full, f990_total_revenue_recent, f990_total_income_recent, f990_total_assets_recent, org_ruling_date, latitude, longitude, geom_point, is_current, census_state_abbr, census_county_name, geocoder_score, geocoder_match, geocoding_source, imported_at` |
-| `form990_soi` | Form 990 SOI financials | `ein, org_name, tax_year, subseccd, is_501c3, ntee_code, state, total_revenue, total_expenses, total_assets, total_liabilities, net_assets, contributions, grants_paid, program_service_revenue, investment_income, royalty_income, net_rental_income, net_gains_losses, gaming_income, tax_exempt_interest, unrelated_business_income, filed_990t, compensation_officers, other_salaries_wages, employee_benefits, payroll_taxes, professional_fundraising, legal_fees, accounting_fees, management_fees, travel, occupancy, office_expenses, depreciation, interest_expense, insurance, pension_contributions, total_reportable_comp, total_estimated_comp, individuals_over_100k, num_employees, investments_end, land_buildings_equipment, cash_end, asset_size, revenue_less_expenses, total_support, foreign_offices, political_activities, lobbying_activities, operates_hospital, donor_advised_funds, num_orgs, non_pf_reason, source_file` |
-| `form990_soi_private_foundation` | Private foundation 990s | `ein, tax_year, total_revenue, total_expenses, total_assets, total_liabilities` |
-| `form990t_details` | Form 990-T (UBI) | `ein, tax_year, unrelated_business_income, total_tax, deductions` |
-| `form990_details` | Detailed 990 data | `ein, tax_year, total_revenue, total_expenses, total_assets` |
-| `form990_schedule_o` | Schedule O narratives | `ein, tax_year, schedule_o_text` |
-| `form990n_small_orgs` | 990-N e-Postcards | `ein, tax_year, org_name` |
-| `form990_xml_import_log` | Import tracking | `ein, org_name, import_date, file_status` |
-| `political_orgs_527` | 527 political orgs | `ein, org_name, city, state, status, filing_type, address, zip, filing_date, total_contributions, total_expenditures, latitude, longitude, geom_point, geocoding_source` |
-| `pub78_eligible` | Pub 78 deductibility list | `ein, org_name, city, state, deductibility_status` |
-| `revoked_organizations` | Auto-revoked orgs | `ein, org_name, revocation_date, reinstatement_date` |
-| `census_demographics` | ACS census data | `geoid, geo_type, year, total_population, median_household_income, poverty_count, white_count, black_count, hispanic_count, bachelors_count, housing_units, median_housing_value, source_file` |
+| Table                            | Purpose                   | Key Columns                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| -------------------------------- | ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `bmf_organizations`              | Business Master File orgs | `ein, org_name_current, org_name_sec, ntee_irs, ntee_nccs, bmf_subsection_code, bmf_foundation_code, bmf_classification_code, bmf_organization_code, bmf_affiliation_code, bmf_group_exempt_num, bmf_income_code, bmf_asset_code, bmf_deductibility_code, org_fiscal_year, org_fiscal_period, f990_org_addr_street, f990_org_addr_city, f990_org_addr_state, f990_org_addr_zip, org_addr_full, f990_total_revenue_recent, f990_total_income_recent, f990_total_assets_recent, org_ruling_date, latitude, longitude, geom_point, is_current, census_state_abbr, census_county_name, geocoder_score, geocoder_match, geocoding_source, imported_at`                                                                                                                                                                                                                                                                                                    |
+| `form990_soi`                    | Form 990 SOI financials   | `ein, org_name, tax_year, subseccd, is_501c3, ntee_code, state, total_revenue, total_expenses, total_assets, total_liabilities, net_assets, contributions, grants_paid, program_service_revenue, investment_income, royalty_income, net_rental_income, net_gains_losses, gaming_income, tax_exempt_interest, unrelated_business_income, filed_990t, compensation_officers, other_salaries_wages, employee_benefits, payroll_taxes, professional_fundraising, legal_fees, accounting_fees, management_fees, travel, occupancy, office_expenses, depreciation, interest_expense, insurance, pension_contributions, total_reportable_comp, total_estimated_comp, individuals_over_100k, num_employees, investments_end, land_buildings_equipment, cash_end, asset_size, revenue_less_expenses, total_support, foreign_offices, political_activities, lobbying_activities, operates_hospital, donor_advised_funds, num_orgs, non_pf_reason, source_file` |
+| `form990_soi_private_foundation` | Private foundation 990s   | `ein, tax_year, total_revenue, total_expenses, total_assets, total_liabilities`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `form990t_details`               | Form 990-T (UBI)          | `ein, tax_year, unrelated_business_income, total_tax, deductions`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `form990_details`                | Detailed 990 data         | `ein, tax_year, total_revenue, total_expenses, total_assets`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `form990_schedule_o`             | Schedule O narratives     | `ein, tax_year, schedule_o_text`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `form990n_small_orgs`            | 990-N e-Postcards         | `ein, tax_year, org_name`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `form990_xml_import_log`         | Import tracking           | `ein, org_name, import_date, file_status`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `political_orgs_527`             | 527 political orgs        | `ein, org_name, city, state, status, filing_type, address, zip, filing_date, total_contributions, total_expenditures, latitude, longitude, geom_point, geocoding_source`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `pub78_eligible`                 | Pub 78 deductibility list | `ein, org_name, city, state, deductibility_status`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `revoked_organizations`          | Auto-revoked orgs         | `ein, org_name, revocation_date, reinstatement_date`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `census_demographics`            | ACS census data           | `geoid, geo_type, year, total_population, median_household_income, poverty_count, white_count, black_count, hispanic_count, bachelors_count, housing_units, median_housing_value, source_file`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 
 **Views (irs_ng):**
 
-| Table | Purpose | Key Columns |
-|-------|---------|-------------|
-| `v_org_financial_profile` | Org financial profile | `ein, org_name, years_filed, avg_revenue, revenue_trend, avg_expenses` |
-| `v_org_multi_year` | Multi-year financials | `ein, org_name, multi_year_revenue, multi_year_expenses` |
-| `v_political_orgs` | Political orgs summary | `ein, org_name, city, state, total_contributions, total_expenditures` |
+| Table                     | Purpose                | Key Columns                                                            |
+| ------------------------- | ---------------------- | ---------------------------------------------------------------------- |
+| `v_org_financial_profile` | Org financial profile  | `ein, org_name, years_filed, avg_revenue, revenue_trend, avg_expenses` |
+| `v_org_multi_year`        | Multi-year financials  | `ein, org_name, multi_year_revenue, multi_year_expenses`               |
+| `v_political_orgs`        | Political orgs summary | `ein, org_name, city, state, total_contributions, total_expenditures`  |
 
 ### Congress-Legislators (`us_project_cl`)
 
 The `legislators` table contains static biographical data. Party, state, district, chamber, and dates are in `legislator_terms`.
 
-| Table | Purpose | Key Columns |
-|-------|---------|-------------|
-| `legislators` | Biographical info | `bioguide_id, first_name, last_name, middle_name, nickname, suffix, official_full, birthday, gender, is_current, first_term_start, last_term_end, thomas_id, govtrack_id, opensecrets_id, votesmart_id, wikipedia_page, ballotpedia_page, cspan_id, fec_ids, google_entity_id, house_history_id, icpsr_id, lis_id, maplight_id, wikidata_id, bioguide_previous` |
-| `legislator_terms` | Terms of service | `term_id, bioguide_id, state, district, party, term_type, term_start, term_end, congress_start, congress_end, class, state_rank, how, end_type, address, office, phone, fax, contact_form, url, rss_url` |
-| `committee_membership` | Committee assignments | `membership_id, bioguide_id, committee_thomas_id, legislator_name, rank, title, party` |
-| `committees` | Committee definitions | `committee_thomas_id, committee_name, chamber, jurisdiction, house_committee_id, senate_committee_id, committee_type, url, minority_url, address, phone, rss_url, youtube_id, congresses, is_current` |
-| `subcommittees` | Subcommittee definitions | `subcommittee_thomas_id, subcommittee_name, parent_committee` |
-| `district_offices` | Local offices | `bioguide_id, office_key, city, state, address, suite, building, zip, phone, fax, hours, latitude, longitude, geom_point` |
-| `legislator_social_media` | Social media accounts | `bioguide_id, twitter, twitter_id, facebook, facebook_id, youtube, youtube_id, instagram, instagram_id` |
-| `legislator_other_names` | Alternate/former names | `bioguide_id, name, name_type` |
-| `executives` | Executive branch officials | `bioguide_id, first_name, middle_name, last_name, suffix, birthday, gender, govtrack_id, icpsr_prez_id` |
-| `executive_terms` | Executive terms of office | `term_id, bioguide_id, term_type, start_date, end_date, party, how` |
+| Table                     | Purpose                    | Key Columns                                                                                                                                                                                                                                                                                                                                                     |
+| ------------------------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `legislators`             | Biographical info          | `bioguide_id, first_name, last_name, middle_name, nickname, suffix, official_full, birthday, gender, is_current, first_term_start, last_term_end, thomas_id, govtrack_id, opensecrets_id, votesmart_id, wikipedia_page, ballotpedia_page, cspan_id, fec_ids, google_entity_id, house_history_id, icpsr_id, lis_id, maplight_id, wikidata_id, bioguide_previous` |
+| `legislator_terms`        | Terms of service           | `term_id, bioguide_id, state, district, party, term_type, term_start, term_end, congress_start, congress_end, class, state_rank, how, end_type, address, office, phone, fax, contact_form, url, rss_url`                                                                                                                                                        |
+| `committee_membership`    | Committee assignments      | `membership_id, bioguide_id, committee_thomas_id, legislator_name, rank, title, party`                                                                                                                                                                                                                                                                          |
+| `committees`              | Committee definitions      | `committee_thomas_id, committee_name, chamber, jurisdiction, house_committee_id, senate_committee_id, committee_type, url, minority_url, address, phone, rss_url, youtube_id, congresses, is_current`                                                                                                                                                           |
+| `subcommittees`           | Subcommittee definitions   | `subcommittee_thomas_id, subcommittee_name, parent_committee`                                                                                                                                                                                                                                                                                                   |
+| `district_offices`        | Local offices              | `bioguide_id, office_key, city, state, address, suite, building, zip, phone, fax, hours, latitude, longitude, geom_point`                                                                                                                                                                                                                                       |
+| `legislator_social_media` | Social media accounts      | `bioguide_id, twitter, twitter_id, facebook, facebook_id, youtube, youtube_id, instagram, instagram_id`                                                                                                                                                                                                                                                         |
+| `legislator_other_names`  | Alternate/former names     | `bioguide_id, name, name_type`                                                                                                                                                                                                                                                                                                                                  |
+| `executives`              | Executive branch officials | `bioguide_id, first_name, middle_name, last_name, suffix, birthday, gender, govtrack_id, icpsr_prez_id`                                                                                                                                                                                                                                                         |
+| `executive_terms`         | Executive terms of office  | `term_id, bioguide_id, term_type, start_date, end_date, party, how`                                                                                                                                                                                                                                                                                             |
 
 ### Congressional Districts (`ucla_polysci_cdmaps`)
 
-| Table | Purpose | Key Columns |
-|-------|---------|-------------|
+| Table                     | Purpose             | Key Columns                                                                                                                                                      |
+| ------------------------- | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `congressional_districts` | District boundaries | `id, statename, district, congress_number, geom, county, district_id, startcong, endcong, statefp, bestdec, fromcounty, page, note, finalnote, law, source_file` |
 
 ## Views Guide
@@ -302,13 +332,13 @@ Functions for geographic queries. Use POST with JSON body.
 
 ### `rpc_find_district`
 
-Find congressional district for a lat/lng point.
+Find congressional district for a lat/lon point.
 
 **Endpoint:** `/ngopen/up_cdmaps/rpc/rpc_find_district`
 
 ```bash
 POST /ngopen/up_cdmaps/rpc/rpc_find_district
-{"lat": 34.0522, "lng": -118.2437, "congress": 118}
+{"lat": 34.0522, "lon": -118.2437, "congress": 118}
 ```
 
 Returns: `{id, statename, district, congress_number, geom, county}`
@@ -321,21 +351,21 @@ Find all districts within a bounding box.
 
 ```bash
 POST /ngopen/up_cdmaps/rpc/rpc_districts_in_bbox
-{"min_lat": 33.5, "min_lng": -118.5, "max_lat": 34.5, "max_lng": -117.5, "congress": 118}
+{"min_lat": 33.5, "min_lon": -118.5, "max_lat": 34.5, "max_lon": -117.5, "congress": 118}
 ```
 
 ### `rpc_nonprofits_nearby`
 
-Find nonprofits within a radius (km) of a point.
+Find nonprofits within a radius (meters) of a point.
 
 **Endpoint:** `/ngopen/irs_ng/rpc/rpc_nonprofits_nearby`
 
 ```bash
 POST /ngopen/irs_ng/rpc/rpc_nonprofits_nearby
-{"lat": 34.0522, "lng": -118.2437, "radius_km": 25}
+{"lat": 34.0522, "lon": -118.2437, "radius_meters": 25000}
 ```
 
-Returns: `[ein, org_name_current, city, state, distance_km, total_revenue, ntee_irs]`
+Returns: `[ein, org_name, ntee, state, distance_meters]`
 
 ### `rpc_nonprofits_in_district`
 
@@ -345,7 +375,7 @@ Find all nonprofits within a congressional district.
 
 ```bash
 POST /ngopen/irs_ng/rpc/rpc_nonprofits_in_district
-{"state": "CA", "district": 34, "congress": 118}
+{"state_name": "California", "district_num": 34, "congress": 118}
 ```
 
 ## Investigative Playbooks
@@ -427,7 +457,7 @@ POST /ngopen/irs_ng/rpc/rpc_nonprofits_in_district
 
 9. Find nearby nonprofits (potential related entities)
    POST /ngopen/irs_ng/rpc/rpc_nonprofits_nearby
-   {"lat": 34.0522, "lng": -118.2437, "radius_km": 10}
+   {"lat": 34.0522, "lon": -118.2437, "radius_meters": 10000}
 ```
 
 ### D. Subcontractor Chain Analysis
@@ -534,7 +564,7 @@ POST /ngopen/irs_ng/rpc/rpc_nonprofits_in_district
 
 3. Spatial query: nonprofits near large awards
    POST /ngopen/irs_ng/rpc/rpc_nonprofits_nearby
-   {"lat": 30.2672, "lng": -97.7431, "radius_km": 50}
+   {"lat": 30.2672, "lon": -97.7431, "radius_meters": 50000}
 
 4. Cross-reference with district demographics
    GET /ngopen/up_cdmaps/congressional_districts?select=*&statename=eq.Texas&congress_number=eq.118
@@ -643,13 +673,13 @@ GET /ngopen/irs_ng/revoked_organizations?select=*&reinstatement_date=is.null
 
 ### Table Size Warnings
 
-| Table | Approximate Size | Notes |
-|-------|-----------------|-------|
-| `financial_accounts_by_awards` | ~820M+ rows | Will timeout without filters. Always filter by `fain`, `piid`, or `treasury_appropriation_account` |
-| `prime_awards` | ~50M+ rows | Needs filters. Use `recipient_uei`, `action_date`, `awarding_agency`, or `pop_state` |
-| `bmf_organizations` | ~1.2M rows | Ordering by revenue without filters is slow. Filter by `ein`, `state`, or `is_current` first |
-| `subawards` | ~40M+ rows | Filter by `parent_award_id`, `prime_recipient_uei`, or `fiscal_year` |
-| `form990_soi` | ~2M+ rows | Filter by `ein` or `tax_year` |
+| Table                          | Approximate Size | Notes                                                                                              |
+| ------------------------------ | ---------------- | -------------------------------------------------------------------------------------------------- |
+| `financial_accounts_by_awards` | ~820M+ rows      | Will timeout without filters. Always filter by `fain`, `piid`, or `treasury_appropriation_account` |
+| `prime_awards`                 | ~50M+ rows       | Needs filters. Use `recipient_uei`, `action_date`, `awarding_agency`, or `pop_state`               |
+| `bmf_organizations`            | ~1.2M rows       | Ordering by revenue without filters is slow. Filter by `ein`, `state`, or `is_current` first       |
+| `subawards`                    | ~40M+ rows       | Filter by `parent_award_id`, `prime_recipient_uei`, or `fiscal_year`                               |
+| `form990_soi`                  | ~2M+ rows        | Filter by `ein` or `tax_year`                                                                      |
 
 ### Query Optimization
 
@@ -674,13 +704,13 @@ The following columns have B-tree indexes - prefer these for filtering:
 
 ### When to Use Each Database
 
-| Question | Start With | Then Join |
-|----------|-----------|-----------|
-| Who got federal money? | usaspending | samer (entity details), irs_ng (nonprofit status) |
-| Is this entity legitimate? | samer | usaspending (award history), irs_ng (tax status) |
-| How is this nonprofit doing? | irs_ng | usaspending (gov revenue), up_cdmaps (district context) |
-| What's happening in this district? | up_cdmaps | usaspending (spending), irs_ng (nonprofits), usp_cl (rep) |
-| Who represents this area? | usp_cl | up_cdmaps (district data), usaspending (spending in district) |
+| Question                           | Start With  | Then Join                                                     |
+| ---------------------------------- | ----------- | ------------------------------------------------------------- |
+| Who got federal money?             | usaspending | samer (entity details), irs_ng (nonprofit status)             |
+| Is this entity legitimate?         | samer       | usaspending (award history), irs_ng (tax status)              |
+| How is this nonprofit doing?       | irs_ng      | usaspending (gov revenue), up_cdmaps (district context)       |
+| What's happening in this district? | up_cdmaps   | usaspending (spending), irs_ng (nonprofits), usp_cl (rep)     |
+| Who represents this area?          | usp_cl      | up_cdmaps (district data), usaspending (spending in district) |
 
 ## Common Pitfalls
 

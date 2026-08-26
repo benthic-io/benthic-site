@@ -21,127 +21,127 @@
   "relation_count": 18,
   "relations": [
     {
-      "column_count": 18,
       "name": "bmf_organization_snapshots",
-      "provenance": "derived",
-      "queryable": true,
-      "relation_type": "table"
-    },
-    {
-      "column_count": 56,
-      "name": "bmf_organizations",
-      "provenance": "derived",
-      "queryable": true,
-      "relation_type": "table"
-    },
-    {
-      "column_count": 14,
-      "name": "census_demographics",
-      "provenance": "derived",
-      "queryable": true,
-      "relation_type": "table"
-    },
-    {
-      "column_count": 21,
-      "name": "form990_details",
-      "provenance": "derived",
-      "queryable": true,
-      "relation_type": "table"
-    },
-    {
-      "column_count": 9,
-      "name": "form990_schedule_o",
-      "provenance": "derived",
-      "queryable": true,
-      "relation_type": "table"
-    },
-    {
-      "column_count": 62,
-      "name": "form990_soi",
-      "provenance": "derived",
-      "queryable": true,
-      "relation_type": "table"
-    },
-    {
-      "column_count": 52,
-      "name": "form990_soi_private_foundation",
-      "provenance": "derived",
-      "queryable": true,
-      "relation_type": "table"
-    },
-    {
-      "column_count": 11,
-      "name": "form990_xml_import_log",
-      "provenance": "derived",
-      "queryable": true,
-      "relation_type": "table"
-    },
-    {
-      "column_count": 7,
-      "name": "form990n_small_orgs",
-      "provenance": "derived",
-      "queryable": true,
-      "relation_type": "table"
-    },
-    {
-      "column_count": 28,
-      "name": "form990t_details",
-      "provenance": "derived",
-      "queryable": true,
-      "relation_type": "table"
-    },
-    {
-      "column_count": 22,
-      "name": "mv_nonprofit_profile",
-      "provenance": "recovered",
-      "queryable": true,
-      "relation_type": "materialized_view"
-    },
-    {
-      "column_count": 15,
-      "name": "mv_org_financial_health",
-      "provenance": "recovered",
-      "queryable": true,
-      "relation_type": "materialized_view"
-    },
-    {
       "column_count": 18,
-      "name": "political_orgs_527",
       "provenance": "derived",
       "queryable": true,
       "relation_type": "table"
     },
     {
-      "column_count": 8,
-      "name": "pub78_eligible",
+      "name": "bmf_organizations",
+      "column_count": 56,
       "provenance": "derived",
       "queryable": true,
       "relation_type": "table"
     },
     {
+      "name": "census_demographics",
+      "column_count": 14,
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "name": "form990_details",
+      "column_count": 21,
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "name": "form990_schedule_o",
+      "column_count": 9,
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "name": "form990_soi",
+      "column_count": 62,
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "name": "form990_soi_private_foundation",
+      "column_count": 52,
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "name": "form990_xml_import_log",
+      "column_count": 11,
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "name": "form990n_small_orgs",
       "column_count": 7,
-      "name": "revoked_organizations",
       "provenance": "derived",
       "queryable": true,
       "relation_type": "table"
     },
     {
-      "column_count": 20,
+      "name": "form990t_details",
+      "column_count": 28,
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "name": "mv_nonprofit_profile",
+      "column_count": 22,
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "materialized_view"
+    },
+    {
+      "name": "mv_org_financial_health",
+      "column_count": 15,
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "materialized_view"
+    },
+    {
+      "name": "political_orgs_527",
+      "column_count": 18,
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "name": "pub78_eligible",
+      "column_count": 8,
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "name": "revoked_organizations",
+      "column_count": 7,
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
       "name": "v_org_financial_profile",
+      "column_count": 20,
       "provenance": "derived",
       "queryable": true,
       "relation_type": "view"
     },
     {
-      "column_count": 10,
       "name": "v_org_multi_year",
+      "column_count": 10,
       "provenance": "derived",
       "queryable": true,
       "relation_type": "view"
     },
     {
-      "column_count": 10,
       "name": "v_political_orgs",
+      "column_count": 10,
       "provenance": "derived",
       "queryable": true,
       "relation_type": "view"

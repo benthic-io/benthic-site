@@ -3,7 +3,7 @@
   "author_pubkey": "qwG8vQQN7m/uB0Nwgor3s1EJCKjqZM/SNThV+V7XumM=",
   "collection": "ngopen",
   "column_count": 172,
-  "commit_hash": "48bc355712599d9fada078c0366ab50b0ef456b4",
+  "commit_hash": "66f585560f81c15b30fc1056303ddad274502136",
   "dataset_name": "usp_cl",
   "description": "Members of Congress, their terms, committees, subcommittees, committee memberships, social media accounts, and geocoded district offices, plus executives and executive terms.",
   "endpoints": [
@@ -12,94 +12,94 @@
       "transport_type": "postgrest_api"
     }
   ],
-  "license": "https://creativecommons.org/publicdomain/zero/1.0/",
-  "manifest_bytes": 30652,
-  "manifest_payload_hash": "9daac64fa1a8eb52b9dd4ce5d1429750de7945bf0306f2f0b492b554598ab3e2",
+  "license": "CC0",
+  "manifest_bytes": 30326,
+  "manifest_payload_hash": "e92dd7fcd04c3bf95bbd857bd1482d95bfcf708e884a222dd49ba961a8a1ff74",
   "manifest_url": "https://benthic.io/bdp/ngopen/usp_cl/manifest.json",
-  "migration_status": "pending",
+  "migration_status": "migrated",
   "queryable_relation_count": 12,
   "relation_count": 12,
   "relations": [
     {
-      "column_count": 8,
       "name": "committee_membership",
+      "column_count": 8,
       "provenance": "derived",
       "queryable": true,
       "relation_type": "table"
     },
     {
-      "column_count": 16,
       "name": "committees",
-      "provenance": "derived",
-      "queryable": true,
-      "relation_type": "table"
-    },
-    {
       "column_count": 16,
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
       "name": "district_offices",
+      "column_count": 16,
       "provenance": "derived",
       "queryable": true,
       "relation_type": "table"
     },
     {
-      "column_count": 8,
       "name": "executive_terms",
-      "provenance": "derived",
-      "queryable": true,
-      "relation_type": "table"
-    },
-    {
-      "column_count": 10,
-      "name": "executives",
-      "provenance": "derived",
-      "queryable": true,
-      "relation_type": "table"
-    },
-    {
-      "column_count": 9,
-      "name": "legislator_other_names",
-      "provenance": "derived",
-      "queryable": true,
-      "relation_type": "table"
-    },
-    {
-      "column_count": 11,
-      "name": "legislator_social_media",
-      "provenance": "derived",
-      "queryable": true,
-      "relation_type": "table"
-    },
-    {
-      "column_count": 22,
-      "name": "legislator_terms",
-      "provenance": "derived",
-      "queryable": true,
-      "relation_type": "table"
-    },
-    {
-      "column_count": 29,
-      "name": "legislators",
-      "provenance": "derived",
-      "queryable": true,
-      "relation_type": "table"
-    },
-    {
-      "column_count": 13,
-      "name": "mv_committee_power",
-      "provenance": "recovered",
-      "queryable": true,
-      "relation_type": "materialized_view"
-    },
-    {
-      "column_count": 22,
-      "name": "mv_current_lawmakers",
-      "provenance": "recovered",
-      "queryable": true,
-      "relation_type": "materialized_view"
-    },
-    {
       "column_count": 8,
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "name": "executives",
+      "column_count": 10,
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "name": "legislator_other_names",
+      "column_count": 9,
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "name": "legislator_social_media",
+      "column_count": 11,
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "name": "legislator_terms",
+      "column_count": 22,
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "name": "legislators",
+      "column_count": 29,
+      "provenance": "derived",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "name": "mv_committee_power",
+      "column_count": 13,
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "materialized_view"
+    },
+    {
+      "name": "mv_current_lawmakers",
+      "column_count": 22,
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "materialized_view"
+    },
+    {
       "name": "subcommittees",
+      "column_count": 8,
       "provenance": "derived",
       "queryable": true,
       "relation_type": "table"

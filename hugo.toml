@@ -9,7 +9,7 @@ title = "benthic.io | little data for big change"
   x_link = "https://x.com/otherdrums"
   facebook = "Brian Mulkern"
   facebook_link = "https://www.facebook.com/brian.mulkern.5"
-  favicon = "/benthic_favicon.ico"
+  description = "benthic.io is a free open data platform: geocoded U.S. government datasets served over PostgREST with cryptographically verifiable BDP provenance manifests."
 [markup.goldmark.renderer]
   unsafe = true
 

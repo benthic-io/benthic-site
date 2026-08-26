@@ -3,7 +3,7 @@
   "author_pubkey": "qwG8vQQN7m/uB0Nwgor3s1EJCKjqZM/SNThV+V7XumM=",
   "collection": "ngopen",
   "column_count": 53,
-  "commit_hash": "48bc355712599d9fada078c0366ab50b0ef456b4",
+  "commit_hash": "66f585560f81c15b30fc1056303ddad274502136",
   "dataset_name": "samer",
   "description": "Federal contractor and grantee entity registrations from the SAM.gov monthly public extract, with historical snapshots and Photon geocoding.",
   "endpoints": [
@@ -13,23 +13,23 @@
     }
   ],
   "license": "https://sam.gov/content/about/terms-of-use",
-  "manifest_bytes": 10609,
-  "manifest_payload_hash": "64daff15983700e1b9744a3f0f7374c10051373879c65cd6a490978d39f11d42",
+  "manifest_bytes": 10352,
+  "manifest_payload_hash": "5534dc2a9c312c136255697c66e08f262dc1f9f474ee2bc757d233e37e85f83e",
   "manifest_url": "https://benthic.io/bdp/ngopen/samer/manifest.json",
-  "migration_status": "pending",
+  "migration_status": "migrated",
   "queryable_relation_count": 2,
   "relation_count": 2,
   "relations": [
     {
-      "column_count": 21,
       "name": "mv_contractor_registry",
+      "column_count": 21,
       "provenance": "derived",
       "queryable": true,
       "relation_type": "materialized_view"
     },
     {
-      "column_count": 32,
       "name": "sam_registrations",
+      "column_count": 32,
       "provenance": "derived",
       "queryable": true,
       "relation_type": "table"

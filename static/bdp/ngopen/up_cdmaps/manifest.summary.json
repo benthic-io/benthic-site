@@ -3,9 +3,9 @@
   "author_pubkey": "qwG8vQQN7m/uB0Nwgor3s1EJCKjqZM/SNThV+V7XumM=",
   "collection": "ngopen",
   "column_count": 21,
-  "commit_hash": "48bc355712599d9fada078c0366ab50b0ef456b4",
+  "commit_hash": "66f585560f81c15b30fc1056303ddad274502136",
   "dataset_name": "up_cdmaps",
-  "description": "Congressional district boundary polygons for the 1st through 119th Congress, from the UCLA Political Science district shapefile collection. Geometry is stored in EPSG:3857, unlike every other spatial column in the collection which uses EPSG:4326; reprojection is required for cross-dataset spatial joins.",
+  "description": "EPSG:3857 geometry; reprojection required for cross-dataset spatial joins with all other datasets which use EPSG:4326.",
   "endpoints": [
     {
       "base_url": "https://benthic.io/ngopen/up_cdmaps/",
@@ -13,16 +13,16 @@
     }
   ],
   "license": "https://cdmaps.polisci.ucla.edu/",
-  "manifest_bytes": 5388,
-  "manifest_payload_hash": "e3442fd3f1489f0113d0ac15d9771ef7cadc0d4fcd60fc5e3e9fea8e0088616d",
+  "manifest_bytes": 5055,
+  "manifest_payload_hash": "0b02c5300d154d3a640bf373e3696976d1f88dfedfcf75dc3ef152c6c6d108ba",
   "manifest_url": "https://benthic.io/bdp/ngopen/up_cdmaps/manifest.json",
-  "migration_status": "pending",
+  "migration_status": "migrated",
   "queryable_relation_count": 1,
   "relation_count": 1,
   "relations": [
     {
-      "column_count": 21,
       "name": "congressional_districts",
+      "column_count": 21,
       "provenance": "derived",
       "queryable": true,
       "relation_type": "table"
