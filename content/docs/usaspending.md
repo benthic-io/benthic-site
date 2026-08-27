@@ -1127,6 +1127,3 @@ curl "https://benthic.io/ngopen/usaspending/agency?select=id,toptier_agency(name
 `ref_population_county` and `ref_population_cong_district` provide population denominators
 
 
-## Interactive API Explorer
-
-{{< openapi dataset="usaspending" >}}

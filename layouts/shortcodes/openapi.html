@@ -15,7 +15,48 @@
 <style>
   /* Swagger UI embedded viewer — themed to benthic.io palette */
   .swagger-wrapper {
-    margin: 2rem 0;
+    margin: 1.25rem 0;
+    max-width: 880px;
+    font-size: 0.875rem;
+  }
+  .swagger-wrapper .swagger-ui {
+    font-size: 13px;
+  }
+  .swagger-wrapper .swagger-ui .info {
+    margin: 0.75rem 0;
+  }
+  .swagger-wrapper .swagger-ui .info .title {
+    font-size: 1.25rem !important;
+    line-height: 1.3;
+  }
+  .swagger-wrapper .swagger-ui .info p,
+  .swagger-wrapper .swagger-ui .info li {
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+  .swagger-wrapper .swagger-ui .opblock-tag {
+    font-size: 0.95rem;
+    padding: 0.35rem 0;
+  }
+  .swagger-wrapper .swagger-ui .opblock-summary {
+    padding: 0.4rem 0.6rem;
+  }
+  .swagger-wrapper .swagger-ui .opblock-summary-path,
+  .swagger-wrapper .swagger-ui .opblock-summary-path__deprecated {
+    font-size: 0.82rem;
+  }
+  .swagger-wrapper .swagger-ui .opblock-summary-description {
+    font-size: 0.78rem;
+  }
+  .swagger-wrapper .swagger-ui .opblock {
+    margin: 0 0 0.6rem;
+  }
+  .swagger-wrapper .swagger-ui .btn,
+  .swagger-wrapper .swagger-ui select,
+  .swagger-wrapper .swagger-ui input,
+  .swagger-wrapper .swagger-ui textarea {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.5rem;
   }
   .swagger-wrapper.swagger-loading::before {
     content: "Loading API explorer…";

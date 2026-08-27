@@ -215,6 +215,3 @@ NAICS (North American Industry Classification System) codes classify business es
 | 334511 | Search, Detection, Navigation, Guidance, Aeronautical Systems |
 
 Use `primary_naics` to filter by primary classification or `naics_codes` to search across all registered codes.
-## Interactive API Explorer
-
-{{< openapi dataset="samer" >}}

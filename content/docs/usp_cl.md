@@ -482,6 +482,3 @@ curl "https://benthic.io/ngopen/usp_cl/mv_committee_power?title=ilike.*chair*&se
 curl "https://benthic.io/ngopen/usp_cl/mv_committee_power?thomas_id=eq.SFIN&state=eq.CA&select=legislator_name,title"
 ```
 
-## Interactive API Explorer
-
-{{< openapi dataset="usp_cl" >}}

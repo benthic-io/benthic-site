@@ -832,6 +832,3 @@ Use `bmf_organizations.ntee_irs` to filter by code or `bmf_organizations.nccs_le
 | 81 | 501(c)(1) — Instrumentality of US (state) |
 | 92 | 4947(a)(1) — Nonexempt charitable trusts |
 
-## Interactive API Explorer
-
-{{< openapi dataset="irs_ng" >}}

@@ -182,6 +182,3 @@ curl -X POST "https://benthic.io/ngopen/up_cdmaps/rpc/rpc_districts_in_bbox" \
   -d '{"min_lat": 32.0, "max_lat": 36.0, "min_lon": -120.0, "max_lon": -114.0}'
 ```
 
-## Interactive API Explorer
-
-{{< openapi dataset="up_cdmaps" >}}
