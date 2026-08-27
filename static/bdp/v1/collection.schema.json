@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://benthic.io/bdp/v1/collection.schema.json",
-  "title": "Benthic Data Protocol Collection",
+  "title": "Benthic Data Provenance Collection",
   "description": "A BDP Collection is a signed JSON document that groups related datasets which are intended to be used together, and declares the verified join paths between them. Each member pins the exact payload_hash of a signed dataset manifest, so a collection is only valid against the precise manifest revisions it was signed over. Consumers MUST verify the cryptographic_signature before trusting any other member of this document.",
   "type": "object",
   "additionalProperties": false,

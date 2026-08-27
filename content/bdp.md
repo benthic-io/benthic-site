@@ -1,8 +1,8 @@
 ---
-title: "Benthic Data Protocol"
+title: "Benthic Data Provenance"
 ---
 
-### Benthic Data Protocol (BDP)
+### Benthic Data Provenance (BDP)
 
 Every dataset published here is accompanied by a signed **manifest**: a JSON document that states who built the dataset, which code built it, what shape the data is in, and where it can be reached. The manifest is signed with an Ed25519 key. Anyone can verify it without asking benthic.io for permission, without an API key, and without trusting this server.
 
@@ -115,7 +115,7 @@ Manifests additionally carry `etl_provenance.migration_status`. All five NGOpen 
 
 ### Source
 
-- **Protocol specification and reference tooling** — [github.com/benthic-io/bdp](https://github.com/benthic-io/bdp)
+- **Provenance specification and reference tooling** — [github.com/benthic-io/bdp](https://github.com/benthic-io/bdp)
 - **The pipelines that build these datasets** — [github.com/benthic-io/ngopen-bdp-pipelines](https://github.com/benthic-io/ngopen-bdp-pipelines)
 
 Questions, corrections, and criticism are all welcome at [brian@benthic.io](mailto:brian@benthic.io).

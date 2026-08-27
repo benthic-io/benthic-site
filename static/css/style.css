@@ -579,7 +579,7 @@ code {
 
 .dashboard-columns {
   display: grid;
-  grid-template-columns: 1.15fr 1.25fr 90px;
+  grid-template-columns: 1.65fr 0.85fr 90px;
   gap: 1rem;
   padding: 0.75rem 1.5rem;
   background: rgba(255, 255, 255, 0.04);
@@ -652,7 +652,7 @@ code {
 
 .status-item {
   display: grid;
-  grid-template-columns: 1.15fr 1.25fr 90px;
+  grid-template-columns: 1.65fr 0.85fr 90px;
   gap: 1rem;
   padding: 0.75rem 1.5rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -663,8 +663,11 @@ code {
 .status-cell.dataset .dataset-link {
   color: var(--accent-green);
   font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
-  font-size: 0.85rem;
+  font-size: 0.78rem;
   font-weight: 600;
+  word-break: break-all;
+  overflow-wrap: anywhere;
+  line-height: 1.35;
 }
 
 .status-cell.links {

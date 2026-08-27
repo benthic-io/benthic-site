@@ -24,7 +24,7 @@ Full OpenAPI specs:
 
 ## BDP Verifiable Manifests
 
-Every dataset publishes a signed **BDP (Benthic Data Protocol)** manifest describing its exact published schema, ETL provenance, and endpoints. Signatures use Ed25519 over an RFC 8785-canonicalized SHA-256 digest, so agents can verify that a manifest is authentic and unmodified before trusting it.
+Every dataset publishes a signed **BDP (Benthic Data Provenance)** manifest describing its exact published schema, ETL provenance, and endpoints. Signatures use Ed25519 over an RFC 8785-canonicalized SHA-256 digest, so agents can verify that a manifest is authentic and unmodified before trusting it.
 
 **Discovery chain:**
 

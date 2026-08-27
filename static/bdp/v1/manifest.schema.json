@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://benthic.io/bdp/v1/manifest.schema.json",
-  "title": "Benthic Data Protocol Manifest",
+  "title": "Benthic Data Provenance Manifest",
   "description": "A BDP Manifest is a signed JSON document that proves who built a dataset, what code produced it, what shape the data has, and where it can be reached. It is transport-agnostic: the same manifest may advertise a live query API, static columnar files, or both. Consumers MUST verify the cryptographic_signature before trusting any other member of this document.",
   "type": "object",
   "additionalProperties": false,
