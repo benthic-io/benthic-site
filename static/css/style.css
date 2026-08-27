@@ -134,7 +134,7 @@ a:visited {
 /* Content */
 .content {
   background: var(--content-bg);
-  padding: 3rem 0;
+  padding: 4rem 0;
 }
 
 .content h2 {
@@ -150,10 +150,27 @@ a:visited {
 }
 
 .content p {
-  margin-bottom: 1rem;
+  margin-bottom: 1.35rem;
   color: var(--gray-text);
-  text-align: justify;
+  text-align: left;
+  line-height: 1.75;
 }
+.content ul,
+.content ol {
+  margin: 0 0 1.35rem 1.5rem;
+  padding-left: 0.6rem;
+  color: var(--gray-text);
+}
+
+.content li {
+  margin-bottom: 0.55rem;
+  line-height: 1.6;
+}
+
+.content li:hover {
+  background: none;
+}
+
 
 .centered-content {
   text-align: center;
@@ -234,6 +251,8 @@ table {
 
 .content .container {
   overflow-x: auto;
+  padding: 0 2rem;
+  max-width: 960px;
 }
 
 th {
@@ -262,9 +281,8 @@ thead tr:last-child th {
   border-bottom: 2px solid rgba(11, 214, 171, 0.3);
 }
 
-tbody tr:hover {
-  background: rgba(255, 255, 255, 0.06);
-}
+/* row hover removed: tables are not interactive */
+
 
 tbody tr:last-child td {
   border-bottom: none;
@@ -681,27 +699,19 @@ code {
 }
 
 .bdp-badge {
-  display: inline-block;
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  padding: 0.1rem 0.35rem;
-  border-radius: 3px;
-  border: 1px solid transparent;
-  vertical-align: middle;
+  font-size: 0.82rem;
+  font-weight: 500;
   text-transform: lowercase;
+  vertical-align: baseline;
+  letter-spacing: 0;
 }
 
 .bdp-badge.migrated {
-  background: rgba(11, 214, 171, 0.15);
   color: var(--accent-green);
-  border-color: rgba(11, 214, 171, 0.3);
 }
 
 .bdp-badge.pending {
-  background: rgba(255, 193, 7, 0.12);
   color: #ffc107;
-  border-color: rgba(255, 193, 7, 0.3);
 }
 
 .status-item:last-child {
