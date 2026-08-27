@@ -101,21 +101,19 @@
         item.classList.remove('loading', 'healthy', 'unhealthy');
         item.classList.add(result.healthy ? 'healthy' : 'unhealthy');
 
-        // Update status text and dot
+        // Update shrunken status: triangle + time or error
+        const arrow = item.querySelector('.status-arrow');
         const statusText = item.querySelector('.status-text');
-        const statusDot = item.querySelector('.status-dot');
-        
-        if (result.healthy) {
-            statusText.textContent = 'Operational';
-            statusDot.style.animation = 'none';
-        } else {
-            statusText.textContent = result.error || 'Unavailable';
-            statusDot.style.animation = 'none';
-        }
+        if (arrow) arrow.style.animation = 'none';
+        if (statusText) statusText.style.animation = 'none';
 
-        // Update response time
-        const responseTimeEl = item.querySelector('.response-time');
-        responseTimeEl.textContent = `${result.responseTime} ms`;
+        if (result.healthy) {
+            if (arrow) arrow.textContent = '\u25B2'; // ▲
+            if (statusText) statusText.textContent = `${result.responseTime} ms`;
+        } else {
+            if (arrow) arrow.textContent = '\u25BC'; // ▼
+            if (statusText) statusText.textContent = result.error || 'Down';
+        }
     }
 
     /**
@@ -151,10 +149,10 @@
         document.querySelectorAll('.status-item').forEach(item => {
             item.classList.remove('healthy', 'unhealthy');
             item.classList.add('loading');
+            const arrow = item.querySelector('.status-arrow');
             const statusText = item.querySelector('.status-text');
-            if (statusText) statusText.textContent = 'Checking...';
-            const dot = item.querySelector('.status-dot');
-            if (dot) dot.style.animation = 'pulse 1.5s infinite';
+            if (arrow) arrow.textContent = '\u25B2';
+            if (statusText) statusText.textContent = '\u2026';
         });
 
         // Check all APIs in parallel

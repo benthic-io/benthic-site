@@ -25,10 +25,6 @@ title = "benthic.io | little data for big change"
     url = "/"
     weight = 10
   [[menu.main]]
-    name = "APIs / Docs"
-    url = "/apis/"
-    weight = 20
-  [[menu.main]]
     name = "BDP"
     url = "/bdp/"
     weight = 30
