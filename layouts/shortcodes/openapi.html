@@ -100,7 +100,21 @@
     color: var(--primary-blue);
   }
   .swagger-wrapper .swagger-ui .info .base-url {
-    color: var(--gray-text);
+    color: var(--gray-text) !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0.35rem 0 0 !important;
+    font-size: 0.85rem !important;
+    word-break: break-all;
+  }
+  .swagger-wrapper .swagger-ui .info .base-url a {
+    color: var(--primary-blue) !important;
+    text-decoration: none;
+  }
+  .swagger-wrapper .swagger-ui .info .base-url a:hover {
+    text-decoration: underline;
   }
   .swagger-wrapper .swagger-ui .info p,
   .swagger-wrapper .swagger-ui .info li,
@@ -262,6 +276,41 @@
             presets: [window.SwaggerUIBundle.presets.apis],
             onComplete: function () {
               host.classList.remove("swagger-loading");
+              try {
+                var baseEl = host.querySelector(".base-url");
+                if (baseEl) {
+                  var as = baseEl.querySelectorAll("a");
+                  var href = as.length
+                    ? as[as.length - 1].getAttribute("href") ||
+                      as[as.length - 1].textContent
+                    : "";
+                  var raw = baseEl.textContent;
+                  var cleaned = raw
+                    .replace(/^\s*\[\s*Base URL:\s*/i, "")
+                    .replace(/\s*\]\s*$/, "")
+                    .trim();
+                  var full = cleaned;
+                  if (
+                    href &&
+                    href.charAt(0) === "/" &&
+                    cleaned.indexOf(href) === -1
+                  )
+                    full = cleaned + href;
+                  else if (href && href.indexOf("http") === 0) full = href;
+                  if (full && full.indexOf("http") !== 0)
+                    full = "https://" + full;
+                  if (full) {
+                    baseEl.textContent = "";
+                    baseEl.appendChild(document.createTextNode("Base URL: "));
+                    var a2 = document.createElement("a");
+                    a2.href = full;
+                    a2.textContent = full;
+                    a2.target = "_blank";
+                    a2.rel = "noopener";
+                    baseEl.appendChild(a2);
+                  }
+                }
+              } catch (e) {}
             },
             onFailure: function () {
               host.classList.remove("swagger-loading");
