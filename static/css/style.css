@@ -105,7 +105,7 @@ a:visited {
 .hero {
   background: var(--content-bg);
   color: var(--white-text);
-  padding: 4rem 0;
+  padding: 2rem 0;
   text-align: left;
 }
 
@@ -134,7 +134,7 @@ a:visited {
 /* Content */
 .content {
   background: var(--content-bg);
-  padding: 4rem 0;
+  padding: 2rem 0;
 }
 
 .content h2 {
@@ -251,8 +251,8 @@ table {
 
 .content .container {
   overflow-x: auto;
-  padding: 0 2rem;
-  max-width: 960px;
+  padding: 0 1rem;
+  max-width: 1100px;
 }
 
 th {
