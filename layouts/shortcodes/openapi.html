@@ -24,18 +24,24 @@
   }
   .swagger-wrapper .swagger-ui .info {
     margin: 0.75rem 0;
-  }
-  .swagger-wrapper .swagger-ui .info hgroup.main {
     display: flex !important;
     flex-wrap: wrap !important;
     align-items: baseline !important;
-    gap: 0.5rem 0.9rem !important;
+    gap: 0.45rem 0.9rem !important;
+  }
+  .swagger-wrapper .swagger-ui .info hgroup.main {
+    display: contents !important;
   }
   .swagger-wrapper .swagger-ui .info .title {
     font-size: 1.25rem !important;
     line-height: 1.3;
     margin: 0 !important;
     flex: 0 1 auto;
+  }
+  .swagger-wrapper .swagger-ui .info p,
+  .swagger-wrapper .swagger-ui .info .info__description,
+  .swagger-wrapper .swagger-ui .info div.markdown {
+    flex-basis: 100%;
   }
   .swagger-wrapper .swagger-ui .info .title small,
   .swagger-wrapper .swagger-ui .info .title small pre {
@@ -318,6 +324,26 @@
                     a2.target = "_blank";
                     a2.rel = "noopener";
                     baseEl.appendChild(a2);
+                  }
+                  /* remove stray raw spec link (https://…/api/*.json) that Swagger injects */
+                  var allInfoLinks = host.querySelectorAll(".info a");
+                  for (var i = 0; i < allInfoLinks.length; i++) {
+                    var a = allInfoLinks[i];
+                    var h = a.getAttribute("href") || "";
+                    if (
+                      h.indexOf("/api/") !== -1 &&
+                      h.slice(-5) === ".json" &&
+                      a.closest(".base-url") === null
+                    ) {
+                      var wrap = a.closest("p, div");
+                      if (
+                        wrap &&
+                        wrap.parentElement &&
+                        wrap.textContent.trim() === h.trim()
+                      )
+                        wrap.parentElement.removeChild(wrap);
+                      else a.parentElement.removeChild(a);
+                    }
                   }
                 }
               } catch (e) {}
