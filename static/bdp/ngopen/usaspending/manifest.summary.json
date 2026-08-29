@@ -3,7 +3,7 @@
   "author_pubkey": "qwG8vQQN7m/uB0Nwgor3s1EJCKjqZM/SNThV+V7XumM=",
   "collection": "ngopen",
   "column_count": 3621,
-  "commit_hash": "48bc355712599d9fada078c0366ab50b0ef456b4",
+  "commit_hash": "ee622a60dbccd9cfead369a274986153d19a2f5b",
   "dataset_name": "usaspending",
   "description": "Federal contract and financial assistance awards from the USAspending.gov bulk database archive, augmented with benthic-derived entity resolution, award aggregation, and Photon geocoding. Includes the raw and intermediate lineage roots the derived relations are built from, declared but not queryable over the API.",
   "endpoints": [
@@ -14,7 +14,7 @@
   ],
   "license": "https://www.usaspending.gov/about",
   "manifest_bytes": 579922,
-  "manifest_payload_hash": "cf8a8a150317df02103bff8bbb75c302e4eedd7e8baa0faf5a6f5f1af2b4ecc8",
+  "manifest_payload_hash": "bc152d554a8ce645057b9f217c7b3d86e48968d2c64c229b7d4ca90c563009f1",
   "manifest_url": "https://benthic.io/bdp/ngopen/usaspending/manifest.json",
   "migration_status": "pending",
   "queryable_relation_count": 66,
