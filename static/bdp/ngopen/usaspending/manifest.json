@@ -7,9 +7,9 @@
     "algorithm": "EdDSA",
     "canonicalization": "RFC8785",
     "hash_algorithm": "SHA-256",
-    "payload_hash": "bc152d554a8ce645057b9f217c7b3d86e48968d2c64c229b7d4ca90c563009f1",
-    "signature_base64": "Zet1bkowZWfDdkkhUjdhlTxEhZpiqdssynIGzFM3I/LADvodJfCpFYjD8+piltQIv1z0Igk6YFgu2v9eS/r0Ag==",
-    "signed_at": "2026-08-29T15:21:22Z"
+    "payload_hash": "8de8df473f9f3090ce9101fea78984da2f63a9d552df0117849df0f9b82bea40",
+    "signature_base64": "W6k0Y1UhpljNyu0WQSnHR3le4TC9w8hvXu6kRqU41xai2sT7Vt2RVJmmYv2RDlR2RTlTpQQiyW/7Q6m0IVY+Dg==",
+    "signed_at": "2026-09-18T03:56:32Z"
   },
   "dataset_name": "usaspending",
   "description": "Federal contract and financial assistance awards from the USAspending.gov bulk database archive, augmented with benthic-derived entity resolution, award aggregation, and Photon geocoding. Includes the raw and intermediate lineage roots the derived relations are built from, declared but not queryable over the API.",
@@ -28,8 +28,8 @@
     }
   ],
   "etl_provenance": {
-    "commit_hash": "ee622a60dbccd9cfead369a274986153d19a2f5b",
-    "migration_status": "pending",
+    "commit_hash": "1bbeb4b7da2e6c93d7d48fe11b1c5d02c58b4b44",
+    "migration_status": "migrated",
     "pipeline_entrypoint": "pipelines/usaspending/pipeline.py",
     "repository_url": "https://github.com/benthic-io/ngopen-bdp-pipelines",
     "source_attribution": [
