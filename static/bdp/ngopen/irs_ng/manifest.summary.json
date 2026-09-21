@@ -3,7 +3,7 @@
   "author_pubkey": "qwG8vQQN7m/uB0Nwgor3s1EJCKjqZM/SNThV+V7XumM=",
   "collection": "ngopen",
   "column_count": 388,
-  "commit_hash": "48bc355712599d9fada078c0366ab50b0ef456b4",
+  "commit_hash": "66f585560f81c15b30fc1056303ddad274502136",
   "dataset_name": "irs_ng",
   "description": "IRS tax-exempt organizations: Business Master File, Form 990/990-EZ/990-PF Statistics of Income extracts, Form 990 XML filings, Publication 78 eligibility, auto-revocations, 990-N postcards, 527 political organizations, and Census ACS demographics, with Photon geocoding.",
   "endpoints": [
@@ -13,10 +13,10 @@
     }
   ],
   "license": "https://www.irs.gov/charities-non-profits/tax-exempt-organization-search-bulk-data-downloads",
-  "manifest_bytes": 65532,
-  "manifest_payload_hash": "f4981a1b6b01374a57ae68485fc02a591ef35239d7a02bd313e374e32b61c35b",
+  "manifest_bytes": 65576,
+  "manifest_payload_hash": "559f600a31de974b6d58a9d63603363e38abe6ade88d683a49ef4a84c7e46282",
   "manifest_url": "https://benthic.io/bdp/ngopen/irs_ng/manifest.json",
-  "migration_status": "pending",
+  "migration_status": "migrated",
   "queryable_relation_count": 18,
   "relation_count": 18,
   "relations": [

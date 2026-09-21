@@ -7,9 +7,9 @@
     "algorithm": "EdDSA",
     "canonicalization": "RFC8785",
     "hash_algorithm": "SHA-256",
-    "payload_hash": "8de8df473f9f3090ce9101fea78984da2f63a9d552df0117849df0f9b82bea40",
-    "signature_base64": "W6k0Y1UhpljNyu0WQSnHR3le4TC9w8hvXu6kRqU41xai2sT7Vt2RVJmmYv2RDlR2RTlTpQQiyW/7Q6m0IVY+Dg==",
-    "signed_at": "2026-09-18T03:56:32Z"
+    "payload_hash": "5951f32514935bfdf5405c94330b3fe73ffc3b8a1f7874594deb46de75d616b3",
+    "signature_base64": "GgzqTw1AlBg2YvavasLUFSc+cda1yC/tDHqdhVWp4CYWNHZ9DsvQ3UNGY6WbcCVAsDUaQCWaJEnFnycAwBSuCw==",
+    "signed_at": "2026-09-21T11:07:16Z"
   },
   "dataset_name": "usaspending",
   "description": "Federal contract and financial assistance awards from the USAspending.gov bulk database archive, augmented with benthic-derived entity resolution, award aggregation, and Photon geocoding. Includes the raw and intermediate lineage roots the derived relations are built from, declared but not queryable over the API.",
@@ -28,7 +28,8 @@
     }
   ],
   "etl_provenance": {
-    "commit_hash": "1bbeb4b7da2e6c93d7d48fe11b1c5d02c58b4b44",
+    "commit_hash": "b25eba8404f8ce01d7df5de71fc26a1a526919b6",
+    "migrated_at": "2026-09-21T10:50:38Z",
     "migration_status": "migrated",
     "pipeline_entrypoint": "pipelines/usaspending/pipeline.py",
     "repository_url": "https://github.com/benthic-io/ngopen-bdp-pipelines",
@@ -460,7 +461,7 @@
       ],
       "provenance": "upstream",
       "queryable": true,
-      "relation_type": "materialized_view"
+      "relation_type": "table"
     },
     {
       "columns": [
@@ -1268,7 +1269,7 @@
       ],
       "provenance": "upstream",
       "queryable": true,
-      "relation_type": "materialized_view"
+      "relation_type": "table"
     },
     {
       "columns": [
@@ -2784,7 +2785,7 @@
       ],
       "provenance": "upstream",
       "queryable": true,
-      "relation_type": "materialized_view"
+      "relation_type": "table"
     },
     {
       "columns": [
@@ -2845,7 +2846,7 @@
       ],
       "provenance": "upstream",
       "queryable": true,
-      "relation_type": "materialized_view"
+      "relation_type": "table"
     },
     {
       "columns": [
@@ -2965,7 +2966,7 @@
       ],
       "provenance": "upstream",
       "queryable": true,
-      "relation_type": "materialized_view"
+      "relation_type": "table"
     },
     {
       "columns": [
@@ -3705,7 +3706,7 @@
       ],
       "provenance": "upstream",
       "queryable": true,
-      "relation_type": "materialized_view"
+      "relation_type": "table"
     },
     {
       "columns": [
@@ -5396,7 +5397,7 @@
       ],
       "provenance": "upstream",
       "queryable": true,
-      "relation_type": "materialized_view"
+      "relation_type": "table"
     },
     {
       "columns": [

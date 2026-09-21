@@ -7,9 +7,9 @@
     "algorithm": "EdDSA",
     "canonicalization": "RFC8785",
     "hash_algorithm": "SHA-256",
-    "payload_hash": "1dacad7b011fce594aa8cf2740a1d2010dd19a4a09a38fe5dad6e0cdc0559f0f",
-    "signature_base64": "mbunGtgkj6hCqUHAe5zjin5WOpcGKgEaVQj3SCdcaG6jhyuakOXs/lSrU+MlTiwDh1ByHe/1Kf8HpHsRRpXoBg==",
-    "signed_at": "2026-09-18T03:56:45Z"
+    "payload_hash": "96b204102a225e68cef1df7f32383bdc25c9a97bb4f17342f6e7f5c6f8fdb8a1",
+    "signature_base64": "1jLr4k5ypHapWTEFUqOhdT1HV+K3T2TmXLqAya2lh3BK8eL5fSI/6y+It+4qKzWkyWnwAhVDddikL4Fa9+KICg==",
+    "signed_at": "2026-09-21T11:07:43Z"
   },
   "description": "Five federal open-data APIs published by benthic.io as a single connected collection, served over PostgREST from PostgreSQL/PostGIS.",
   "join_paths": [
@@ -109,13 +109,13 @@
     {
       "dataset_name": "usaspending",
       "manifest_url": "https://benthic.io/bdp/ngopen/usaspending/manifest.json",
-      "payload_hash": "8de8df473f9f3090ce9101fea78984da2f63a9d552df0117849df0f9b82bea40",
+      "payload_hash": "5951f32514935bfdf5405c94330b3fe73ffc3b8a1f7874594deb46de75d616b3",
       "title": "USAspending Federal Awards"
     },
     {
       "dataset_name": "irs_ng",
       "manifest_url": "https://benthic.io/bdp/ngopen/irs_ng/manifest.json",
-      "payload_hash": "f4981a1b6b01374a57ae68485fc02a591ef35239d7a02bd313e374e32b61c35b",
+      "payload_hash": "559f600a31de974b6d58a9d63603363e38abe6ade88d683a49ef4a84c7e46282",
       "title": "IRS Nonprofit Organizations"
     },
     {

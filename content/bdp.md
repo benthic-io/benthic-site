@@ -109,7 +109,7 @@ Being honest about where data comes from matters more than making every relation
 
 Relations also declare `queryable`. A large upstream source table may appear in a manifest as the provenance root of a derived view while being marked unreachable through the API — visible as lineage, honestly marked as not directly queryable.
 
-Manifests additionally carry `etl_provenance.migration_status`. All five NGOpen datasets are currently `pending`: the pipelines are published and runnable, but each is being migrated and re-verified one at a time. As each migration completes, that manifest is re-signed and the status advances. The git history of these manifests is the audit trail.
+Manifests additionally carry `etl_provenance.migration_status`. All five NGOpen datasets are now `migrated`: each pipeline-built candidate has been swapped into serving and re-verified. The git history of these manifests is the audit trail.
 
 &nbsp;
 
