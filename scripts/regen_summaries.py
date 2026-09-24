@@ -13,8 +13,11 @@ import json
 from pathlib import Path
 
 SITE_ROOT = Path(__file__).resolve().parent.parent
-BDP_DIR = SITE_ROOT / "static" / "bdp" / "ngopen"
-DATASETS = ["usaspending", "samer", "irs_ng", "up_cdmaps", "usp_cl"]
+BDP_DIR = SITE_ROOT / "static" / "bdp"
+COLLECTIONS = {
+    "ngopen": ["usaspending", "samer", "irs_ng", "up_cdmaps", "usp_cl"],
+    "parts": ["nhtsa"],
+}
 
 
 def build_summary(
@@ -69,25 +72,26 @@ def main() -> int:
     args = ap.parse_args()
 
     rc = 0
-    for name in DATASETS:
-        d = BDP_DIR / name
-        mp = d / "manifest.json"
-        sp = d / "manifest.summary.json"
-        raw = mp.read_bytes()
-        manifest_url = f"https://benthic.io/bdp/ngopen/{name}/manifest.json"
-        prev = json.loads(sp.read_text()) if sp.exists() else {}
-        summary = build_summary(json.loads(raw), len(raw), manifest_url, prev)
-        out = json.dumps(summary, indent=2, ensure_ascii=False) + "\n"
-        if args.check:
-            if sp.read_text() != out:
-                print(f"{sp.relative_to(SITE_ROOT)}: would change")
-                rc = 1
-        else:
-            sp.write_text(out)
-            print(
-                f"{sp.relative_to(SITE_ROOT)}: written "
-                f"(migration_status={summary['migration_status']})"
-            )
+    for collection, datasets in COLLECTIONS.items():
+        for name in datasets:
+            d = BDP_DIR / collection / name
+            mp = d / "manifest.json"
+            sp = d / "manifest.summary.json"
+            raw = mp.read_bytes()
+            manifest_url = f"https://benthic.io/bdp/{collection}/{name}/manifest.json"
+            prev = json.loads(sp.read_text()) if sp.exists() else {}
+            summary = build_summary(json.loads(raw), len(raw), manifest_url, prev)
+            out = json.dumps(summary, indent=2, ensure_ascii=False) + "\n"
+            if args.check:
+                if sp.read_text() != out:
+                    print(f"{sp.relative_to(SITE_ROOT)}: would change")
+                    rc = 1
+            else:
+                sp.write_text(out)
+                print(
+                    f"{sp.relative_to(SITE_ROOT)}: written "
+                    f"(migration_status={summary['migration_status']})"
+                )
     return rc
 
 

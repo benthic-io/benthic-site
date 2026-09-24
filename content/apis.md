@@ -2,6 +2,12 @@
 title: "APIs"
 ---
 
+### Parts API Collection
+
+The Parts collection publishes vehicle and component reference data using the same signed BDP provenance and PostgREST transport as the NGOpen collection. It is a separate collection; NHTSA is not an NGOpen dataset.
+
+- **https://benthic.io/parts/NHTSA/** – [NHTSA vPIC Vehicle Information](/docs/NHTSA/) – official vPIC decoder tables, VIN decoding RPCs, and synchronized reference tables. - [Documentation](/docs/NHTSA/)
+
 ### NGOpen API Collection
 
 Benthic.io's debut collection consists of five RESTful APIs that provide structured, queryable access to major U.S. government datasets enhanced with latitude/longitude and PostGIS geometry columns. They also include census linkages, NAICS/PSC/CFDA crosswalks, reference tables for ZIPs/congressional districts, and more. This enables spatial filtering, proximity searches, point-in-polygon lookups, distance calculations, and mapping capabilities absent from the original sources. Together they aim to turn raw government data and other publicly available information into a geographically intelligent investigative toolkit. If something is missing, broken, or you have any ideas to expand functionality please do not hesitate to contact me via one of the channels listed below.

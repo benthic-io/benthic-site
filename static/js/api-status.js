@@ -22,6 +22,10 @@
         up_cdmaps: { 
             name: 'Congressional Districts', 
             healthCheck: '/ngopen/up_cdmaps/congressional_districts?select=id&limit=1'
+        },
+        NHTSA: {
+            name: 'NHTSA vPIC Vehicle Information',
+            healthCheck: '/parts/NHTSA/wmi?select=id&limit=1'
         }
     };
 

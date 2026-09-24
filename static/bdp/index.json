@@ -8,6 +8,14 @@
       "member_count": 5,
       "payload_hash": "3e92c62b6d2198a4ffe7b4bfe36e94832aac68a57e0528aacb5801d10cdd8e9e",
       "title": "NGOpen"
+    },
+    {
+      "collection_name": "parts",
+      "collection_url": "https://benthic.io/bdp/parts/collection.json",
+      "description": "Vehicle, component, and identifier reference datasets published by benthic.io using signed BDP manifests and PostgREST APIs.",
+      "member_count": 1,
+      "payload_hash": "2df1e0c9688c06d82abfee24f5c6e10cb28eddb50ebb43d1154d5c9b4a8072a2",
+      "title": "Parts"
     }
   ],
   "keys_url": "https://benthic.io/bdp/keys.json",

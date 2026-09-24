@@ -1,6 +1,6 @@
 # NGOpen AI Agent Guide
 
-Government spending investigative data toolkit. Five PostgREST APIs backed by PostgreSQL databases, providing unified access to federal spending, nonprofit, contractor, legislative, and geographic data.
+Open-data APIs backed by PostgreSQL databases, providing federal spending, nonprofit, contractor, legislative, geographic, and vehicle reference data.
 
 ## System Overview
 
@@ -11,6 +11,9 @@ Government spending investigative data toolkit. Five PostgREST APIs backed by Po
 | IRS NGO      | `/ngopen/irs_ng/`      | irs_ng              | 501(c)(3) nonprofits, Form 990, 527 political orgs |
 | Congress-Leg | `/ngopen/usp_cl/`      | us_project_cl       | Legislators, committees, leadership history        |
 | CD Maps      | `/ngopen/up_cdmaps/`   | ucla_polysci_cdmaps | Congressional district boundaries, demographics    |
+| NHTSA vPIC   | `/parts/NHTSA/`        | partout_nhtsa       | Vehicle decoder and vPIC reference data            |
+
+The NGOpen services above form the `ngopen` collection. NHTSA is a separate member of the `parts` collection; it is not an NGOpen dataset.
 
 Base URL for all examples: `https://benthic.io`
 
@@ -21,6 +24,7 @@ Full OpenAPI specs:
 - [irs_ng.json](/api/irs_ng.json)
 - [usp_cl.json](/api/usp_cl.json)
 - [up_cdmaps.json](/api/up_cdmaps.json)
+- [NHTSA.json](/api/NHTSA.json)
 
 ## BDP Verifiable Manifests
 
@@ -31,7 +35,9 @@ Every dataset publishes a signed **BDP (Benthic Data Provenance)** manifest desc
 ```bash
 curl -s https://benthic.io/bdp/index.json | jq .                      # unsigned registry
 curl -s https://benthic.io/bdp/ngopen/collection.json | jq .          # signed collection, pins members by payload_hash
+curl -s https://benthic.io/bdp/parts/collection.json | jq .           # signed parts collection
 curl -s https://benthic.io/bdp/ngopen/usaspending/manifest.json | jq .  # signed per-dataset manifest
+curl -s https://benthic.io/bdp/parts/nhtsa/manifest.json | jq .        # signed NHTSA manifest
 ```
 
 Unsigned convenience summaries live next to each manifest at `manifest.summary.json`.

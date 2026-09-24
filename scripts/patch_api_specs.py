@@ -17,20 +17,24 @@ raw PostgREST output over a patched spec).
 import argparse
 import json
 import sys
+import urllib.request
 from pathlib import Path
 
 SITE_ROOT = Path(__file__).resolve().parent.parent
 API_DIR = SITE_ROOT / "static" / "api"
 
 BASE_HOST = "benthic.io"
-BASE_PATH = "/ngopen/{name}"
+BASE_PATHS = {
+    "NHTSA": "/parts/NHTSA",
+}
 
-# The four spatial RPCs documented on the site and granted EXECUTE.
-ALLOWED_RPC = {
-    "rpc_districts_in_bbox",
-    "rpc_find_district",
-    "rpc_nonprofits_in_district",
-    "rpc_nonprofits_nearby",
+ALLOWED_RPC_BY_DATASET = {
+    "usaspending": {"rpc_find_district"},
+    "samer": set(),
+    "irs_ng": {"rpc_nonprofits_in_district", "rpc_nonprofits_nearby"},
+    "up_cdmaps": {"rpc_districts_in_bbox", "rpc_find_district"},
+    "usp_cl": set(),
+    "NHTSA": {"spvindecode", "spvindecodemultiple"},
 }
 
 # Relation paths that are database internals, never part of a public contract.
@@ -90,6 +94,14 @@ DATASETS = {
             "district offices, published by benthic.io as part of the NGOpen collection."
         ),
     },
+    "NHTSA": {
+        "title": "NHTSA vPIC Vehicle Information API",
+        "description": (
+            "NHTSA Vehicle Product Information Catalog reference data and offline "
+            "VIN decoding, published by benthic.io as part of the Parts collection. "
+            "The reference profile is served under the /reference path."
+        ),
+    },
 }
 
 
@@ -100,7 +112,7 @@ def patch_spec(name: str, meta: dict) -> dict:
 
     spec["host"] = BASE_HOST
     spec["schemes"] = ["https"]
-    spec["basePath"] = BASE_PATH.format(name=name)
+    spec["basePath"] = BASE_PATHS.get(name, f"/ngopen/{name}")
     spec["info"]["title"] = meta["title"]
     spec["info"]["description"] = meta["description"]
 
@@ -108,7 +120,9 @@ def patch_spec(name: str, meta: dict) -> dict:
     for p in list(spec.get("paths", {})):
         rel = p.strip("/")
         if rel == "" or rel.startswith("rpc/"):
-            if p.startswith("/rpc/") and p[5:] not in ALLOWED_RPC:
+            if p.startswith("/rpc/") and p[5:] not in ALLOWED_RPC_BY_DATASET.get(
+                name, set()
+            ):
                 dropped.append(p)
                 del spec["paths"][p]
             continue
@@ -121,6 +135,32 @@ def patch_spec(name: str, meta: dict) -> dict:
     return {"changed": changed, "dropped": dropped, "patched": patched, "path": path}
 
 
+def _fetch_profile(url: str, profile: str) -> dict:
+    request = urllib.request.Request(url, headers={"Accept-Profile": profile})
+    with urllib.request.urlopen(request, timeout=30) as response:
+        return json.load(response)
+
+
+def refresh_nhtsa_spec() -> None:
+    base = "http://127.0.0.1:3005/"
+    vpic = _fetch_profile(base, "vpic")
+    reference = _fetch_profile(base, "api_reference")
+    merged = vpic
+    merged["paths"] = {
+        p: value for p, value in vpic.get("paths", {}).items() if p != "/"
+    }
+    for path, value in reference.get("paths", {}).items():
+        if path != "/":
+            merged["paths"][f"/reference{path}"] = value
+    merged.setdefault("definitions", {}).update(reference.get("definitions", {}))
+    merged.setdefault("parameters", {}).update(reference.get("parameters", {}))
+    merged["x-benthic-profiles"] = {
+        "vpic": "default",
+        "api_reference": "reference",
+    }
+    (API_DIR / "NHTSA.json").write_text(json.dumps(merged, indent=1) + "\n")
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument(
@@ -128,7 +168,15 @@ def main() -> int:
         action="store_true",
         help="exit 1 if any spec would change; do not write",
     )
+    ap.add_argument(
+        "--refresh-nhtsa",
+        action="store_true",
+        help="refresh the two-profile NHTSA spec from local PostgREST",
+    )
     args = ap.parse_args()
+
+    if args.refresh_nhtsa and not args.check:
+        refresh_nhtsa_spec()
 
     rc = 0
     for name, meta in DATASETS.items():

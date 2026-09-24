@@ -22,9 +22,11 @@ curl https://benthic.io/bdp/index.json
 
 # 2. a collection: its members, their pinned hashes, and how they join
 curl https://benthic.io/bdp/ngopen/collection.json
+curl https://benthic.io/bdp/parts/collection.json
 
 # 3. a dataset manifest: full schema, provenance, endpoints, signature
 curl https://benthic.io/bdp/ngopen/usaspending/manifest.json
+curl https://benthic.io/bdp/parts/nhtsa/manifest.json
 ```
 
 Manifests carry a complete column-level schema, so some are large. For cheap discovery each one has a summary alongside it, which lists relations and column counts and pins the hash of the full manifest:
@@ -44,6 +46,7 @@ Read the summary, decide whether the dataset is interesting, then fetch and veri
 | [`/bdp/index.json`](/bdp/index.json)                               | Discovery root. Lists collections. Unsigned by design.                |
 | [`/bdp/keys.json`](/bdp/keys.json)                                 | Active and revoked signing keys.                                      |
 | [`/bdp/ngopen/collection.json`](/bdp/ngopen/collection.json)       | The NGOpen collection. **Signed.** Pins each member manifest by hash. |
+| [`/bdp/parts/collection.json`](/bdp/parts/collection.json)         | The Parts collection. **Signed.** Pins each member manifest by hash.  |
 | [`/bdp/v1/manifest.schema.json`](/bdp/v1/manifest.schema.json)     | JSON Schema (Draft 2020-12) for manifests.                            |
 | [`/bdp/v1/collection.schema.json`](/bdp/v1/collection.schema.json) | JSON Schema (Draft 2020-12) for collections.                          |
 
@@ -56,6 +59,7 @@ Dataset manifests, all signed:
 | IRS Nonprofits          | [manifest.json](/bdp/ngopen/irs_ng/manifest.json)      | [summary](/bdp/ngopen/irs_ng/manifest.summary.json)      |
 | Congress Legislators    | [manifest.json](/bdp/ngopen/usp_cl/manifest.json)      | [summary](/bdp/ngopen/usp_cl/manifest.summary.json)      |
 | Congressional Districts | [manifest.json](/bdp/ngopen/up_cdmaps/manifest.json)   | [summary](/bdp/ngopen/up_cdmaps/manifest.summary.json)   |
+| NHTSA vPIC              | [manifest.json](/bdp/parts/nhtsa/manifest.json)        | [summary](/bdp/parts/nhtsa/manifest.summary.json)        |
 
 &nbsp;
 
@@ -116,6 +120,7 @@ Manifests additionally carry `etl_provenance.migration_status`. All five NGOpen 
 ### Source
 
 - **Provenance specification and reference tooling** — [github.com/benthic-io/bdp](https://github.com/benthic-io/bdp)
-- **The pipelines that build these datasets** — [github.com/benthic-io/ngopen-bdp-pipelines](https://github.com/benthic-io/ngopen-bdp-pipelines)
+- **The NGOpen pipelines** — [github.com/benthic-io/ngopen-bdp-pipelines](https://github.com/benthic-io/ngopen-bdp-pipelines)
+- **The Parts pipelines** — [github.com/otherdrums/parts-pipelines](https://github.com/otherdrums/parts-pipelines)
 
 Questions, corrections, and criticism are all welcome at [brian@benthic.io](mailto:brian@benthic.io).

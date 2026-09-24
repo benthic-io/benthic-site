@@ -6,6 +6,12 @@ title: "APIs"
 
 Reference documentation for each API in the NGOpen collection. Every page covers the key tables, views, and RPC functions for its dataset, with runnable [PostgREST](https://postgrest.org/) query examples.
 
+### Parts Documentation
+
+Reference documentation for the Parts collection. These datasets use BDP provenance manifests and are not part of NGOpen.
+
+- **[NHTSA vPIC Vehicle Information](/docs/NHTSA/)** – official vPIC decoder tables, VIN decoding RPCs, and synchronized manufacturer, WMI, variable, model, and equipment-plant reference data.
+
 - **[USAspending](/docs/usaspending/)** – Federal spending: prime awards, subawards, financial accounts, and agency references from [USAspending.gov](https://www.usaspending.gov/).
 
 - **[SAM Entity Registry](/docs/samer/)** – SAM.gov entity registrations for federal contractors & vendors.

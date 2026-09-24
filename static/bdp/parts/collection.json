@@ -1,0 +1,28 @@
+{
+  "author_identity": "brian@benthic.io",
+  "author_pubkey": "qwG8vQQN7m/uB0Nwgor3s1EJCKjqZM/SNThV+V7XumM=",
+  "collection_name": "parts",
+  "created_at": "2026-09-24T15:50:00Z",
+  "cryptographic_signature": {
+    "algorithm": "EdDSA",
+    "canonicalization": "RFC8785",
+    "hash_algorithm": "SHA-256",
+    "payload_hash": "2df1e0c9688c06d82abfee24f5c6e10cb28eddb50ebb43d1154d5c9b4a8072a2",
+    "signature_base64": "MG4P6drgzOuvTyvgcgokQKf3JuN8Wis7EHk6chBmowSTKkhqXiG6D6sDOzHJHnCPIHgtye6rpiPEtSkw9FKoCw==",
+    "signed_at": "2026-09-24T16:00:57Z"
+  },
+  "description": "Vehicle, component, and identifier reference datasets published by benthic.io using signed BDP manifests and PostgREST APIs.",
+  "join_paths": [],
+  "license": "Varies by member; see each dataset manifest.",
+  "members": [
+    {
+      "dataset_name": "nhtsa",
+      "manifest_url": "https://benthic.io/bdp/parts/nhtsa/manifest.json",
+      "payload_hash": "79e7fe5131c42e685f550247c1833334e6ce35b411fda827693ffdd9f039aa77",
+      "title": "NHTSA vPIC Vehicle Information"
+    }
+  ],
+  "protocol_version": "1.0.0",
+  "purpose": "Parts provides a growing collection of vehicle and component datasets for identifying parts, vehicles, manufacturers, and technical reference data. The NHTSA vPIC dataset is the first member and combines the official decoder with a synchronized reference layer.",
+  "title": "Parts"
+}

@@ -1,0 +1,3625 @@
+{
+  "author_identity": "brian@benthic.io",
+  "author_pubkey": "qwG8vQQN7m/uB0Nwgor3s1EJCKjqZM/SNThV+V7XumM=",
+  "collection": "parts",
+  "created_at": "2026-09-24T15:45:53Z",
+  "cryptographic_signature": {
+    "algorithm": "EdDSA",
+    "canonicalization": "RFC8785",
+    "hash_algorithm": "SHA-256",
+    "payload_hash": "79e7fe5131c42e685f550247c1833334e6ce35b411fda827693ffdd9f039aa77",
+    "signature_base64": "FkshhJwewQgBhYXJTGwKpSg7k1ECe2wq+sfX5d9I42EIAd4a9hNSrcq3mp921JNb1YOz2gGaeKieVfu4vg0zDQ==",
+    "signed_at": "2026-09-24T16:00:52Z"
+  },
+  "dataset_name": "nhtsa",
+  "description": "NHTSA Vehicle Product Information Catalog (vPIC): the official offline SQL VIN decoder, upstream decoder tables, and a benthic-built reference layer for manufacturers, WMI codes, vehicle variables and values, historical models, and equipment plants.",
+  "endpoints": [
+    {
+      "base_url": "https://benthic.io/parts/NHTSA/",
+      "description": "Public PostgREST API for the vPIC decoder and reference tables.",
+      "meta": {
+        "accept_profile": "vpic (default), api_reference (/reference)",
+        "max_rows": 1000,
+        "openapi_url": "https://benthic.io/api/NHTSA.json",
+        "requires_auth": false
+      },
+      "transport_type": "postgrest_api"
+    }
+  ],
+  "etl_provenance": {
+    "commit_hash": "81e1d7de3cb95a5c4eece4cab10835ba3b2b1679",
+    "migrated_at": "2026-09-24T16:00:52Z",
+    "migration_status": "migrated",
+    "pipeline_entrypoint": "src/parts_pipelines/cli.py",
+    "repository_url": "https://github.com/otherdrums/parts-pipelines",
+    "source_attribution": [
+      {
+        "name": "NHTSA vPIC API",
+        "retrieved_at": "2026-09-24T15:45:00Z",
+        "url": "https://vpic.nhtsa.dot.gov/api/"
+      },
+      {
+        "name": "NHTSA vPIC monthly bulk decoder release 2026_09",
+        "retrieved_at": "2026-09-24T14:30:16Z",
+        "url": "https://vpic.nhtsa.dot.gov/downloads/vPICList_lite_2026_09.plain.zip"
+      }
+    ]
+  },
+  "license": "Public domain (U.S. federal government work). See https://www.nhtsa.gov/about",
+  "protocol_version": "1.0.0",
+  "schema_definition": [
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "bigint",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "equipment_type",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "equipment_type_name",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "plant_year",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "dot_code",
+          "native_type": "text",
+          "nullable": false,
+          "type": "string"
+        },
+        {
+          "name": "old_dot_code",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "plant_name",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "plant_address",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "plant_city",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "plant_state",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "plant_postal_code",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "plant_country",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "plant_status",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "plant_phone",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "source_updated_at",
+          "native_type": "timestamp with time zone",
+          "nullable": true,
+          "type": "timestamp"
+        },
+        {
+          "name": "created_at",
+          "native_type": "timestamp with time zone",
+          "nullable": false,
+          "type": "timestamp"
+        },
+        {
+          "name": "last_updated",
+          "native_type": "timestamp with time zone",
+          "nullable": false,
+          "type": "timestamp"
+        }
+      ],
+      "name": "api_reference.equipment_plants",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 11274
+    },
+    {
+      "columns": [
+        {
+          "name": "importer_name",
+          "native_type": "character varying(100)",
+          "nullable": false,
+          "type": "string"
+        },
+        {
+          "name": "last_offset",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "last_updated",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        },
+        {
+          "name": "total_records",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "status",
+          "native_type": "character varying(50)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "error_message",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "created_at",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        }
+      ],
+      "name": "api_reference.import_progress",
+      "primary_key": [
+        "importer_name"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 12
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "manufacturer_id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "manufacturer_name",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "manufacturer_common_name",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "primary_product",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "vehicle_types",
+          "native_type": "jsonb",
+          "nullable": true,
+          "type": "json"
+        },
+        {
+          "name": "last_updated",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        },
+        {
+          "name": "created_at",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        }
+      ],
+      "name": "api_reference.manufacturers",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 23053
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "make_id",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "make_name",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "model_id",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "model_name",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "year",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "last_updated",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        },
+        {
+          "name": "created_at",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        }
+      ],
+      "name": "api_reference.models_historical",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 494805
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "variable_id",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "value_id",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "value",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "last_updated",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        },
+        {
+          "name": "created_at",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        }
+      ],
+      "name": "api_reference.variable_values",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 70526
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "variable_id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "variable_name",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "variable_group_name",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "data_type",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "last_updated",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        },
+        {
+          "name": "created_at",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        }
+      ],
+      "name": "api_reference.vehicle_variables",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 144
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "wmi",
+          "native_type": "text",
+          "nullable": false,
+          "type": "string"
+        },
+        {
+          "name": "manufacturer_id",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "brand_name",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "vehicle_type_id",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "vehicle_type_name",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "country",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "date_available_to_public",
+          "native_type": "date",
+          "nullable": true,
+          "type": "date"
+        },
+        {
+          "name": "last_updated",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        },
+        {
+          "name": "created_at",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        }
+      ],
+      "name": "api_reference.wmi_codes",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 795
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.abs",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 3
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.adaptivecruisecontrol",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 3
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.adaptivedrivingbeam",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 3
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(50)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.airbaglocations",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 6
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(50)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.airbaglocfront",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 2
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(50)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.airbaglocknee",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 3
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.autobrake",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 3
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.automaticpedestrainalertingsound",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 3
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.autoreversesystem",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 3
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.axleconfiguration",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 5
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.batterytype",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 9
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.bedtype",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 4
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.blindspotintervention",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 3
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.blindspotmonitoring",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 3
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.bodycab",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 12
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.bodystyle",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 71
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.brakesystem",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 5
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.busfloorconfigtype",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 4
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.bustype",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 7
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.can_aacn",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 3
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.chargerlevel",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 3
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.combinedbrakingsystem",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 3
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "fromelementid",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "toelementid",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "formula",
+          "native_type": "character varying(1000)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.conversion",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 6
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.coolingtype",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 2
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        },
+        {
+          "name": "displayorder",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        }
+      ],
+      "name": "vpic.country",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 199
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.custommotorcycletype",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 21
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.daytimerunninglight",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 3
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "addedon",
+          "native_type": "timestamp without time zone",
+          "nullable": false,
+          "type": "timestamp"
+        },
+        {
+          "name": "groupname",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "variable",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "value",
+          "native_type": "character varying(500)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "keys",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "wmiid",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "patternid",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "vinschemaid",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "elementid",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "attributeid",
+          "native_type": "character varying(500)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "createdon",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        },
+        {
+          "name": "code",
+          "native_type": "character varying(50)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "datatype",
+          "native_type": "character varying(50)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "decode",
+          "native_type": "character varying(50)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "source",
+          "native_type": "character varying(50)",
+          "nullable": true,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.decodingoutput",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "elementid",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "vehicletypeid",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "defaultvalue",
+          "native_type": "character varying(500)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "createdon",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        },
+        {
+          "name": "updatedon",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        }
+      ],
+      "name": "vpic.defaultvalue",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 186
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "smallint",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "def",
+          "native_type": "character varying(500)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "body_type",
+          "native_type": "character varying(2)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "from_year",
+          "native_type": "smallint",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "to_year",
+          "native_type": "smallint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "mode",
+          "native_type": "smallint",
+          "nullable": false,
+          "type": "integer"
+        }
+      ],
+      "name": "vpic.defs_body",
+      "primary_key": [
+        "id",
+        "from_year",
+        "mode"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 150
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "smallint",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "def",
+          "native_type": "character varying(35)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "ncic_code",
+          "native_type": "character varying(10)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "make_type",
+          "native_type": "character varying(1)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "from_year",
+          "native_type": "smallint",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "to_year",
+          "native_type": "smallint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "mode",
+          "native_type": "smallint",
+          "nullable": false,
+          "type": "integer"
+        }
+      ],
+      "name": "vpic.defs_make",
+      "primary_key": [
+        "id",
+        "from_year"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 110
+    },
+    {
+      "columns": [
+        {
+          "name": "make",
+          "native_type": "smallint",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "id",
+          "native_type": "smallint",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "def",
+          "native_type": "character varying(300)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "model_type",
+          "native_type": "character varying(2)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "includes",
+          "native_type": "character varying",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "from_year",
+          "native_type": "smallint",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "to_year",
+          "native_type": "smallint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "mode",
+          "native_type": "smallint",
+          "nullable": false,
+          "type": "integer"
+        }
+      ],
+      "name": "vpic.defs_model",
+      "primary_key": [
+        "make",
+        "id",
+        "from_year",
+        "mode"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 2146
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.destinationmarket",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 35
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.drivetype",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 23
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.dynamicbrakesupport",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 3
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.ecs",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 3
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.edr",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 3
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.electrificationlevel",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 6
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(100)",
+          "nullable": false,
+          "type": "string"
+        },
+        {
+          "name": "code",
+          "native_type": "character varying(50)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "lookuptable",
+          "native_type": "character varying(50)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "native_type": "character varying",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "isprivate",
+          "native_type": "boolean",
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "name": "groupname",
+          "native_type": "character varying(100)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "datatype",
+          "native_type": "character varying(50)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "minallowedvalue",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "maxallowedvalue",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "isqs",
+          "native_type": "boolean",
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "name": "decode",
+          "native_type": "character varying(50)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "weight",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        }
+      ],
+      "name": "vpic.element",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 160
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.engineconfiguration",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 5
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(500)",
+          "nullable": false,
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "native_type": "character varying(500)",
+          "nullable": true,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.enginemodel",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 346
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "enginemodelid",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "elementid",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "attributeid",
+          "native_type": "character varying(500)",
+          "nullable": false,
+          "type": "string"
+        },
+        {
+          "name": "createdon",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        },
+        {
+          "name": "updatedon",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        }
+      ],
+      "name": "vpic.enginemodelpattern",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 2510
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.entertainmentsystem",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 2
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(500)",
+          "nullable": false,
+          "type": "string"
+        },
+        {
+          "name": "additionalerrortext",
+          "native_type": "character varying(500)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "weight",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        }
+      ],
+      "name": "vpic.errorcode",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 15
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.evdriveunit",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 4
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.forwardcollisionwarning",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 3
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.fueldeliverytype",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 9
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.fueltankmaterial",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 6
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.fueltanktype",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 4
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.fueltype",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 14
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        },
+        {
+          "name": "sortorder",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "minrangeweight",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "maxrangeweight",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        }
+      ],
+      "name": "vpic.grossvehicleweightrating",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 16
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.keylessignition",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 3
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.lanecenteringassistance",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 3
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.lanedeparturewarning",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 3
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.lanekeepsystem",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 3
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.lowerbeamheadlamplightsource",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 16
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        },
+        {
+          "name": "createdon",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        },
+        {
+          "name": "updatedon",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        }
+      ],
+      "name": "vpic.make",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 12361
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "makeid",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "modelid",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "createdon",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        },
+        {
+          "name": "updatedon",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        }
+      ],
+      "name": "vpic.make_model",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 32009
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.manufacturer",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 23003
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "manufacturerid",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "makeid",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        }
+      ],
+      "name": "vpic.manufacturer_make",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 13051
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        },
+        {
+          "name": "createdon",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        },
+        {
+          "name": "updatedon",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        }
+      ],
+      "name": "vpic.model",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 32009
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.motorcyclechassistype",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 4
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.motorcyclesuspensiontype",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 4
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.nonlanduse",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 3
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.parkassist",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 3
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "vinschemaid",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "keys",
+          "native_type": "character varying(50)",
+          "nullable": false,
+          "type": "string"
+        },
+        {
+          "name": "elementid",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "attributeid",
+          "native_type": "character varying(500)",
+          "nullable": false,
+          "type": "string"
+        },
+        {
+          "name": "createdon",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        },
+        {
+          "name": "updatedon",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        },
+        {
+          "name": "keys_regex",
+          "native_type": "text",
+          "nullable": true,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.pattern",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 1678690
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.pedestrianautomaticemergencybraking",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 3
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.pretensioner",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 2
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.rearautomaticemergencybraking",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 3
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.rearcrosstrafficalert",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 3
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.rearvisibilitycamera",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 3
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.seatbeltsall",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 3
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.semiautomaticheadlampbeamswitching",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 3
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.steering",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 2
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.tpms",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 2
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.tractioncontrol",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 3
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.trailerbodytype",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 29
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.trailertype",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 9
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.transmission",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 12
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.turbo",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 2
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.valvetraindesign",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 4
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "vspecschemapatternid",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "iskey",
+          "native_type": "boolean",
+          "nullable": false,
+          "type": "boolean"
+        },
+        {
+          "name": "elementid",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "attributeid",
+          "native_type": "character varying(500)",
+          "nullable": false,
+          "type": "string"
+        },
+        {
+          "name": "createdon",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        },
+        {
+          "name": "updatedon",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        }
+      ],
+      "name": "vpic.vehiclespecpattern",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 226001
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "makeid",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "createdon",
+          "native_type": "timestamp without time zone",
+          "nullable": false,
+          "type": "timestamp"
+        },
+        {
+          "name": "updatedon",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        },
+        {
+          "name": "vehicletypeid",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "sourcedate",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        },
+        {
+          "name": "tobeqced",
+          "native_type": "boolean",
+          "nullable": true,
+          "type": "boolean"
+        }
+      ],
+      "name": "vpic.vehiclespecschema",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 6656
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "vehiclespecschemaid",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "modelid",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        }
+      ],
+      "name": "vpic.vehiclespecschema_model",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 7550
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "vehiclespecschemaid",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "year",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        }
+      ],
+      "name": "vpic.vehiclespecschema_year",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 12882
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        },
+        {
+          "name": "displayorder",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "formtype",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "description",
+          "native_type": "character varying(4000)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "includeinequipplant",
+          "native_type": "boolean",
+          "nullable": true,
+          "type": "boolean"
+        }
+      ],
+      "name": "vpic.vehicletype",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 9
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "descriptor",
+          "native_type": "character varying(17)",
+          "nullable": false,
+          "type": "string"
+        },
+        {
+          "name": "modelyear",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "createdon",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        },
+        {
+          "name": "updatedon",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        }
+      ],
+      "name": "vpic.vindescriptor",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 69
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "vin",
+          "native_type": "character varying(17)",
+          "nullable": false,
+          "type": "string"
+        },
+        {
+          "name": "checkdigit",
+          "native_type": "boolean",
+          "nullable": false,
+          "type": "boolean"
+        },
+        {
+          "name": "createdon",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        },
+        {
+          "name": "updatedon",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        }
+      ],
+      "name": "vpic.vinexception",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 18805
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(255)",
+          "nullable": false,
+          "type": "string"
+        },
+        {
+          "name": "sourcewmi",
+          "native_type": "character varying(6)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "createdon",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        },
+        {
+          "name": "updatedon",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        },
+        {
+          "name": "tobeqced",
+          "native_type": "boolean",
+          "nullable": true,
+          "type": "boolean"
+        }
+      ],
+      "name": "vpic.vinschema",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 25229
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "smallint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(500)",
+          "nullable": true,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.vncsabodytype",
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "view"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "smallint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(35)",
+          "nullable": true,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.vncsamake",
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "view"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(300)",
+          "nullable": true,
+          "type": "string"
+        },
+        {
+          "name": "makeid",
+          "native_type": "smallint",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "originalid",
+          "native_type": "smallint",
+          "nullable": true,
+          "type": "integer"
+        }
+      ],
+      "name": "vpic.vncsamodel",
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "view"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "schemaid",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        }
+      ],
+      "name": "vpic.vspecschemapattern",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 17149
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.wheelbasetype",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 6
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "name",
+          "native_type": "character varying(250)",
+          "nullable": false,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.wheeliemitigation",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 3
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "wmi",
+          "native_type": "character varying(6)",
+          "nullable": false,
+          "type": "string"
+        },
+        {
+          "name": "manufacturerid",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "makeid",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "vehicletypeid",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "createdon",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        },
+        {
+          "name": "updatedon",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        },
+        {
+          "name": "countryid",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "publicavailabilitydate",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        },
+        {
+          "name": "trucktypeid",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "processedon",
+          "native_type": "timestamp without time zone",
+          "nullable": true,
+          "type": "timestamp"
+        },
+        {
+          "name": "noncompliant",
+          "native_type": "boolean",
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "name": "noncompliantsetbyovsc",
+          "native_type": "boolean",
+          "nullable": true,
+          "type": "boolean"
+        }
+      ],
+      "name": "vpic.wmi",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 13001
+    },
+    {
+      "columns": [
+        {
+          "name": "wmiid",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "makeid",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        }
+      ],
+      "name": "vpic.wmi_make",
+      "primary_key": [
+        "wmiid",
+        "makeid"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 14172
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "wmiid",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "vinschemaid",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "yearfrom",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "yearto",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "orgid",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        }
+      ],
+      "name": "vpic.wmi_vinschema",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 41774
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "wmi",
+          "native_type": "character varying(10)",
+          "nullable": false,
+          "type": "string"
+        },
+        {
+          "name": "year",
+          "native_type": "integer",
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "name": "position",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "char",
+          "native_type": "character varying(1)",
+          "nullable": true,
+          "type": "string"
+        }
+      ],
+      "name": "vpic.wmiyearvalidchars",
+      "primary_key": [
+        "id"
+      ],
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table",
+      "row_count_estimate": 8808116
+    },
+    {
+      "columns": [
+        {
+          "name": "WMI",
+          "native_type": "character varying(6)[]",
+          "nullable": true,
+          "type": "array"
+        },
+        {
+          "name": "CreatedOn",
+          "native_type": "timestamp without time zone[]",
+          "nullable": true,
+          "type": "array"
+        },
+        {
+          "name": "Id",
+          "native_type": "integer",
+          "nullable": true,
+          "type": "integer"
+        }
+      ],
+      "name": "vpic.wmiyearvalidchars_cacheexceptions",
+      "provenance": "recovered",
+      "queryable": true,
+      "relation_type": "table"
+    }
+  ],
+  "title": "NHTSA vPIC Vehicle Information"
+}
