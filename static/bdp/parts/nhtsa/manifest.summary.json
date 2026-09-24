@@ -13,759 +13,759 @@
     }
   ],
   "license": "Public domain (U.S. federal government work). See https://www.nhtsa.gov/about",
-  "manifest_bytes": 85016,
-  "manifest_payload_hash": "79e7fe5131c42e685f550247c1833334e6ce35b411fda827693ffdd9f039aa77",
+  "manifest_bytes": 84903,
+  "manifest_payload_hash": "9d2e6dbb2546f1198963853e7fbf2dc54c1c7edfdc82ab54e4c88ddf9f1f45f5",
   "manifest_url": "https://benthic.io/bdp/parts/nhtsa/manifest.json",
   "migration_status": "migrated",
-  "queryable_relation_count": 107,
+  "queryable_relation_count": 106,
   "relation_count": 107,
   "relations": [
     {
       "name": "api_reference.equipment_plants",
       "column_count": 17,
-      "provenance": "recovered",
+      "provenance": "derived",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "api_reference.import_progress",
       "column_count": 7,
-      "provenance": "recovered",
-      "queryable": true,
+      "provenance": "derived",
+      "queryable": false,
       "relation_type": "table"
     },
     {
       "name": "api_reference.manufacturers",
       "column_count": 8,
-      "provenance": "recovered",
+      "provenance": "derived",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "api_reference.models_historical",
       "column_count": 8,
-      "provenance": "recovered",
+      "provenance": "derived",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "api_reference.variable_values",
       "column_count": 7,
-      "provenance": "recovered",
+      "provenance": "derived",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "api_reference.vehicle_variables",
       "column_count": 8,
-      "provenance": "recovered",
+      "provenance": "derived",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "api_reference.wmi_codes",
       "column_count": 10,
-      "provenance": "recovered",
+      "provenance": "derived",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.abs",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.adaptivecruisecontrol",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.adaptivedrivingbeam",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.airbaglocations",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.airbaglocfront",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.airbaglocknee",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.autobrake",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.automaticpedestrainalertingsound",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.autoreversesystem",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.axleconfiguration",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.batterytype",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.bedtype",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.blindspotintervention",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.blindspotmonitoring",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.bodycab",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.bodystyle",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.brakesystem",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.busfloorconfigtype",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.bustype",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.can_aacn",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.chargerlevel",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.combinedbrakingsystem",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.conversion",
       "column_count": 4,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.coolingtype",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.country",
       "column_count": 3,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.custommotorcycletype",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.daytimerunninglight",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.decodingoutput",
       "column_count": 16,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.defaultvalue",
       "column_count": 6,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.defs_body",
       "column_count": 6,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.defs_make",
       "column_count": 7,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.defs_model",
       "column_count": 8,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.destinationmarket",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.drivetype",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.dynamicbrakesupport",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.ecs",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.edr",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.electrificationlevel",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.element",
       "column_count": 13,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.engineconfiguration",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.enginemodel",
       "column_count": 3,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.enginemodelpattern",
       "column_count": 6,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.entertainmentsystem",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.errorcode",
       "column_count": 4,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.evdriveunit",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.forwardcollisionwarning",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.fueldeliverytype",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.fueltankmaterial",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.fueltanktype",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.fueltype",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.grossvehicleweightrating",
       "column_count": 5,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.keylessignition",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.lanecenteringassistance",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.lanedeparturewarning",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.lanekeepsystem",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.lowerbeamheadlamplightsource",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.make",
       "column_count": 4,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.make_model",
       "column_count": 5,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.manufacturer",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.manufacturer_make",
       "column_count": 3,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.model",
       "column_count": 4,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.motorcyclechassistype",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.motorcyclesuspensiontype",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.nonlanduse",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.parkassist",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.pattern",
       "column_count": 8,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.pedestrianautomaticemergencybraking",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.pretensioner",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.rearautomaticemergencybraking",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.rearcrosstrafficalert",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.rearvisibilitycamera",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.seatbeltsall",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.semiautomaticheadlampbeamswitching",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.steering",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.tpms",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.tractioncontrol",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.trailerbodytype",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.trailertype",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.transmission",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.turbo",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.valvetraindesign",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.vehiclespecpattern",
       "column_count": 7,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.vehiclespecschema",
       "column_count": 7,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.vehiclespecschema_model",
       "column_count": 3,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.vehiclespecschema_year",
       "column_count": 3,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.vehicletype",
       "column_count": 6,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.vindescriptor",
       "column_count": 5,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.vinexception",
       "column_count": 5,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.vinschema",
       "column_count": 6,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.vncsabodytype",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "view"
     },
     {
       "name": "vpic.vncsamake",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "view"
     },
     {
       "name": "vpic.vncsamodel",
       "column_count": 4,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "view"
     },
     {
       "name": "vpic.vspecschemapattern",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.wheelbasetype",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.wheeliemitigation",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.wmi",
       "column_count": 13,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.wmi_make",
       "column_count": 2,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.wmi_vinschema",
       "column_count": 6,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.wmiyearvalidchars",
       "column_count": 5,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
     {
       "name": "vpic.wmiyearvalidchars_cacheexceptions",
       "column_count": 3,
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     }

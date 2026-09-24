@@ -7,9 +7,9 @@
     "algorithm": "EdDSA",
     "canonicalization": "RFC8785",
     "hash_algorithm": "SHA-256",
-    "payload_hash": "79e7fe5131c42e685f550247c1833334e6ce35b411fda827693ffdd9f039aa77",
-    "signature_base64": "FkshhJwewQgBhYXJTGwKpSg7k1ECe2wq+sfX5d9I42EIAd4a9hNSrcq3mp921JNb1YOz2gGaeKieVfu4vg0zDQ==",
-    "signed_at": "2026-09-24T16:00:52Z"
+    "payload_hash": "9d2e6dbb2546f1198963853e7fbf2dc54c1c7edfdc82ab54e4c88ddf9f1f45f5",
+    "signature_base64": "gUUSy0RydiZoHArkQTdDJddc3PfTDV4Tt78DlgP95ai5Aizq6r5MJy6qkt6qNoz2m+UvGPQpovGkIRhlwCL4Bw==",
+    "signed_at": "2026-09-24T16:02:54Z"
   },
   "dataset_name": "nhtsa",
   "description": "NHTSA Vehicle Product Information Catalog (vPIC): the official offline SQL VIN decoder, upstream decoder tables, and a benthic-built reference layer for manufacturers, WMI codes, vehicle variables and values, historical models, and equipment plants.",
@@ -157,7 +157,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "derived",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 11274
@@ -211,8 +211,8 @@
       "primary_key": [
         "importer_name"
       ],
-      "provenance": "recovered",
-      "queryable": true,
+      "provenance": "derived",
+      "queryable": false,
       "relation_type": "table",
       "row_count_estimate": 12
     },
@@ -271,7 +271,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "derived",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 23053
@@ -331,7 +331,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "derived",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 494805
@@ -385,7 +385,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "derived",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 70526
@@ -445,7 +445,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "derived",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 144
@@ -517,7 +517,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "derived",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 795
@@ -541,7 +541,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 3
@@ -565,7 +565,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 3
@@ -589,7 +589,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 3
@@ -613,7 +613,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 6
@@ -637,7 +637,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 2
@@ -661,7 +661,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 3
@@ -685,7 +685,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 3
@@ -709,7 +709,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 3
@@ -733,7 +733,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 3
@@ -757,7 +757,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 5
@@ -781,7 +781,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 9
@@ -805,7 +805,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 4
@@ -829,7 +829,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 3
@@ -853,7 +853,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 3
@@ -877,7 +877,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 12
@@ -901,7 +901,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 71
@@ -925,7 +925,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 5
@@ -949,7 +949,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 4
@@ -973,7 +973,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 7
@@ -997,7 +997,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 3
@@ -1021,7 +1021,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 3
@@ -1045,7 +1045,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 3
@@ -1081,7 +1081,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 6
@@ -1105,7 +1105,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 2
@@ -1135,7 +1135,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 199
@@ -1159,7 +1159,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 21
@@ -1183,7 +1183,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 3
@@ -1291,7 +1291,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     },
@@ -1338,7 +1338,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 186
@@ -1388,7 +1388,7 @@
         "from_year",
         "mode"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 150
@@ -1443,7 +1443,7 @@
         "id",
         "from_year"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 110
@@ -1506,7 +1506,7 @@
         "from_year",
         "mode"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 2146
@@ -1530,7 +1530,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 35
@@ -1554,7 +1554,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 23
@@ -1578,7 +1578,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 3
@@ -1602,7 +1602,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 3
@@ -1626,7 +1626,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 3
@@ -1650,7 +1650,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 6
@@ -1740,7 +1740,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 160
@@ -1764,7 +1764,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 5
@@ -1794,7 +1794,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 346
@@ -1842,7 +1842,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 2510
@@ -1866,7 +1866,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 2
@@ -1902,7 +1902,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 15
@@ -1926,7 +1926,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 4
@@ -1950,7 +1950,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 3
@@ -1974,7 +1974,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 9
@@ -1998,7 +1998,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 6
@@ -2022,7 +2022,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 4
@@ -2046,7 +2046,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 14
@@ -2088,7 +2088,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 16
@@ -2112,7 +2112,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 3
@@ -2136,7 +2136,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 3
@@ -2160,7 +2160,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 3
@@ -2184,7 +2184,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 3
@@ -2208,7 +2208,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 16
@@ -2244,7 +2244,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 12361
@@ -2286,7 +2286,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 32009
@@ -2310,7 +2310,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 23003
@@ -2340,7 +2340,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 13051
@@ -2376,7 +2376,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 32009
@@ -2400,7 +2400,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 4
@@ -2424,7 +2424,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 4
@@ -2448,7 +2448,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 3
@@ -2472,7 +2472,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 3
@@ -2532,7 +2532,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 1678690
@@ -2556,7 +2556,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 3
@@ -2580,7 +2580,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 2
@@ -2604,7 +2604,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 3
@@ -2628,7 +2628,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 3
@@ -2652,7 +2652,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 3
@@ -2676,7 +2676,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 3
@@ -2700,7 +2700,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 3
@@ -2724,7 +2724,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 2
@@ -2748,7 +2748,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 2
@@ -2772,7 +2772,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 3
@@ -2796,7 +2796,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 29
@@ -2820,7 +2820,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 9
@@ -2844,7 +2844,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 12
@@ -2868,7 +2868,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 2
@@ -2892,7 +2892,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 4
@@ -2946,7 +2946,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 226001
@@ -3000,7 +3000,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 6656
@@ -3030,7 +3030,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 7550
@@ -3060,7 +3060,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 12882
@@ -3108,7 +3108,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 9
@@ -3150,7 +3150,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 69
@@ -3192,7 +3192,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 18805
@@ -3240,7 +3240,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 25229
@@ -3261,7 +3261,7 @@
         }
       ],
       "name": "vpic.vncsabodytype",
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "view"
     },
@@ -3281,7 +3281,7 @@
         }
       ],
       "name": "vpic.vncsamake",
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "view"
     },
@@ -3313,7 +3313,7 @@
         }
       ],
       "name": "vpic.vncsamodel",
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "view"
     },
@@ -3336,7 +3336,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 17149
@@ -3360,7 +3360,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 6
@@ -3384,7 +3384,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 3
@@ -3474,7 +3474,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 13001
@@ -3499,7 +3499,7 @@
         "wmiid",
         "makeid"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 14172
@@ -3547,7 +3547,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 41774
@@ -3589,7 +3589,7 @@
       "primary_key": [
         "id"
       ],
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table",
       "row_count_estimate": 8808116
@@ -3616,7 +3616,7 @@
         }
       ],
       "name": "vpic.wmiyearvalidchars_cacheexceptions",
-      "provenance": "recovered",
+      "provenance": "upstream",
       "queryable": true,
       "relation_type": "table"
     }
