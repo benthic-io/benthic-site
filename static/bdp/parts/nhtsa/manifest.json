@@ -7,9 +7,9 @@
     "algorithm": "EdDSA",
     "canonicalization": "RFC8785",
     "hash_algorithm": "SHA-256",
-    "payload_hash": "483c611966e76e5ccf502268ff3d2397884b82dfabc6bc650718479618870ac7",
-    "signature_base64": "iqA4mbshxT7XlSn0977VgCL7EY836mmIVraZmM8xqD2nnb+xC/+hQIiwAWwBNnfG8+7KV5LEQZ9tOONzGPZhBQ==",
-    "signed_at": "2026-09-24T22:33:02Z"
+    "payload_hash": "f8ec632c7116d703951b086d11c30c77e8aa5ba80d53534dbff47e36b96d05d9",
+    "signature_base64": "s+XNy3AgNxcDE696Yq1hnbEkuKoSxljcPlW6509EEdn8v+KHAdBQRcSKXdEBBxDZrScRSLQPLaVNwIGYmciQDA==",
+    "signed_at": "2026-09-24T22:33:32Z"
   },
   "dataset_name": "nhtsa",
   "description": "NHTSA Vehicle Product Information Catalog (vPIC): the official offline SQL VIN decoder, upstream decoder tables, and a benthic-built reference layer for manufacturers, WMI codes, vehicle variables and values, historical models, and equipment plants.",
@@ -27,8 +27,9 @@
     }
   ],
   "etl_provenance": {
+    "built_at": "2026-09-24T22:33:20Z",
     "commit_hash": "81e1d7de3cb95a5c4eece4cab10835ba3b2b1679",
-    "migrated_at": "2026-09-24T16:00:52Z",
+    "migrated_at": "2026-09-24T22:33:20Z",
     "migration_status": "migrated",
     "pipeline_entrypoint": "src/parts_pipelines/cli.py",
     "repository_url": "https://github.com/otherdrums/parts-pipelines",

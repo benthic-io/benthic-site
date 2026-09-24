@@ -7,9 +7,9 @@
     "algorithm": "EdDSA",
     "canonicalization": "RFC8785",
     "hash_algorithm": "SHA-256",
-    "payload_hash": "fed5e465711f63ce4046f18b9b352ed999c1860d402960a62f60864dee5c8a8c",
-    "signature_base64": "wGF/ijh+fre5I93ecDC+DTNE1sVjV30RwdEDwe+7zK3vWkR/f3TWYi58lPSiDUo1VyGDMCQDHNcUkjqhATPHDQ==",
-    "signed_at": "2026-09-24T22:33:03Z"
+    "payload_hash": "ffae929fc3a0bfb3f93588aee0864d4f815d15146c3125f10cb01f8ba90d2d17",
+    "signature_base64": "9cjZHHvYR5VWmWtNJv/ovqsMGsZxjeL1T4RQJg/ykVffAo6KeB3RCA2jzE+V/m8qEKovKiyNU1+x9FfFIdXeCg==",
+    "signed_at": "2026-09-24T22:33:32Z"
   },
   "description": "Vehicle, component, and identifier reference datasets published by benthic.io using signed BDP manifests and PostgREST APIs.",
   "join_paths": [],
@@ -18,7 +18,7 @@
     {
       "dataset_name": "nhtsa",
       "manifest_url": "https://benthic.io/bdp/parts/nhtsa/manifest.json",
-      "payload_hash": "483c611966e76e5ccf502268ff3d2397884b82dfabc6bc650718479618870ac7",
+      "payload_hash": "f8ec632c7116d703951b086d11c30c77e8aa5ba80d53534dbff47e36b96d05d9",
       "title": "NHTSA vPIC Vehicle Information"
     }
   ],

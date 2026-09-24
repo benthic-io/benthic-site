@@ -13,8 +13,8 @@
     }
   ],
   "license": "Public domain (U.S. federal government work). See https://www.nhtsa.gov/about",
-  "manifest_bytes": 84905,
-  "manifest_payload_hash": "483c611966e76e5ccf502268ff3d2397884b82dfabc6bc650718479618870ac7",
+  "manifest_bytes": 84945,
+  "manifest_payload_hash": "f8ec632c7116d703951b086d11c30c77e8aa5ba80d53534dbff47e36b96d05d9",
   "manifest_url": "https://benthic.io/bdp/parts/nhtsa/manifest.json",
   "migration_status": "migrated",
   "queryable_relation_count": 106,
