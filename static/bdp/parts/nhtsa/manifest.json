@@ -7,9 +7,9 @@
     "algorithm": "EdDSA",
     "canonicalization": "RFC8785",
     "hash_algorithm": "SHA-256",
-    "payload_hash": "9d2e6dbb2546f1198963853e7fbf2dc54c1c7edfdc82ab54e4c88ddf9f1f45f5",
-    "signature_base64": "gUUSy0RydiZoHArkQTdDJddc3PfTDV4Tt78DlgP95ai5Aizq6r5MJy6qkt6qNoz2m+UvGPQpovGkIRhlwCL4Bw==",
-    "signed_at": "2026-09-24T16:02:54Z"
+    "payload_hash": "483c611966e76e5ccf502268ff3d2397884b82dfabc6bc650718479618870ac7",
+    "signature_base64": "iqA4mbshxT7XlSn0977VgCL7EY836mmIVraZmM8xqD2nnb+xC/+hQIiwAWwBNnfG8+7KV5LEQZ9tOONzGPZhBQ==",
+    "signed_at": "2026-09-24T22:33:02Z"
   },
   "dataset_name": "nhtsa",
   "description": "NHTSA Vehicle Product Information Catalog (vPIC): the official offline SQL VIN decoder, upstream decoder tables, and a benthic-built reference layer for manufacturers, WMI codes, vehicle variables and values, historical models, and equipment plants.",
@@ -388,7 +388,7 @@
       "provenance": "derived",
       "queryable": true,
       "relation_type": "table",
-      "row_count_estimate": 70526
+      "row_count_estimate": 70527
     },
     {
       "columns": [
@@ -520,7 +520,7 @@
       "provenance": "derived",
       "queryable": true,
       "relation_type": "table",
-      "row_count_estimate": 795
+      "row_count_estimate": 13004
     },
     {
       "columns": [
