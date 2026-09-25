@@ -13,8 +13,8 @@
     }
   ],
   "license": "https://www.irs.gov/charities-non-profits/tax-exempt-organization-search-bulk-data-downloads",
-  "manifest_bytes": 65576,
-  "manifest_payload_hash": "559f600a31de974b6d58a9d63603363e38abe6ade88d683a49ef4a84c7e46282",
+  "manifest_bytes": 65572,
+  "manifest_payload_hash": "fd4788608caf292b34c2c2872b8eb52cf2bb16998eb881e8392271c9b005fc79",
   "manifest_url": "https://benthic.io/bdp/ngopen/irs_ng/manifest.json",
   "migration_status": "migrated",
   "queryable_relation_count": 18,
@@ -147,6 +147,6 @@
       "relation_type": "view"
     }
   ],
-  "repository_url": "https://github.com/benthic-io/ngopen-bdp-pipelines",
+  "repository_url": "https://github.com/benthic-io/ngopen-pipelines",
   "title": "IRS Nonprofit Organizations"
 }

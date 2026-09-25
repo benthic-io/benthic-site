@@ -13,8 +13,8 @@
     }
   ],
   "license": "https://cdmaps.polisci.ucla.edu/",
-  "manifest_bytes": 5055,
-  "manifest_payload_hash": "0b02c5300d154d3a640bf373e3696976d1f88dfedfcf75dc3ef152c6c6d108ba",
+  "manifest_bytes": 5051,
+  "manifest_payload_hash": "7b151ec81114ae04ea260406465480b114eba7eedec364287c1020e830baca58",
   "manifest_url": "https://benthic.io/bdp/ngopen/up_cdmaps/manifest.json",
   "migration_status": "migrated",
   "queryable_relation_count": 1,
@@ -28,6 +28,6 @@
       "relation_type": "table"
     }
   ],
-  "repository_url": "https://github.com/benthic-io/ngopen-bdp-pipelines",
+  "repository_url": "https://github.com/benthic-io/ngopen-pipelines",
   "title": "Historical Congressional District Boundaries"
 }

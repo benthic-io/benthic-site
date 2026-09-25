@@ -7,9 +7,9 @@
     "algorithm": "EdDSA",
     "canonicalization": "RFC8785",
     "hash_algorithm": "SHA-256",
-    "payload_hash": "0b02c5300d154d3a640bf373e3696976d1f88dfedfcf75dc3ef152c6c6d108ba",
-    "signature_base64": "f44QNBn33RO2q46zd54Trg5k1+yCETjUetpOWft71EM/iK4znEBywdVtPN9mmV0tOBK4u56KLrZPOGJAJxaeBQ==",
-    "signed_at": "2026-08-11T15:12:45Z"
+    "payload_hash": "7b151ec81114ae04ea260406465480b114eba7eedec364287c1020e830baca58",
+    "signature_base64": "FBDaUmea33ocDCXACvnykHFyFYjkGKTkyffinYorVaEHRpV5mEdF/XODTHsuAASJ1GGOSpSYLj7OFLR4ITwRBA==",
+    "signed_at": "2026-09-25T15:36:26Z"
   },
   "dataset_name": "up_cdmaps",
   "description": "EPSG:3857 geometry; reprojection required for cross-dataset spatial joins with all other datasets which use EPSG:4326.",
@@ -30,7 +30,7 @@
     "migrated_at": "2026-08-11T15:10:28Z",
     "migration_status": "migrated",
     "pipeline_entrypoint": "pipelines/up_cdmaps/pipeline.py",
-    "repository_url": "https://github.com/benthic-io/ngopen-bdp-pipelines",
+    "repository_url": "https://github.com/benthic-io/ngopen-pipelines",
     "source_attribution": [
       {
         "name": "up_cdmaps",

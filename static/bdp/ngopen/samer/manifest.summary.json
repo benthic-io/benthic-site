@@ -13,8 +13,8 @@
     }
   ],
   "license": "https://sam.gov/content/about/terms-of-use",
-  "manifest_bytes": 10352,
-  "manifest_payload_hash": "5534dc2a9c312c136255697c66e08f262dc1f9f474ee2bc757d233e37e85f83e",
+  "manifest_bytes": 10348,
+  "manifest_payload_hash": "cf45dc61829a9e481ffca77bb54a0d684fbf30f66ef6c8ddc8e3ccd37dd31a53",
   "manifest_url": "https://benthic.io/bdp/ngopen/samer/manifest.json",
   "migration_status": "migrated",
   "queryable_relation_count": 2,
@@ -35,6 +35,6 @@
       "relation_type": "table"
     }
   ],
-  "repository_url": "https://github.com/benthic-io/ngopen-bdp-pipelines",
+  "repository_url": "https://github.com/benthic-io/ngopen-pipelines",
   "title": "SAM.gov Entity Registrations"
 }

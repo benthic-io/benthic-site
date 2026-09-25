@@ -13,8 +13,8 @@
     }
   ],
   "license": "https://www.usaspending.gov/about",
-  "manifest_bytes": 579882,
-  "manifest_payload_hash": "5951f32514935bfdf5405c94330b3fe73ffc3b8a1f7874594deb46de75d616b3",
+  "manifest_bytes": 579878,
+  "manifest_payload_hash": "da7366afd4a895cf30fa763cc92ca0e249020ea0a08f944cecfc9aad8f28df0a",
   "manifest_url": "https://benthic.io/bdp/ngopen/usaspending/manifest.json",
   "migration_status": "migrated",
   "queryable_relation_count": 66,
@@ -623,6 +623,6 @@
       "relation_type": "view"
     }
   ],
-  "repository_url": "https://github.com/benthic-io/ngopen-bdp-pipelines",
+  "repository_url": "https://github.com/benthic-io/ngopen-pipelines",
   "title": "USAspending Federal Awards"
 }

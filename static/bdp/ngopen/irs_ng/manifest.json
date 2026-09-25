@@ -7,9 +7,9 @@
     "algorithm": "EdDSA",
     "canonicalization": "RFC8785",
     "hash_algorithm": "SHA-256",
-    "payload_hash": "559f600a31de974b6d58a9d63603363e38abe6ade88d683a49ef4a84c7e46282",
-    "signature_base64": "oQOIVqkpMrsmBnKLg4gTMMZdM5UcGR3NNKY4WumLA2gD/uMyidhk5F69+2Asbw5JN+1PJFSJMsMwdraAYgDvCw==",
-    "signed_at": "2026-09-21T11:07:16Z"
+    "payload_hash": "fd4788608caf292b34c2c2872b8eb52cf2bb16998eb881e8392271c9b005fc79",
+    "signature_base64": "5PZD0M7IN0M7oCaaoPtlQkG1HUGKYrfVnONN+rYd0B8kTHIykivuEHOVEW7FgzuuqWaZMw+VeH1qoukv9UPpCA==",
+    "signed_at": "2026-09-25T15:36:25Z"
   },
   "dataset_name": "irs_ng",
   "description": "IRS tax-exempt organizations: Business Master File, Form 990/990-EZ/990-PF Statistics of Income extracts, Form 990 XML filings, Publication 78 eligibility, auto-revocations, 990-N postcards, 527 political organizations, and Census ACS demographics, with Photon geocoding.",
@@ -32,7 +32,7 @@
     "migrated_at": "2026-08-14T18:22:11Z",
     "migration_status": "migrated",
     "pipeline_entrypoint": "pipelines/irs_ng/pipeline.py",
-    "repository_url": "https://github.com/benthic-io/ngopen-bdp-pipelines",
+    "repository_url": "https://github.com/benthic-io/ngopen-pipelines",
     "source_attribution": [
       {
         "name": "IRS Exempt Organizations Business Master File",

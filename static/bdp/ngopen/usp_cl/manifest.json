@@ -7,9 +7,9 @@
     "algorithm": "EdDSA",
     "canonicalization": "RFC8785",
     "hash_algorithm": "SHA-256",
-    "payload_hash": "e92dd7fcd04c3bf95bbd857bd1482d95bfcf708e884a222dd49ba961a8a1ff74",
-    "signature_base64": "nI5mKa64BCkk9NFty/AZ2eGwNYuUxAW6yxvvURehNobKNqQ76qXcQ8Y88W4QcxpYXxV3CHVDSz7YfhxUkdVyCQ==",
-    "signed_at": "2026-08-11T15:11:56Z"
+    "payload_hash": "d13a6b57ef9190480ba253d56fcff8652d345770a4fe0526cbd0305c756f6c8a",
+    "signature_base64": "3RSzjUF8kLmc+jJiS31Rcc/28XFGe6FpTPIquZHfz/8n1vlZc74zIvC/BlcQeESH/eodtAlWHyG4yfYQfMIUDw==",
+    "signed_at": "2026-09-25T15:36:26Z"
   },
   "dataset_name": "usp_cl",
   "endpoints": [
@@ -29,7 +29,7 @@
     "migrated_at": "2026-08-11T15:11:24Z",
     "migration_status": "migrated",
     "pipeline_entrypoint": "pipelines/usp_cl/pipeline.py",
-    "repository_url": "https://github.com/benthic-io/ngopen-bdp-pipelines",
+    "repository_url": "https://github.com/benthic-io/ngopen-pipelines",
     "source_attribution": [
       {
         "name": "usp_cl",

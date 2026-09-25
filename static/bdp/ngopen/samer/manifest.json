@@ -7,9 +7,9 @@
     "algorithm": "EdDSA",
     "canonicalization": "RFC8785",
     "hash_algorithm": "SHA-256",
-    "payload_hash": "5534dc2a9c312c136255697c66e08f262dc1f9f474ee2bc757d233e37e85f83e",
-    "signature_base64": "DIFay+JSSpK37JjrlD0VrlWbDhqtVXr0Q9a/nWuywwkwMBnN66X/n1INud9+p8sWb+Luq7xe4vMp2qzfOL5dBg==",
-    "signed_at": "2026-08-11T15:12:45Z"
+    "payload_hash": "cf45dc61829a9e481ffca77bb54a0d684fbf30f66ef6c8ddc8e3ccd37dd31a53",
+    "signature_base64": "Uar+/PFiq62L6yWl1plz1SIuC05MX+ti/ur9CI2ht8hLXWhaFUP0g8npEEM13pcqKqQL6nUMioZHAsKQuoeRAg==",
+    "signed_at": "2026-09-25T15:36:25Z"
   },
   "dataset_name": "samer",
   "endpoints": [
@@ -29,7 +29,7 @@
     "migrated_at": "2026-08-11T15:10:28Z",
     "migration_status": "migrated",
     "pipeline_entrypoint": "pipelines/samer/pipeline.py",
-    "repository_url": "https://github.com/benthic-io/ngopen-bdp-pipelines",
+    "repository_url": "https://github.com/benthic-io/ngopen-pipelines",
     "source_attribution": [
       {
         "name": "samer",
