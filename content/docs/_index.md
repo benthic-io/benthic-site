@@ -10,7 +10,7 @@ Reference documentation for each API in the NGOpen collection. Every page covers
 
 Reference documentation for the Parts collection. These datasets use BDP provenance manifests and are not part of NGOpen.
 
-- **[NHTSA vPIC Vehicle Information](/docs/NHTSA/)** – official vPIC decoder tables, VIN decoding RPCs, and synchronized manufacturer, WMI, variable, model, and equipment-plant reference data.
+- **[NHTSA vPIC Vehicle Information](/docs/nhtsa/)** – official vPIC decoder tables, VIN decoding RPCs, and synchronized manufacturer, WMI, variable, model, and equipment-plant reference data.
 
 - **[USAspending](/docs/usaspending/)** – Federal spending: prime awards, subawards, financial accounts, and agency references from [USAspending.gov](https://www.usaspending.gov/).
 

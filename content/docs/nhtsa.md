@@ -1,5 +1,7 @@
 ---
 title: "NHTSA vPIC Vehicle Information"
+aliases:
+  - /docs/NHTSA/
 ---
 
 ### https://benthic.io/parts/NHTSA/ – NHTSA Vehicle Product Information Catalog

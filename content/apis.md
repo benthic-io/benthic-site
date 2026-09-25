@@ -6,7 +6,7 @@ title: "APIs"
 
 The Parts collection publishes vehicle and component reference data using the same signed BDP provenance and PostgREST transport as the NGOpen collection. It is a separate collection; NHTSA is not an NGOpen dataset.
 
-- **https://benthic.io/parts/NHTSA/** – [NHTSA vPIC Vehicle Information](/docs/NHTSA/) – official vPIC decoder tables, VIN decoding RPCs, and synchronized reference tables. - [Documentation](/docs/NHTSA/)
+- **https://benthic.io/parts/NHTSA/** – [NHTSA vPIC Vehicle Information](/docs/nhtsa/) – official vPIC decoder tables, VIN decoding RPCs, and synchronized reference tables. - [Documentation](/docs/nhtsa/)
 
 ### NGOpen API Collection
 
