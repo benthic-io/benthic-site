@@ -14,7 +14,7 @@
       "collection_url": "https://benthic.io/bdp/parts/collection.json",
       "description": "Vehicle, component, and identifier reference datasets published by benthic.io using signed BDP manifests and PostgREST APIs.",
       "member_count": 1,
-      "payload_hash": "ffae929fc3a0bfb3f93588aee0864d4f815d15146c3125f10cb01f8ba90d2d17",
+      "payload_hash": "4f653c460bc3aff98488e3a1ddb3b82547f7aea7f285e4b289f68b98c6e0f80a",
       "title": "Parts"
     }
   ],

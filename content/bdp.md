@@ -121,6 +121,6 @@ Manifests additionally carry `etl_provenance.migration_status`. All five NGOpen 
 
 - **Provenance specification and reference tooling** — [github.com/benthic-io/bdp](https://github.com/benthic-io/bdp)
 - **The NGOpen pipelines** — [github.com/benthic-io/ngopen-bdp-pipelines](https://github.com/benthic-io/ngopen-bdp-pipelines)
-- **The Parts pipelines** — [github.com/otherdrums/parts-pipelines](https://github.com/otherdrums/parts-pipelines)
+- **The Parts pipelines** — [github.com/benthic-io/partout-pipelines](https://github.com/benthic-io/partout-pipelines)
 
 Questions, corrections, and criticism are all welcome at [brian@benthic.io](mailto:brian@benthic.io).

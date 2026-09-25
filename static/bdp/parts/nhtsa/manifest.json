@@ -7,9 +7,9 @@
     "algorithm": "EdDSA",
     "canonicalization": "RFC8785",
     "hash_algorithm": "SHA-256",
-    "payload_hash": "f8ec632c7116d703951b086d11c30c77e8aa5ba80d53534dbff47e36b96d05d9",
-    "signature_base64": "s+XNy3AgNxcDE696Yq1hnbEkuKoSxljcPlW6509EEdn8v+KHAdBQRcSKXdEBBxDZrScRSLQPLaVNwIGYmciQDA==",
-    "signed_at": "2026-09-24T22:33:32Z"
+    "payload_hash": "ad77ff07970fc400fd55f2c9b56826cbc0396427117c49e6cb29aed81fe2df69",
+    "signature_base64": "A9fuWCkn6+iREXpCh0yGzl9Ke9TvAxzVnF+ZJqUjNH9f97GHqUgBh3BAxScawgOaVpPuSngyRQbnqkxFyvvtBw==",
+    "signed_at": "2026-09-25T15:34:11Z"
   },
   "dataset_name": "nhtsa",
   "description": "NHTSA Vehicle Product Information Catalog (vPIC): the official offline SQL VIN decoder, upstream decoder tables, and a benthic-built reference layer for manufacturers, WMI codes, vehicle variables and values, historical models, and equipment plants.",
@@ -32,7 +32,7 @@
     "migrated_at": "2026-09-24T22:33:20Z",
     "migration_status": "migrated",
     "pipeline_entrypoint": "src/parts_pipelines/cli.py",
-    "repository_url": "https://github.com/otherdrums/parts-pipelines",
+    "repository_url": "https://github.com/benthic-io/partout-pipelines",
     "source_attribution": [
       {
         "name": "NHTSA vPIC API",

@@ -13,8 +13,8 @@
     }
   ],
   "license": "Public domain (U.S. federal government work). See https://www.nhtsa.gov/about",
-  "manifest_bytes": 84945,
-  "manifest_payload_hash": "f8ec632c7116d703951b086d11c30c77e8aa5ba80d53534dbff47e36b96d05d9",
+  "manifest_bytes": 84947,
+  "manifest_payload_hash": "ad77ff07970fc400fd55f2c9b56826cbc0396427117c49e6cb29aed81fe2df69",
   "manifest_url": "https://benthic.io/bdp/parts/nhtsa/manifest.json",
   "migration_status": "migrated",
   "queryable_relation_count": 106,
@@ -770,6 +770,6 @@
       "relation_type": "table"
     }
   ],
-  "repository_url": "https://github.com/otherdrums/parts-pipelines",
+  "repository_url": "https://github.com/benthic-io/partout-pipelines",
   "title": "NHTSA vPIC Vehicle Information"
 }
