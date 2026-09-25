@@ -6,9 +6,9 @@ aliases:
 
 ### https://benthic.io/parts/NHTSA/ – NHTSA Vehicle Product Information Catalog
 
-The NHTSA dataset combines the official vPIC PostgreSQL decoder with the vPIC reference data used to interpret vehicles, manufacturers, makes, models, WMI codes, variable values, and equipment plants. The decoder is served locally from the September 2026 vPIC bulk release; reference tables are synchronized from the vPIC API.
+The NHTSA dataset combines the official vPIC decoder data with the vPIC reference data used to interpret vehicles, manufacturers, makes, models, WMI codes, variable values, and equipment plants. The decoder and reference data are published through benthic.io; reference tables are synchronized from the vPIC API.
 
-The default profile is the upstream `vpic` schema. Reference tables are under the `api_reference` profile and are published at the `/reference/` path.
+The default profile contains the decoder tables and RPCs. Reference tables are published at the `/reference/` path.
 
 ## Quick start
 
@@ -41,22 +41,22 @@ The decoder returns one row per decoded variable. The `Error Code` and `Error Te
 | `/parts/NHTSA/`           | `vpic`            | Official vPIC decoder tables and decoder RPCs                                        |
 | `/parts/NHTSA/reference/` | `api_reference`   | Manufacturers, WMI codes, variables, values, historical models, and equipment plants |
 
-When calling the database directly rather than through the published proxy, select the reference profile with `Accept-Profile: api_reference` on GET requests and `Content-Profile: api_reference` on writes.
+The published reference path selects the `api_reference` profile automatically. Direct PostgREST clients can select it with `Accept-Profile: api_reference` on GET requests and `Content-Profile: api_reference` on writes.
 
 ## Key tables
 
-### Upstream decoder tables
+### Decoder tables
 
-| Table            | Purpose                                                      |
-| ---------------- | ------------------------------------------------------------ |
-| `wmi`            | World Manufacturer Identifier records and manufacturer links |
-| `manufacturer`   | Manufacturer records in the decoder snapshot                 |
-| `make`           | Make records used by VIN patterns                            |
-| `model`          | Model records used by VIN patterns                           |
-| `element`        | Variable definitions used by decoded output                  |
-| `vinschema`      | VIN schema and pattern records                               |
-| `vindescriptor`  | Variable descriptors used to build decoded results           |
-| `decodingoutput` | Decoded output projections supplied by the official database |
+| Table            | Purpose                                                              |
+| ---------------- | -------------------------------------------------------------------- |
+| `wmi`            | World Manufacturer Identifier records and manufacturer links         |
+| `manufacturer`   | Manufacturer records in the decoder snapshot                         |
+| `make`           | Make records used by VIN patterns                                    |
+| `model`          | Model records used by VIN patterns                                   |
+| `element`        | Variable definitions used by decoded output                          |
+| `vinschema`      | VIN schema and pattern records                                       |
+| `vindescriptor`  | Variable descriptors used to build decoded results                   |
+| `decodingoutput` | Decoded output projections supplied by the published decoder dataset |
 
 Use the [OpenAPI specification](/api/NHTSA.json) for the complete relation and column contract.
 
@@ -102,10 +102,10 @@ curl "https://benthic.io/parts/NHTSA/reference/models_historical?make_id=eq.468&
 
 ## Provenance and limits
 
-- The decoder tables and functions come from the official NHTSA/vPIC PostgreSQL bulk release `vPICList_lite_2026_09`, released September 16, 2026.
-- Reference tables are populated by the single-worker, resumable `parts-pipelines` importer with a minimum one-second request interval and an immediate circuit breaker on HTTP 403.
-- The upstream vPIC database is a decoder snapshot, not a complete substitute for every current API response. The synchronized reference layer is published separately under `/reference/`.
-- The importer skips plant rows without a stable DOT code and records all fetches under the private `nhtsa_import` schema.
+- The decoder tables and functions are published through benthic.io from the official NHTSA/vPIC dataset.
+- Reference tables are synchronized from the vPIC API and published under `/reference/`.
+- The published decoder data is a snapshot; some current vPIC API responses may differ.
+- Plant records without a stable DOT code are omitted from the reference tables.
 - NHTSA/vPIC data is a U.S. government work; check the [NHTSA site](https://www.nhtsa.gov/about) for applicable terms and attribution requirements.
 
 The signed [BDP manifest](/bdp/parts/nhtsa/manifest.json) and [collection](/bdp/parts/collection.json) describe the published schema and provenance.
