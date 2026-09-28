@@ -1,0 +1,97 @@
+name: docs
+
+# The dataset registry in data/datasets.yaml is the single place that says what
+# exists. This workflow proves the documentation for it is real and current, so
+# that adding a dataset without documentation fails the build rather than
+# shipping a dead link to the front page.
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+  # Cheap enough to run nightly: it catches a manifest that was re-signed
+  # without regenerating the doc map.
+  schedule:
+    - cron: "23 7 * * *"
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install check dependencies
+        run: python -m pip install --quiet pyyaml
+
+      # Every dataset in the registry must have a reference page, a swagger
+      # page, an OpenAPI spec whose basePath matches, a signed manifest whose
+      # collection and repository agree, and a pipeline README path. Also
+      # checks section structure, heading levels, fence languages, and internal
+      # links across all of content/.
+      - name: Check dataset documentation
+        run: python scripts/check_docs.py
+
+      # The documentation map is generated from the registry plus the signed
+      # manifests. If either moved, the committed page is stale.
+      - name: Check the documentation map is current
+        run: python scripts/gen_docmap.py --check
+
+      # Summaries are derived from the signed manifests and must never disagree
+      # with them.
+      - name: Check manifest summaries are in sync
+        run: python scripts/regen_summaries.py --check
+
+      - name: Build the site
+        run: |
+          hugo --minify
+          test -f public/docs/map/index.html
+          test -f public/index.html
+
+  pipeline-docs:
+    # The per-pipeline READMEs are what the "pipe" links on the front page point
+    # at. The site checker verifies the paths resolve; this verifies each
+    # repository's own documentation still matches its house style.
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        repo: [ngopen-pipelines, partout-pipelines]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: benthic-io/${{ matrix.repo }}
+          path: ${{ matrix.repo }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Check documentation structure
+        working-directory: ${{ matrix.repo }}
+        run: python check_docs.py
+
+      - name: Check the documented stage list is real
+        working-directory: ${{ matrix.repo }}
+        run: |
+          pip install --quiet -e .
+          python -c "import ngopen_bdp.stages" 2>/dev/null \
+            && python -c "
+from ngopen_bdp.stages import STAGE_NAMES
+import pathlib, sys
+readme = pathlib.Path('README.md').read_text()
+missing = [s for s in STAGE_NAMES if s not in readme]
+sys.exit('README.md omits stages: ' + ', '.join(missing)) if missing else None
+print('README documents all', len(STAGE_NAMES), 'stages')
+" \
+            || python -c "
+from partout_pipelines.stages import STAGE_NAMES
+import pathlib, sys
+readme = pathlib.Path('README.md').read_text()
+missing = [s for s in STAGE_NAMES if s not in readme]
+sys.exit('README.md omits stages: ' + ', '.join(missing)) if missing else None
+print('README documents all', len(STAGE_NAMES), 'stages')
+"

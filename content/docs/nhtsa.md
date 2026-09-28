@@ -10,6 +10,21 @@ The NHTSA dataset combines the official vPIC decoder data with the vPIC referenc
 
 The default profile contains the decoder tables and RPCs. Reference tables are published at the `/reference/` path.
 
+## At a glance
+
+| | |
+|---|---|
+| Collection | Parts |
+| Endpoint | [`/parts/NHTSA/`](https://benthic.io/parts/NHTSA/) |
+| OpenAPI | [`NHTSA.json`](/api/NHTSA.json) |
+| Manifest | [`parts/nhtsa`](https://benthic.io/bdp/parts/nhtsa/manifest.json) |
+| Provenance | `migrated` 2026-09-24, commit `81e1d7de3c` |
+| Relations | 106 queryable of 107 |
+| Columns | 383 |
+| Updated | Monthly |
+| Licence | Public domain (U.S. federal government work). See https:/... |
+| Source | 2 upstream feeds (see [Data sources](#data-sources)) |
+| Pipeline | [partout-pipelines/pipelines/nhtsa/README.md](https://github.com/benthic-io/partout-pipelines/blob/main/pipelines/nhtsa/README.md) |
 ## Quick start
 
 ```bash
@@ -43,7 +58,7 @@ The decoder returns one row per decoded variable. The `Error Code` and `Error Te
 
 The published reference path selects the `api_reference` profile automatically. Direct PostgREST clients can select it with `Accept-Profile: api_reference` on GET requests and `Content-Profile: api_reference` on writes.
 
-## Key tables
+## Tables
 
 ### Decoder tables
 
@@ -89,16 +104,86 @@ curl "https://benthic.io/parts/NHTSA/reference/models_historical?make_id=eq.468&
 
 ## PostgREST query reference
 
-| Operation               | Syntax                                     |
-| ----------------------- | ------------------------------------------ |
-| Filter                  | `?column=eq.value`                         |
-| Select columns          | `?select=column_a,column_b`                |
-| Case-insensitive search | `?column=ilike.*pattern*`                  |
-| Null test               | `?column=is.null` or `?column=not.is.null` |
-| Ordering                | `?order=column.desc`                       |
-| Pagination              | `?limit=100&offset=200`                    |
-| Count                   | `?select=count` with `Prefer: count=exact` |
-| Embedded relation       | `?select=table(column_a,column_b)`         |
+The same syntax as every other benthic.io dataset. Paths differ: decoder tables
+and RPCs are at the root, reference tables under `/reference/`.
+
+### Filtering
+
+| Operator     | Syntax                | Example                            |
+| ------------ | --------------------- | ---------------------------------- |
+| Equals       | `?col=value`          | `?manufacturer_id=eq.2364`         |
+| Not equal    | `?col=neq.value`      | `?plant_status=neq.Closed`         |
+| Greater than | `?col=gt.value`       | `?year=gt.2020`                    |
+| Less than    | `?col=lt.value`       | `?year=lt.2010`                    |
+| Greater/eq   | `?col=gte.value`      | `?year=gte.2018`                   |
+| Less/eq      | `?col=lte.value`      | `?year=lte.2026`                   |
+| LIKE         | `?col=like.PATTERN`   | `?model_name=like.*CIVIC*`         |
+| ILIKE        | `?col=ilike.PATTERN`  | `?manufacturer_name=ilike.*HONDA*` |
+| IS null      | `?col=is.null`        | `?plant_code=is.null`              |
+| IS NOT null  | `?col=not.is.null`    | `?dot_code=not.is.null`            |
+| IN           | `?col=in.(val1,val2)` | `?year=in.(2023,2024,2025)`        |
+
+> **Case-insensitive matching:** use `ilike`, not `like`, when the pattern
+> casing is unknown. `ilike` treats `*` as the wildcard; the pattern must be
+> URL-encoded, so `*` is `%25` in a query string.
+
+### Selecting columns
+
+```text
+?select=manufacturer_id,manufacturer_name
+```
+
+Omitting `select` returns every column, which on `models_historical` is
+substantially more data than you usually want.
+
+### Ordering
+
+```text
+?order=year.desc
+?order=manufacturer_name.asc,year.desc
+```
+
+### Pagination
+
+```text
+?limit=100&offset=200
+```
+
+Or use range headers:
+
+```http
+Range: 0-99
+```
+
+### Counting
+
+```http
+Prefer: count=exact
+```
+
+```text
+?select=count
+```
+
+### Grouping / aggregation
+
+```text
+?select=plant_state,count&groupby=plant_state&order=count.desc
+```
+
+### Calling the decoder functions
+
+The two vPIC decoder RPCs take a JSON body and are called with `POST`:
+
+```bash
+curl -X POST "https://benthic.io/parts/NHTSA/rpc/spvindecode" \
+  -H "Content-Type: application/json" \
+  -d '{"VIN": "1HGCM82633A004352"}'
+
+curl -X POST "https://benthic.io/parts/NHTSA/rpc/spvindecodemultiple" \
+  -H "Content-Type: application/json" \
+  -d '{"VINs": ["1HGCM82633A004352", "5YJ3E1EA8LF000000"]}'
+```
 
 ## Provenance and limits
 
@@ -109,3 +194,48 @@ curl "https://benthic.io/parts/NHTSA/reference/models_historical?make_id=eq.468&
 - NHTSA/vPIC data is a U.S. government work; check the [NHTSA site](https://www.nhtsa.gov/about) for applicable terms and attribution requirements.
 
 The signed [BDP manifest](/bdp/parts/nhtsa/manifest.json) and [collection](/bdp/parts/collection.json) describe the published schema and provenance.
+
+## Key relationships
+
+NHTSA sits in the `parts` collection and shares no key with the NGOpen
+datasets — there is no join from vehicle reference data to federal spending,
+nonprofit, or legislative data. What it does offer is a lookup direction:
+
+- **`spvindecode` is a bridge from an arbitrary string to structured data.** A
+  VIN that appears in a fleet operator's records, an insurance claim, or a
+  recall notice can be decoded to make, model, year, and manufacturer without
+  knowing any of them in advance. That is the intended entry point.
+- **Manufacturer names are the loose join to everything else.** `manufacturers`
+  and `wmi_codes` carry name and country columns, so a manufacturer observed in
+  `samer` or `usaspending` can be matched by name — but this is a fuzzy
+  entity-resolution problem, not a key. Do not treat it as one.
+- **The WMI prefix encodes the manufacturer.** The first three characters of a
+  VIN are the World Manufacturer Identifier and appear in `wmi_codes`, so a
+  partially-redacted VIN can often be resolved to a manufacturer without a
+  full decode.
+
+## Data sources
+
+| Source                                                                                                  | Description                                                                                                         | Update frequency |
+| ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| [NHTSA vPIC API](https://vpic.nhtsa.dot.gov/api/)                                                       | Reference tables: manufacturers, WMI codes, vehicle variables, variable values, historical models, equipment plants | Periodic         |
+| [NHTSA vPIC bulk decoder release](https://vpic.nhtsa.dot.gov/downloads/vPICList_lite_2026_09.plain.zip) | VIN decoder tables and functions, pinned by SHA-256                                                                 | Monthly          |
+
+Decoder data is a snapshot of the current vPIC release and is refreshed
+monthly. Reference tables are synchronised from the API and published under
+`/reference/`; some current vPIC API responses may differ from the published
+snapshot.
+
+All data originates from publicly available U.S. government sources. NHTSA/vPIC
+is a U.S. government work — see the [NHTSA site](https://www.nhtsa.gov/about)
+for applicable terms and attribution requirements.
+
+## Related
+
+- [Swagger explorer](https://benthic.io/swagger/nhtsa/) — interactive API browser for `/parts/NHTSA`
+- [Signed manifest](https://benthic.io/bdp/parts/nhtsa/manifest.json) — every relation, column, and licence, signed with the publisher's Ed25519 key
+- [Pipeline README](https://github.com/benthic-io/partout-pipelines/blob/main/pipelines/nhtsa/README.md) — how this dataset is actually built
+- [BDP specification](https://benthic.io/bdp/) — what the manifest signature proves, and how to verify it offline
+- [Documentation map](https://benthic.io/docs/map/) — every dataset on benthic.io and where its documentation lives
+- [APIs overview](https://benthic.io/apis/) — join paths between datasets and worked cross-collection queries
+- In Ngopen: [USAspending](https://benthic.io/docs/usaspending/), [SAM Entity Registry](https://benthic.io/docs/samer/), [IRS Nonprofits](https://benthic.io/docs/irs_ng/), [Congress Legislators](https://benthic.io/docs/usp_cl/), [Congressional District Maps](https://benthic.io/docs/up_cdmaps/)

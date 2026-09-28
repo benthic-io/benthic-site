@@ -2,11 +2,30 @@
 title: "USAspending"
 ---
 
-## https://benthic.io/ngopen/usaspending/
+### https://benthic.io/ngopen/usaspending/
 
 The core theme of this database is awards/transactions, financial accounts, agencies, appropriations, references (CFDA programs, NAICS/PSC codes), and reporting overviews for federal contract, grant, and loan recipients.
 
-## Spending Tables
+## At a glance
+
+| | |
+|---|---|
+| Collection | NGOpen |
+| Endpoint | [`/ngopen/usaspending/`](https://benthic.io/ngopen/usaspending/) |
+| OpenAPI | [`usaspending.json`](/api/usaspending.json) |
+| Manifest | [`ngopen/usaspending`](https://benthic.io/bdp/ngopen/usaspending/manifest.json) |
+| Provenance | `migrated` 2026-09-21, commit `b25eba8404` |
+| Relations | 66 queryable of 86 |
+| Columns | 3,621 |
+| Updated | Monthly |
+| Licence | [Upstream terms](https://www.usaspending.gov/about) — `usaspending.gov` |
+| Source | [USAspending.gov database archive](https://api.usaspending.gov/api/v2/bulk_download/list_database_download_files) |
+| Pipeline | [ngopen-pipelines/pipelines/usaspending/README.md](https://github.com/benthic-io/ngopen-pipelines/blob/main/pipelines/usaspending/README.md) |
+## Tables
+
+Relations are grouped by what they are for. Every relation listed here is declared in the signed manifest, which is the authoritative column-level reference.
+
+### Spending Tables
 
 ### financial_accounts_by_awards
 
@@ -175,7 +194,7 @@ Historical Treasury Account-level budget data predating DABS submissions.
 | `tas_rendering_label` | text | TAS rendering label |
 
 
-## Agency and Account Reference Tables
+### Agency and Account Reference Tables
 
 ### toptier_agency
 
@@ -266,7 +285,7 @@ curl "https://benthic.io/ngopen/usaspending/treasury_appropriation_account?tas_r
 ```
 &nbsp;
 
-## Classification Reference Tables
+### Classification Reference Tables
 
 ### cgac
 
@@ -408,7 +427,7 @@ Program Activity/PARK code lookup.
 
 &nbsp;
 
-## Population and Geographic Reference
+### Population and Geographic Reference
 
 ### state_data
 
@@ -481,7 +500,7 @@ City/county/state code reference from USGS GNIS.
 
 &nbsp;
 
-## Submission and Reporting Tables
+### Submission and Reporting Tables
 
 ### submission_attributes
 
@@ -571,7 +590,7 @@ Fiscal year overall totals.
 &nbsp;
 
 
-## Other Tables
+### Other Tables
 
 ### recipient_geocode_index
 
@@ -650,7 +669,7 @@ Rosetta reference documents (JSON).
 
 &nbsp;
 
-## Award and Entity Tables
+### Award and Entity Tables
 
 ### prime_awards
 
@@ -1038,7 +1057,7 @@ Aggregated COVID-19 spending tracking by fiscal year from `prime_awards` disaste
 curl "https://benthic.io/ngopen/usaspending/mv_covid_spending?select=fiscal_year,total_covid_obligation,total_covid_outlay,award_count&order=fiscal_year"
 ```
 
-## PostgREST Query Reference
+## PostgREST query reference
 
 ### Filtering
 
@@ -1057,38 +1076,38 @@ curl "https://benthic.io/ngopen/usaspending/mv_covid_spending?select=fiscal_year
 
 ### Selecting columns
 
-```
+```text
 ?select=piid,fain,obligations_incurred_total_by_award_cpe,gross_outlay_amount_by_award_cpe
 ```
 
 ### Ordering
 
-```
+```text
 ?order=obligations_incurred_total_by_award_cpe.desc
 ?order=reporting_period_end.desc
 ```
 
 ### Pagination
 
-```
+```text
 ?limit=100&offset=200
 ```
 
 ### Counting
 
-```
+```http
 Prefer: count=exact
 ```
 
 ### Grouping / aggregation
 
-```
+```text
 ?select=disaster_emergency_fund_code,sum.obligations_incurred_total_by_award_cpe&groupby=disaster_emergency_fund_code
 ```
 
 &nbsp;
 
-## Joining Tables (Embedding)
+## Joining tables (embedding)
 
 PostgREST supports resource embedding via foreign key relationships:
 
@@ -1109,7 +1128,7 @@ curl "https://benthic.io/ngopen/usaspending/financial_accounts_by_program_activi
 curl "https://benthic.io/ngopen/usaspending/agency?select=id,toptier_agency(name,abbreviation),subtier_agency(name)&toptier_flag=is.true&limit=50"
 ```
 
-## Key Relationships
+## Key relationships
 
 ### Spending data chain
 `toptier_agency` -> `federal_account` -> `treasury_appropriation_account` -> `financial_accounts_by_awards` / `financial_accounts_by_program_activity_object_class` / `appropriation_account_balances`.
@@ -1125,5 +1144,34 @@ curl "https://benthic.io/ngopen/usaspending/agency?select=id,toptier_agency(name
 ### Geographic
 `recipient_geocode_index.source_id` links to award recipient identifiers
 `ref_population_county` and `ref_population_cong_district` provide population denominators
+## Data sources
 
 
+| Source | Description | Update frequency |
+|---|---|---|
+| [USAspending.gov database archive](https://api.usaspending.gov/api/v2/bulk_download/list_database_download_files) | Full PostgreSQL dump of the USAspending data, including the upstream `raw`, `int`, and `rpt` schemas | Monthly |
+| [Photon](https://github.com/komoot/photon) | Geocoding for recipient addresses | On rebuild |
+
+Benthic derives `all_entities`, `prime_awards`, `subawards`, and
+`entity_awards` from the archive, and adds the geocoding index and three
+materialized views. Derived relations are labelled `derived` in the manifest;
+the upstream relations are labelled `upstream`.
+
+> **Storage.** A full rebuild needs roughly 2.5 TB transiently — the 164 GB
+> archive, its ~130 GB expansion, and a ~1.1 TB restored database, with the
+> existing database still live. See the
+> [pipeline README](https://github.com/benthic-io/ngopen-pipelines/blob/main/pipelines/usaspending/README.md)
+> before attempting one.
+
+All data originates from publicly available U.S. government sources.
+
+## Related
+
+- [Swagger explorer](https://benthic.io/swagger/usaspending/) — interactive API browser for `/ngopen/usaspending`
+- [Signed manifest](https://benthic.io/bdp/ngopen/usaspending/manifest.json) — every relation, column, and licence, signed with the publisher's Ed25519 key
+- [Pipeline README](https://github.com/benthic-io/ngopen-pipelines/blob/main/pipelines/usaspending/README.md) — how this dataset is actually built
+- [BDP specification](https://benthic.io/bdp/) — what the manifest signature proves, and how to verify it offline
+- [Documentation map](https://benthic.io/docs/map/) — every dataset on benthic.io and where its documentation lives
+- [APIs overview](https://benthic.io/apis/) — join paths between datasets and worked cross-collection queries
+- Also in NGOpen: [SAM Entity Registry](https://benthic.io/docs/samer/), [IRS Nonprofits](https://benthic.io/docs/irs_ng/), [Congress Legislators](https://benthic.io/docs/usp_cl/), [Congressional District Maps](https://benthic.io/docs/up_cdmaps/)
+- In Parts: [NHTSA vPIC Vehicle Information](https://benthic.io/docs/nhtsa/)

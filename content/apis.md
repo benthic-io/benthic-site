@@ -1,12 +1,11 @@
 ---
 title: "APIs"
+description: "The datasets published on benthic.io, how they join, and worked cross-dataset queries."
 ---
 
-### Parts API Collection
-
-The Parts collection publishes vehicle and component reference data using the same signed BDP provenance and PostgREST transport as the NGOpen collection. It is a separate collection; NHTSA is not an NGOpen dataset.
-
-- **https://benthic.io/parts/NHTSA/** – [NHTSA vPIC Vehicle Information](/docs/nhtsa/) – official vPIC decoder tables, VIN decoding RPCs, and synchronized reference tables. - [Documentation](/docs/nhtsa/)
+Looking for a specific dataset's tables and columns? Go to the
+[API reference](/docs/), or the [documentation map](/docs/map/) for one page
+listing everything.
 
 ### NGOpen API Collection
 
@@ -14,13 +13,19 @@ Benthic.io's debut collection consists of five RESTful APIs that provide structu
 
 - **https://benthic.io/ngopen/usaspending/** – [USAspending.gov](https://www.usaspending.gov/) database enhanced with geocoding data. - [Documentation](/docs/usaspending/)
 
-- **https://benthic.io/ngopen/samer/** – [SAM.gov](https://sam.gov/) entity registrations for federal contractors & vendors enhanced with geocoding data.- [Documentation](/docs/samer/)
+- **https://benthic.io/ngopen/samer/** – [SAM.gov](https://sam.gov/) entity registrations for federal contractors & vendors enhanced with geocoding data. - [Documentation](/docs/samer/)
 
-- **https://benthic.io/ngopen/up_cdmaps/** – UCLA Polysci's comprehesive [congressional district maps & boundaries](https://cdmaps.polisci.ucla.edu/) for every congress to present day. - [Documentation](/docs/up_cdmaps/)
+- **https://benthic.io/ngopen/up_cdmaps/** – UCLA Polysci's comprehensive [congressional district maps & boundaries](https://cdmaps.polisci.ucla.edu/) for every congress to present day. - [Documentation](/docs/up_cdmaps/)
 
 - **https://benthic.io/ngopen/usp_cl/** – [@unitedstatesproject](https://unitedstates.github.io/)'s congress-legislators provides detailed data on members of Congress past & present. - [Documentation](/docs/usp_cl/)
 
 - **https://benthic.io/ngopen/irs_ng/** – Geocoded versions of IRS Exempt Organizations Business Master File, Form 990/990-EZ/990-PF SOI financials, Publication 78 deductibility eligibility, auto-revocation list, Form 990T, Form 990-N e-Postcard, Form 990 XML filings with Schedule O narratives and Schedule R flags, Section 527 political organizations, and ACS census demographics. - [Documentation](/docs/irs_ng/)
+
+### Parts API Collection
+
+The Parts collection publishes vehicle and component reference data using the same signed BDP provenance and PostgREST transport as the NGOpen collection. It is a separate collection; NHTSA is not an NGOpen dataset.
+
+- **https://benthic.io/parts/NHTSA/** – official vPIC decoder tables, VIN decoding RPCs, and synchronized reference tables. - [Documentation](/docs/nhtsa/)
 
 &nbsp;
 

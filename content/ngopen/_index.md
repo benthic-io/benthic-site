@@ -1,5 +1,6 @@
 ---
-title: "APIs"
+title: "NGOpen"
+description: "The NGOpen API collection — five connected PostgREST APIs over U.S. government spending, nonprofit, and legislative data."
 ---
 
 ### NGOpen API Collection
@@ -15,3 +16,12 @@ Benthic.io's debut API collection, dubbed NGOpen, consists of five PostgREST API
 - **https://benthic.io/ngopen/usp_cl/** – [@unitedstatesproject](https://unitedstates.github.io/)'s congress-legislators provides detailed data on members of Congress past & present. - [Documentation](/docs/usp_cl/)
 
 - **https://benthic.io/ngopen/irs_ng/** – Geocoded versions of IRS Exempt Organizations Business Master File, Form 990/990-EZ/990-PF SOI financials, Publication 78 deductibility eligibility, auto-revocation list, Form 990-N e-Postcard, Form 990 XML filings with Schedule O narratives and Schedule R flags, Section 527 political organizations, and ACS census demographics. - [Documentation](/docs/irs_ng/)
+
+### Where to go next
+
+- **[Documentation map](/docs/map/)** — every dataset on benthic.io, with its reference page, OpenAPI spec, signed manifest, and pipeline README.
+- **[API reference](/docs/)** — per-dataset tables, views, RPC functions, and runnable queries.
+- **[APIs overview](/apis/)** — how these five join together, plus worked cross-dataset queries and use cases.
+
+NHTSA vehicle data is published separately, in the Parts collection — see the
+[NHTSA reference page](/docs/nhtsa/). It is not an NGOpen dataset.

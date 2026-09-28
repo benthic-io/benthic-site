@@ -6,6 +6,21 @@ title: "Congress Legislators"
 
 The core theme of this database, created using the wonderful congress-legislators dataset made available by the [@unitedstates project](https://unitedstates.github.io/), is political structure.
 
+## At a glance
+
+| | |
+|---|---|
+| Collection | NGOpen |
+| Endpoint | [`/ngopen/usp_cl/`](https://benthic.io/ngopen/usp_cl/) |
+| OpenAPI | [`usp_cl.json`](/api/usp_cl.json) |
+| Manifest | [`ngopen/usp_cl`](https://benthic.io/bdp/ngopen/usp_cl/manifest.json) |
+| Provenance | `migrated` 2026-08-11, commit `66f585560f` |
+| Relations | 12 |
+| Columns | 172 |
+| Updated | Weekly |
+| Licence | CC0 |
+| Source | [github.com (upstream)](https://github.com/unitedstates/congress-legislators.git) |
+| Pipeline | [ngopen-pipelines/pipelines/usp_cl/README.md](https://github.com/benthic-io/ngopen-pipelines/blob/main/pipelines/usp_cl/README.md) |
 ## Tables
 
 ### legislators
@@ -320,7 +335,7 @@ curl "https://benthic.io/ngopen/usp_cl/committee_membership?bioguide_id=eq.P0001
 curl "https://benthic.io/ngopen/usp_cl/committee_membership?title=ilike.*chair*&select=legislator_name,committee_thomas_id,title&limit=50"
 ```
 
-## Embedding Examples
+## Joining tables (embedding)
 
 PostgREST supports resource embedding via foreign key relationships:
 
@@ -341,7 +356,7 @@ curl "https://benthic.io/ngopen/usp_cl/committees?select=name,subcommittees(name
 curl "https://benthic.io/ngopen/usp_cl/legislators?select=official_full,legislator_terms!inner(state,state_rank,party)&legislator_terms.term_type=eq.sen&legislator_terms.term_end=gte.2026-01-01&is_current=is.true&order=official_full"
 ```
 
-## PostgREST Query Reference
+## PostgREST query reference
 
 ### Filtering
 
@@ -360,36 +375,36 @@ curl "https://benthic.io/ngopen/usp_cl/legislators?select=official_full,legislat
 
 ### Selecting columns
 
-```
+```text
 ?select=bioguide_id,official_full,state,party
 ```
 
 ### Ordering
 
-```
+```text
 ?order=last_name.asc
 ?order=term_start.desc
 ```
 
 ### Pagination
 
-```
+```text
 ?limit=100&offset=200
 ```
 
 ### Counting
 
-```
+```http
 Prefer: count=exact
 ```
 
 ### Grouping / aggregation
 
-```
+```text
 ?select=party,count&groupby=party
 ```
 
-## Key Relationships
+## Key relationships
 
 All tables link via **bioguide_id** or **committee_id/thomas_id**:
 
@@ -481,4 +496,29 @@ curl "https://benthic.io/ngopen/usp_cl/mv_committee_power?title=ilike.*chair*&se
 # Members from a state on a specific committee
 curl "https://benthic.io/ngopen/usp_cl/mv_committee_power?thomas_id=eq.SFIN&state=eq.CA&select=legislator_name,title"
 ```
+## Data sources
 
+
+| Source | Description | Update frequency |
+|---|---|---|
+| [unitedstates/congress-legislators](https://github.com/unitedstates/congress-legislators) | Eight YAML documents: legislators, terms, social media, other names, district offices, committees, subcommittees, committee membership, and executive officials | Continuous (git) |
+| [Photon](https://github.com/komoot/photon) | Geocoding for district office addresses | On rebuild |
+
+All data originates from publicly available sources. The upstream project is
+community-maintained and CC0-licensed; the pipeline records the exact commit
+each build was produced from, so a refresh is reproducible.
+
+The source is a git checkout rather than an archive, so `00_acquire`
+fast-forwards and pins the revision. Districts resolve to boundaries by
+`state` + `district` in [up_cdmaps](up_cdmaps/README.md), not by geometry.
+
+## Related
+
+- [Swagger explorer](https://benthic.io/swagger/usp_cl/) — interactive API browser for `/ngopen/usp_cl`
+- [Signed manifest](https://benthic.io/bdp/ngopen/usp_cl/manifest.json) — every relation, column, and licence, signed with the publisher's Ed25519 key
+- [Pipeline README](https://github.com/benthic-io/ngopen-pipelines/blob/main/pipelines/usp_cl/README.md) — how this dataset is actually built
+- [BDP specification](https://benthic.io/bdp/) — what the manifest signature proves, and how to verify it offline
+- [Documentation map](https://benthic.io/docs/map/) — every dataset on benthic.io and where its documentation lives
+- [APIs overview](https://benthic.io/apis/) — join paths between datasets and worked cross-collection queries
+- Also in NGOpen: [USAspending](https://benthic.io/docs/usaspending/), [SAM Entity Registry](https://benthic.io/docs/samer/), [IRS Nonprofits](https://benthic.io/docs/irs_ng/), [Congressional District Maps](https://benthic.io/docs/up_cdmaps/)
+- In Parts: [NHTSA vPIC Vehicle Information](https://benthic.io/docs/nhtsa/)

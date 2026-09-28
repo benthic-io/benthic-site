@@ -6,6 +6,21 @@ title: "Congressional District Maps"
 
 The core theme of this database, created using UCLA Polysci's excellent [congressional district dataset](https://cdmaps.polisci.ucla.edu/), is boundaries of congressional districts historic and current.
 
+## At a glance
+
+| | |
+|---|---|
+| Collection | NGOpen |
+| Endpoint | [`/ngopen/up_cdmaps/`](https://benthic.io/ngopen/up_cdmaps/) |
+| OpenAPI | [`up_cdmaps.json`](/api/up_cdmaps.json) |
+| Manifest | [`ngopen/up_cdmaps`](https://benthic.io/bdp/ngopen/up_cdmaps/manifest.json) |
+| Provenance | `migrated` 2026-08-11, commit `66f585560f` |
+| Relations | 1 |
+| Columns | 21 |
+| Updated | Static — published once, never refreshed |
+| Licence | [Upstream terms](https://cdmaps.polisci.ucla.edu/) — `cdmaps.polisci.ucla.edu` |
+| Source | [cdmaps.polisci.ucla.edu (upstream)](https://cdmaps.polisci.ucla.edu/shp) |
+| Pipeline | [ngopen-pipelines/pipelines/up_cdmaps/README.md](https://github.com/benthic-io/ngopen-pipelines/blob/main/pipelines/up_cdmaps/README.md) |
 ## Tables
 
 ### congressional_districts
@@ -58,35 +73,11 @@ curl "https://benthic.io/ngopen/up_cdmaps/congressional_districts?statename=eq.T
 curl "https://benthic.io/ngopen/up_cdmaps/congressional_districts?select=statename,count&congress_number=eq.118&groupby=statename"
 ```
 
-## PostGIS Spatial Queries
-
-The `geom` column is a PostGIS MultiPolygon stored in SRID 3857 (Web Mercator). Two purpose-built RPC functions handle the most common spatial lookups; both accept and return standard GeoJSON-friendly values.
-
-### rpc_find_district
-
-Point-in-polygon lookup: which district contains this coordinate?
-
-```bash
-curl -X POST "https://benthic.io/ngopen/up_cdmaps/rpc/rpc_find_district" \
-  -H "Content-Type: application/json" \
-  -d '{"lat": 38.9072, "lon": -77.0369, "congress": 118}'
-```
-
-### rpc_districts_in_bbox
-
-All districts intersecting a bounding box:
-
-```bash
-curl -X POST "https://benthic.io/ngopen/up_cdmaps/rpc/rpc_districts_in_bbox" \
-  -H "Content-Type: application/json" \
-  -d '{"min_lat": 32.0, "max_lat": 36.0, "min_lon": -120.0, "max_lon": -114.0, "congress": 118}'
-```
-
-### Working with geometries directly
+## Working with geometries directly
 
 You can request raw geometry as GeoJSON (`select=id,statename,district,geom`) and run any further geometric analysis client-side (e.g. with Shapely, Turf.js, or QGIS). If you join `geom` polygons against geocoded point columns from other NGOpen datasets, remember those points are EPSG:4326 while these polygons are EPSG:3857 — reproject before comparing (`ST_Transform` server-side, or an equivalent in your GIS library).
 
-## PostgREST Query Reference
+## PostgREST query reference
 
 ### Filtering
 
@@ -105,29 +96,29 @@ You can request raw geometry as GeoJSON (`select=id,statename,district,geom`) an
 
 ### Selecting columns
 
-```
+```text
 ?select=id,statename,district,congress_number,statefp
 ```
 
 ### Ordering
 
-```
+```text
 ?order=congress_number.desc,statename.asc,district.asc
 ```
 
 ### Pagination
 
-```
+```text
 ?limit=100&offset=200
 ```
 
 ### Counting
 
-```
+```http
 Prefer: count=exact
 ```
 
-## Key Relationships
+## Key relationships
 
 This is a single-table database. Cross-reference to other benthic.io datasets:
 
@@ -135,7 +126,7 @@ This is a single-table database. Cross-reference to other benthic.io datasets:
 - **USP CL** — `legislator_terms` contains `state` and `district` columns that match this table
 - **IRS NG** — geocoded nonprofit locations can be spatial-joined to districts via `geom`
 
-## Spatial RPC Functions
+## Spatial RPC functions
 
 ### rpc_find_district
 
@@ -181,4 +172,29 @@ curl -X POST "https://benthic.io/ngopen/up_cdmaps/rpc/rpc_districts_in_bbox" \
   -H "Content-Type: application/json" \
   -d '{"min_lat": 32.0, "max_lat": 36.0, "min_lon": -120.0, "max_lon": -114.0}'
 ```
+## Data sources
 
+
+| Source | Description | Update frequency |
+|---|---|---|
+| [UCLA PolySci CDMaps](https://cdmaps.polisci.ucla.edu/shp) | One district shapefile archive per Congress, Congress 1 through 119 | Static historical |
+
+This dataset is not refreshed. The source is a fixed historical series, and the
+pipeline hashes each archive so a rerun is a no-op rather than a re-fetch.
+
+> **SRID.** Geometry is stored in **EPSG:3857** (Web Mercator) to match the
+> serving database; the source shapefiles are EPSG:4269 (NAD83). Every other
+> spatial dataset in the collection is EPSG:4326, so a spatial join against
+> `irs_ng` or `samer` needs an explicit `ST_Transform` first. A naive
+> `ST_Intersects` will return wrong answers silently.
+
+## Related
+
+- [Swagger explorer](https://benthic.io/swagger/up_cdmaps/) — interactive API browser for `/ngopen/up_cdmaps`
+- [Signed manifest](https://benthic.io/bdp/ngopen/up_cdmaps/manifest.json) — every relation, column, and licence, signed with the publisher's Ed25519 key
+- [Pipeline README](https://github.com/benthic-io/ngopen-pipelines/blob/main/pipelines/up_cdmaps/README.md) — how this dataset is actually built
+- [BDP specification](https://benthic.io/bdp/) — what the manifest signature proves, and how to verify it offline
+- [Documentation map](https://benthic.io/docs/map/) — every dataset on benthic.io and where its documentation lives
+- [APIs overview](https://benthic.io/apis/) — join paths between datasets and worked cross-collection queries
+- Also in NGOpen: [USAspending](https://benthic.io/docs/usaspending/), [SAM Entity Registry](https://benthic.io/docs/samer/), [IRS Nonprofits](https://benthic.io/docs/irs_ng/), [Congress Legislators](https://benthic.io/docs/usp_cl/)
+- In Parts: [NHTSA vPIC Vehicle Information](https://benthic.io/docs/nhtsa/)

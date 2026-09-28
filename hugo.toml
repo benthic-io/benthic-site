@@ -2,6 +2,11 @@ baseURL = "/"
 languageCode = "en-us"
 title = "benthic.io | little data for big change"
 
+# No page uses tags or categories, but Hugo still generated /tags/ and
+# /categories/ and listed them in sitemap.xml — two empty pages advertised as
+# content. Disable the kinds rather than publishing empty indexes.
+disableKinds = ["taxonomy", "term"]
+
 
 [params]
   email = "brian@benthic.io"
@@ -24,6 +29,10 @@ title = "benthic.io | little data for big change"
     name = "Home"
     url = "/"
     weight = 10
+  [[menu.main]]
+    name = "APIs"
+    url = "/docs/"
+    weight = 20
   [[menu.main]]
     name = "BDP"
     url = "/bdp/"

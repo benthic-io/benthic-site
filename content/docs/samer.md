@@ -9,6 +9,21 @@ The core theme of this database is federal contractors and vendors and it provid
 - Examples: “Active vendors by NAICS in a state with expiration dates”; “Geocoded contractors near specific coordinates”; match to spending via UEI.
 
 
+## At a glance
+
+| | |
+|---|---|
+| Collection | NGOpen |
+| Endpoint | [`/ngopen/samer/`](https://benthic.io/ngopen/samer/) |
+| OpenAPI | [`samer.json`](/api/samer.json) |
+| Manifest | [`ngopen/samer`](https://benthic.io/bdp/ngopen/samer/manifest.json) |
+| Provenance | `migrated` 2026-08-11, commit `66f585560f` |
+| Relations | 2 |
+| Columns | 53 |
+| Updated | Monthly |
+| Licence | [Upstream terms](https://sam.gov/content/about/terms-of-use) — `sam.gov` |
+| Source | [api.sam.gov (upstream)](https://api.sam.gov/entity-information/v4/entities) |
+| Pipeline | [ngopen-pipelines/pipelines/samer/README.md](https://github.com/benthic-io/ngopen-pipelines/blob/main/pipelines/samer/README.md) |
 ## Tables
 
 ### sam_registrations
@@ -84,7 +99,7 @@ curl "https://benthic.io/ngopen/samer/sam_registrations?duns=eq.123456789&select
 ```
 
 
-## PostgREST Query Reference
+## PostgREST query reference
 
 ### Filtering
 
@@ -104,32 +119,32 @@ curl "https://benthic.io/ngopen/samer/sam_registrations?duns=eq.123456789&select
 
 ### Selecting columns
 
-```
+```text
 ?select=uei,legal_business_name,physical_state,latitude,longitude
 ```
 
 ### Ordering
 
-```
+```text
 ?order=legal_business_name.asc
 ?order=registration_expiration.desc
 ```
 
 ### Pagination
 
-```
+```text
 ?limit=100&offset=200
 ```
 
 Or use range headers:
 
-```
+```http
 Range: 0-99
 ```
 
 ### Counting
 
-```
+```http
 # Count with headers only
 Prefer: count=exact
 
@@ -139,12 +154,12 @@ Prefer: count=exact
 
 ### Grouping / aggregation
 
-```
+```text
 ?select=primary_naics,count&groupby=primary_naics&order=count.desc&limit=10
 ```
 
 
-## Key Relationships
+## Key relationships
 
 This is a single-table database. Cross-reference to other benthic.io datasets:
 
@@ -215,3 +230,26 @@ NAICS (North American Industry Classification System) codes classify business es
 | 334511 | Search, Detection, Navigation, Guidance, Aeronautical Systems |
 
 Use `primary_naics` to filter by primary classification or `naics_codes` to search across all registered codes.
+## Data sources
+
+
+| Source | Description | Update frequency |
+|---|---|---|
+| [SAM.gov Entity Management API](https://api.sam.gov/entity-information/v4/entities) | Monthly public extract of entity registrations, 142 positional fields | Monthly |
+| [Photon](https://github.com/komoot/photon) | Geocoding for registered addresses | On rebuild |
+
+All data originates from publicly available U.S. government sources. The
+upstream monthly extract is retrieved through the SAM.gov API, which requires a
+free API key; the pipeline falls back to a hand-placed extract when none is
+available.
+
+## Related
+
+- [Swagger explorer](https://benthic.io/swagger/samer/) — interactive API browser for `/ngopen/samer`
+- [Signed manifest](https://benthic.io/bdp/ngopen/samer/manifest.json) — every relation, column, and licence, signed with the publisher's Ed25519 key
+- [Pipeline README](https://github.com/benthic-io/ngopen-pipelines/blob/main/pipelines/samer/README.md) — how this dataset is actually built
+- [BDP specification](https://benthic.io/bdp/) — what the manifest signature proves, and how to verify it offline
+- [Documentation map](https://benthic.io/docs/map/) — every dataset on benthic.io and where its documentation lives
+- [APIs overview](https://benthic.io/apis/) — join paths between datasets and worked cross-collection queries
+- Also in NGOpen: [USAspending](https://benthic.io/docs/usaspending/), [IRS Nonprofits](https://benthic.io/docs/irs_ng/), [Congress Legislators](https://benthic.io/docs/usp_cl/), [Congressional District Maps](https://benthic.io/docs/up_cdmaps/)
+- In Parts: [NHTSA vPIC Vehicle Information](https://benthic.io/docs/nhtsa/)

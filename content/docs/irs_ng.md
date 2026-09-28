@@ -3,6 +3,21 @@ title: "IRS Nonprofits"
 ---
 ### https://benthic.io/ngopen/irs_ng/
 This database provides geocoded versions of IRS Exempt Organizations Business Master File, Form 990/990-EZ/990-PF SOI financials, Publication 78 deductibility eligibility, auto-revocation list, Form 990-N e-Postcard, Form 990 XML filings with Schedule O narratives and Schedule R flags, Section 527 political organizations, and ACS census demographics.
+## At a glance
+
+| | |
+|---|---|
+| Collection | NGOpen |
+| Endpoint | [`/ngopen/irs_ng/`](https://benthic.io/ngopen/irs_ng/) |
+| OpenAPI | [`irs_ng.json`](/api/irs_ng.json) |
+| Manifest | [`ngopen/irs_ng`](https://benthic.io/bdp/ngopen/irs_ng/manifest.json) |
+| Provenance | `migrated` 2026-08-14, commit `66f585560f` |
+| Relations | 18 |
+| Columns | 388 |
+| Updated | Monthly |
+| Licence | [Upstream terms](https://www.irs.gov/charities-non-profits/tax-exempt-organization-search-bulk-data-downloads) — `irs.gov` |
+| Source | 5 upstream feeds (see [Data sources](#data-sources)) |
+| Pipeline | [ngopen-pipelines/pipelines/irs_ng/README.md](https://github.com/benthic-io/ngopen-pipelines/blob/main/pipelines/irs_ng/README.md) |
 ## Tables
 
 ### bmf_organizations
@@ -630,7 +645,7 @@ curl "https://benthic.io/ngopen/irs_ng/mv_org_financial_health?financial_health=
 curl "https://benthic.io/ngopen/irs_ng/mv_org_financial_health?ever_lobbied=is.true&select=ein,avg_revenue,total_officer_comp&order=avg_revenue.desc&limit=25"
 ```
 
-## Spatial RPC Functions
+## Spatial RPC functions
 
 ### rpc_nonprofits_nearby
 
@@ -654,7 +669,7 @@ curl -X POST "https://benthic.io/ngopen/irs_ng/rpc/rpc_nonprofits_in_district" \
   -d '{"state_name": "Texas", "district_num": 7, "congress": 118}'
 ```
 
-## PostgREST Query Reference
+## PostgREST query reference
 
 ### Filtering
 
@@ -674,32 +689,32 @@ curl -X POST "https://benthic.io/ngopen/irs_ng/rpc/rpc_nonprofits_in_district" \
 
 ### Selecting columns
 
-```
+```text
 ?select=ein,org_name_current,latitude,longitude
 ```
 
 ### Ordering
 
-```
+```text
 ?order=total_revenue.desc
 ?order=tax_year.asc,ein.asc
 ```
 
 ### Pagination
 
-```
+```text
 ?limit=100&offset=200
 ```
 
 Or use range headers:
 
-```
+```http
 Range: 0-99
 ```
 
 ### Counting
 
-```
+```http
 # Count with headers only
 Prefer: count=exact
 
@@ -709,11 +724,11 @@ Prefer: count=exact
 
 ### Grouping / aggregation
 
-```
+```text
 ?select=f990_org_addr_state,count&groupby=f990_org_addr_state
 ```
 
-## Joining Tables (Embedding)
+## Joining tables (embedding)
 
 PostgREST supports resource embedding via foreign key relationships. Use the `select` parameter with embedded resource notation:
 
@@ -728,7 +743,7 @@ curl "https://benthic.io/ngopen/irs_ng/form990_soi?select=tax_year,total_revenue
 curl "https://benthic.io/ngopen/irs_ng/bmf_organizations?select=ein,org_name_current,revoked_organizations(revocation_date)&ein=eq.123456789"
 ```
 
-## Key Relationships
+## Key relationships
 
 All tables link via **EIN** (Employer Identification Number). Join patterns:
 
@@ -745,7 +760,7 @@ All tables link via **EIN** (Employer Identification Number). Join patterns:
 
 Cross-dataset: `census_demographics.geoid` can be derived from address components (state+county+tract FIPS codes).
 
-## Data Sources
+## Data sources
 
 | Source | Description | Update frequency |
 |---|---|---|
@@ -832,3 +847,13 @@ Use `bmf_organizations.ntee_irs` to filter by code or `bmf_organizations.nccs_le
 | 81 | 501(c)(1) — Instrumentality of US (state) |
 | 92 | 4947(a)(1) — Nonexempt charitable trusts |
 
+## Related
+
+- [Swagger explorer](https://benthic.io/swagger/irs_ng/) — interactive API browser for `/ngopen/irs_ng`
+- [Signed manifest](https://benthic.io/bdp/ngopen/irs_ng/manifest.json) — every relation, column, and licence, signed with the publisher's Ed25519 key
+- [Pipeline README](https://github.com/benthic-io/ngopen-pipelines/blob/main/pipelines/irs_ng/README.md) — how this dataset is actually built
+- [BDP specification](https://benthic.io/bdp/) — what the manifest signature proves, and how to verify it offline
+- [Documentation map](https://benthic.io/docs/map/) — every dataset on benthic.io and where its documentation lives
+- [APIs overview](https://benthic.io/apis/) — join paths between datasets and worked cross-collection queries
+- Also in NGOpen: [USAspending](https://benthic.io/docs/usaspending/), [SAM Entity Registry](https://benthic.io/docs/samer/), [Congress Legislators](https://benthic.io/docs/usp_cl/), [Congressional District Maps](https://benthic.io/docs/up_cdmaps/)
+- In Parts: [NHTSA vPIC Vehicle Information](https://benthic.io/docs/nhtsa/)

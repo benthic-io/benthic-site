@@ -1,0 +1,164 @@
+# benthic.io dataset registry
+#
+# WHAT THIS FILE IS
+#
+# The single place that says "these datasets exist and here is where each
+# one's documentation lives". Adding a dataset means adding an entry here;
+# `scripts/check_docs.py` then proves the documentation exists and is complete,
+# and `scripts/gen_docmap.py` renders /docs/map/ from it.
+#
+# WHAT THIS FILE DELIBERATELY DOES NOT CONTAIN
+#
+# Dataset membership is NOT declared here. It is read from the signed collection
+# manifests in static/bdp/<collection>/collection.json, which are the
+# authoritative record of what is published. This file carries only the
+# documentation metadata that the BDP protocol has no opinion about: which Hugo
+# page documents a dataset, which OpenAPI file describes it, and where its
+# pipeline README lives.
+#
+# The same applies to provenance. migration_status, migrated_at, commit_hash,
+# relation_count, column_count and license are all read from the manifest at
+# check time and never stored here. One fact, one home. If you find yourself
+# wanting to add a field to this file, check first whether a manifest already
+# records it.
+#
+# CASING
+#
+# `spec` is spelled out rather than derived from `slug`, because the casing is
+# not uniform and the mismatch is a live footgun:
+#
+#   /ngopen/usaspending      API path       lowercase
+#   /api/usaspending.json    OpenAPI spec    lowercase
+#   /docs/usaspending/       reference page  lowercase
+#   /swagger/usaspending/    explorer page   lowercase
+#   /bdp/ngopen/usaspending/ manifest       lowercase
+#
+#   /parts/NHTSA             API path       UPPERCASE   <-- differs
+#   /api/NHTSA.json          OpenAPI spec    UPPERCASE   <-- differs
+#   /docs/nhtsa/             reference page  lowercase   (+ /docs/NHTSA/ alias)
+#   /swagger/nhtsa/          explorer page   lowercase   (+ /swagger/NHTSA/ alias)
+#   /bdp/parts/nhtsa/        manifest       lowercase
+#
+# Five datasets are lowercase throughout. NHTSA is uppercase in the API path and
+# the spec filename. Historically patch_api_specs.py keys on "NHTSA" and
+# regen_summaries.py keys on "nhtsa", and the two scripts share no constant;
+# this file is where that disagreement is finally recorded once. The slug stays
+# lowercase because the BDP path is lowercase and the slug is the manifest's
+# identity.
+
+version: 1
+
+collections:
+  ngopen:
+    title: NGOpen
+    summary: >-
+      Federal spending, nonprofit, and legislative data, published as five
+      connected PostgREST APIs over PostgreSQL/PostGIS.
+    collection_manifest: ngopen/collection.json
+  parts:
+    title: Parts
+    summary: >-
+      Vehicle, component, and identifier reference datasets. NHTSA/vPIC is the
+      first member and is deliberately not an NGOpen dataset.
+    collection_manifest: parts/collection.json
+
+datasets:
+  - slug: usaspending
+    collection: ngopen
+    title: USAspending
+    summary: >-
+      Federal contract and financial assistance awards from the USAspending.gov
+      bulk archive, with benthic-derived entity resolution, award aggregation,
+      and Photon geocoding.
+    api_path: /ngopen/usaspending
+    spec: usaspending
+    docs_page: usaspending
+    swagger_page: usaspending
+    cadence: monthly
+    pipeline:
+      repo: ngopen-pipelines
+      branch: main
+      readme: pipelines/usaspending/README.md
+
+  - slug: samer
+    collection: ngopen
+    title: SAM Entity Registry
+    summary: >-
+      SAM.gov entity registrations — federal contractors and vendors, keyed by
+      UEI with DUNS for legacy identifiers.
+    api_path: /ngopen/samer
+    spec: samer
+    docs_page: samer
+    swagger_page: samer
+    cadence: monthly
+    pipeline:
+      repo: ngopen-pipelines
+      branch: main
+      readme: pipelines/samer/README.md
+
+  - slug: irs_ng
+    collection: ngopen
+    title: IRS Nonprofits
+    summary: >-
+      Geocoded IRS exempt-organization data — BMF, Form 990 and 990-EZ
+      financials, Pub 78 deductibility, revocations, 990-N, 990 XML, Section
+      527 political organizations, and ACS demographics.
+    api_path: /ngopen/irs_ng
+    spec: irs_ng
+    docs_page: irs_ng
+    swagger_page: irs_ng
+    cadence: monthly
+    pipeline:
+      repo: ngopen-pipelines
+      branch: main
+      readme: pipelines/irs_ng/README.md
+
+  - slug: usp_cl
+    collection: ngopen
+    title: Congress Legislators
+    summary: >-
+      U.S. legislators, executive officials, committees, and district offices
+      from the unitedstates/congress-legislators project.
+    api_path: /ngopen/usp_cl
+    spec: usp_cl
+    docs_page: usp_cl
+    swagger_page: usp_cl
+    cadence: weekly
+    pipeline:
+      repo: ngopen-pipelines
+      branch: main
+      readme: pipelines/usp_cl/README.md
+
+  - slug: up_cdmaps
+    collection: ngopen
+    title: Congressional District Maps
+    summary: >-
+      Historical and current congressional district boundaries, Congress 1
+      through 119, from UCLA PolySci.
+    api_path: /ngopen/up_cdmaps
+    spec: up_cdmaps
+    docs_page: up_cdmaps
+    swagger_page: up_cdmaps
+    cadence: never
+    pipeline:
+      repo: ngopen-pipelines
+      branch: main
+      readme: pipelines/up_cdmaps/README.md
+
+  - slug: nhtsa
+    collection: parts
+    title: NHTSA vPIC Vehicle Information
+    summary: >-
+      NHTSA Vehicle Product Information Catalog — manufacturers, vehicle
+      variables, variable values, WMI codes, historical models, and equipment
+      reference data, plus the two vPIC VIN decoder RPCs.
+    api_path: /parts/NHTSA
+    # Uppercase. See the CASING note at the top of this file.
+    spec: NHTSA
+    docs_page: nhtsa
+    swagger_page: nhtsa
+    cadence: monthly
+    pipeline:
+      repo: partout-pipelines
+      branch: main
+      readme: pipelines/nhtsa/README.md
