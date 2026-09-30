@@ -7,9 +7,9 @@
     "algorithm": "EdDSA",
     "canonicalization": "RFC8785",
     "hash_algorithm": "SHA-256",
-    "payload_hash": "650cc538af9e3e20995551031ae18ede0e89e4a23a9d8db4ad6866eba8a31a5f",
-    "signature_base64": "NeoASehWlVJ3mRNTwL5A5Ta1zU1WWZJSr5gPOhufg3Z7xzWLjWdzlLmMVquFD34lq+SP8mM4+LRDxnWn0humCQ==",
-    "signed_at": "2026-09-25T15:36:27Z"
+    "payload_hash": "38db11227c87e0879980cc28ced678675b3b79576e30c47365ffff36f4147ca5",
+    "signature_base64": "xZfLdID5Y2f5Y05YvW9B+7ECdq2KNNS+Bh1xyUVQc8ibxhK6QCQkPqHAKe249INDAaQybmJdH9vQ0mIleFMGDQ==",
+    "signed_at": "2026-09-30T23:45:51Z"
   },
   "description": "Five federal open-data APIs published by benthic.io as a single connected collection, served over PostgREST from PostgreSQL/PostGIS.",
   "join_paths": [
@@ -109,7 +109,7 @@
     {
       "dataset_name": "usaspending",
       "manifest_url": "https://benthic.io/bdp/ngopen/usaspending/manifest.json",
-      "payload_hash": "da7366afd4a895cf30fa763cc92ca0e249020ea0a08f944cecfc9aad8f28df0a",
+      "payload_hash": "21c31fef16b227e38e061c5f61e88ede440d120da879938197922e94e41fe1ba",
       "title": "USAspending Federal Awards"
     },
     {

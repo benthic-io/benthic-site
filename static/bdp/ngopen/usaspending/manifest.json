@@ -7,9 +7,9 @@
     "algorithm": "EdDSA",
     "canonicalization": "RFC8785",
     "hash_algorithm": "SHA-256",
-    "payload_hash": "da7366afd4a895cf30fa763cc92ca0e249020ea0a08f944cecfc9aad8f28df0a",
-    "signature_base64": "bHaemKilGvdcXOYw70/c1xAGJ2VWQyn38AmFb9dvX5nOXwWodM4aS8oUvJot0btYuHeD6BJ2q0spjOObvvqvBQ==",
-    "signed_at": "2026-09-25T15:36:25Z"
+    "payload_hash": "21c31fef16b227e38e061c5f61e88ede440d120da879938197922e94e41fe1ba",
+    "signature_base64": "sOZnI4hehP5Py18D/+cwxKn/genJ1nLp7dXdeNdLs0hS7OHEsJF1dBZdPh5Ju+hrAiq+jl5Utq/CUKryadjOCg==",
+    "signed_at": "2026-09-30T23:45:45Z"
   },
   "dataset_name": "usaspending",
   "description": "Federal contract and financial assistance awards from the USAspending.gov bulk database archive, augmented with benthic-derived entity resolution, award aggregation, and Photon geocoding. Includes the raw and intermediate lineage roots the derived relations are built from, declared but not queryable over the API.",
@@ -28,7 +28,7 @@
     }
   ],
   "etl_provenance": {
-    "commit_hash": "b25eba8404f8ce01d7df5de71fc26a1a526919b6",
+    "commit_hash": "ea88629fbdc60bce87b5f0e9b2765bf46bf58318",
     "migrated_at": "2026-09-21T10:50:38Z",
     "migration_status": "migrated",
     "pipeline_entrypoint": "pipelines/usaspending/pipeline.py",
