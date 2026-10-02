@@ -7,9 +7,9 @@
     "algorithm": "EdDSA",
     "canonicalization": "RFC8785",
     "hash_algorithm": "SHA-256",
-    "payload_hash": "9763813abf4e925e5633da6ab515b44decafd36d4032ebd835ccbf3cddc14a27",
-    "signature_base64": "E1CJ1ole0bmum1oXHvvNI0Q/djpRqdLoDGbN3+GbXC74xK/iELR2DPjd6myi4Nm+gCQasm83UsoWlN9Mls+pDQ==",
-    "signed_at": "2026-10-02T01:54:26Z"
+    "payload_hash": "c2e422d6d2d3f1e04828eeffe9ed49d93a33083272814b81d51929bc9cbda0cb",
+    "signature_base64": "Os/pPh0bGUvw2hmDkTWq3d7Afbj+QhpYpo6OljsaldTbP8QGFzeycH8qCh0b2JPJIeKk5ewMBpdJ7Y5YU9a+Cg==",
+    "signed_at": "2026-10-02T03:08:20Z"
   },
   "description": "Five federal open-data APIs published by benthic.io as a single connected collection, served over PostgREST from PostgreSQL/PostGIS.",
   "join_paths": [
@@ -116,6 +116,40 @@
         "column": "bioguide_id",
         "dataset_name": "usp_cl",
         "relation": "legislator_terms"
+      }
+    },
+    {
+      "from": {
+        "column": "geom_point",
+        "dataset_name": "irs_ng",
+        "relation": "bmf_organizations",
+        "srid": 4326
+      },
+      "join_type": "spatial",
+      "notes": "ST_Transform required; rpc_find_district and rpc_nonprofits_in_district do it internally",
+      "reliability": "reliable",
+      "to": {
+        "column": "geom",
+        "dataset_name": "up_cdmaps",
+        "relation": "congressional_districts",
+        "srid": 3857
+      }
+    },
+    {
+      "from": {
+        "column": "geom_point",
+        "dataset_name": "samer",
+        "relation": "sam_registrations",
+        "srid": 4326
+      },
+      "join_type": "spatial",
+      "notes": "ST_Transform required; rpc_find_district does it internally",
+      "reliability": "reliable",
+      "to": {
+        "column": "geom",
+        "dataset_name": "up_cdmaps",
+        "relation": "congressional_districts",
+        "srid": 3857
       }
     }
   ],
