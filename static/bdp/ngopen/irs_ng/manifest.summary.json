@@ -2,7 +2,7 @@
   "author_identity": "brian@benthic.io",
   "author_pubkey": "qwG8vQQN7m/uB0Nwgor3s1EJCKjqZM/SNThV+V7XumM=",
   "collection": "ngopen",
-  "column_count": 388,
+  "column_count": 390,
   "commit_hash": "66f585560f81c15b30fc1056303ddad274502136",
   "dataset_name": "irs_ng",
   "description": "IRS tax-exempt organizations: Business Master File, Form 990/990-EZ/990-PF Statistics of Income extracts, Form 990 XML filings, Publication 78 eligibility, auto-revocations, 990-N postcards, 527 political organizations, and Census ACS demographics, with Photon geocoding.",
@@ -13,8 +13,8 @@
     }
   ],
   "license": "https://www.irs.gov/charities-non-profits/tax-exempt-organization-search-bulk-data-downloads",
-  "manifest_bytes": 65572,
-  "manifest_payload_hash": "fd4788608caf292b34c2c2872b8eb52cf2bb16998eb881e8392271c9b005fc79",
+  "manifest_bytes": 66434,
+  "manifest_payload_hash": "a15081dee77c321432c94fe6663d33ca577aa523d1ae9bb54a4ce1aa882cb10b",
   "manifest_url": "https://benthic.io/bdp/ngopen/irs_ng/manifest.json",
   "migration_status": "migrated",
   "queryable_relation_count": 18,
@@ -29,7 +29,7 @@
     },
     {
       "name": "bmf_organizations",
-      "column_count": 56,
+      "column_count": 57,
       "provenance": "derived",
       "queryable": true,
       "relation_type": "table"
@@ -106,7 +106,7 @@
     },
     {
       "name": "political_orgs_527",
-      "column_count": 18,
+      "column_count": 19,
       "provenance": "derived",
       "queryable": true,
       "relation_type": "table"

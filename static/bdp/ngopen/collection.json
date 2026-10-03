@@ -7,9 +7,9 @@
     "algorithm": "EdDSA",
     "canonicalization": "RFC8785",
     "hash_algorithm": "SHA-256",
-    "payload_hash": "c2e422d6d2d3f1e04828eeffe9ed49d93a33083272814b81d51929bc9cbda0cb",
-    "signature_base64": "Os/pPh0bGUvw2hmDkTWq3d7Afbj+QhpYpo6OljsaldTbP8QGFzeycH8qCh0b2JPJIeKk5ewMBpdJ7Y5YU9a+Cg==",
-    "signed_at": "2026-10-02T03:08:20Z"
+    "payload_hash": "a2556bfb08ed3f88aa5af09326120b658b65aafabb5966addfb24ea244b545be",
+    "signature_base64": "Wq+5Gt1nPpKReg3to2xgpaBEkqeqPCo2+vqtRp0aacxs3HFo+0E3T/vh1nJcPO3FzzhSEfvf+J0PYqIhX7MkCg==",
+    "signed_at": "2026-10-03T15:21:13Z"
   },
   "description": "Five federal open-data APIs published by benthic.io as a single connected collection, served over PostgREST from PostgreSQL/PostGIS.",
   "join_paths": [
@@ -164,13 +164,13 @@
     {
       "dataset_name": "irs_ng",
       "manifest_url": "https://benthic.io/bdp/ngopen/irs_ng/manifest.json",
-      "payload_hash": "fd4788608caf292b34c2c2872b8eb52cf2bb16998eb881e8392271c9b005fc79",
+      "payload_hash": "a15081dee77c321432c94fe6663d33ca577aa523d1ae9bb54a4ce1aa882cb10b",
       "title": "IRS Nonprofit Organizations"
     },
     {
       "dataset_name": "samer",
       "manifest_url": "https://benthic.io/bdp/ngopen/samer/manifest.json",
-      "payload_hash": "cf45dc61829a9e481ffca77bb54a0d684fbf30f66ef6c8ddc8e3ccd37dd31a53",
+      "payload_hash": "bf0ec40a9b4ec2ea7355663410ad6ee45642da0a57d7787bee0686b083f55d2d",
       "title": "SAM.gov Entity Registrations"
     },
     {

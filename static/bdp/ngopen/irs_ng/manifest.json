@@ -7,9 +7,9 @@
     "algorithm": "EdDSA",
     "canonicalization": "RFC8785",
     "hash_algorithm": "SHA-256",
-    "payload_hash": "fd4788608caf292b34c2c2872b8eb52cf2bb16998eb881e8392271c9b005fc79",
-    "signature_base64": "5PZD0M7IN0M7oCaaoPtlQkG1HUGKYrfVnONN+rYd0B8kTHIykivuEHOVEW7FgzuuqWaZMw+VeH1qoukv9UPpCA==",
-    "signed_at": "2026-09-25T15:36:25Z"
+    "payload_hash": "a15081dee77c321432c94fe6663d33ca577aa523d1ae9bb54a4ce1aa882cb10b",
+    "signature_base64": "YyCZzN18pgOYBdfEOD1VyAknOOAb7yHD2ENMvfQw3GJmfxl6KWvr0sRJN+xKNAREFUyLUUjtiLbxMUCJzaK2Bw==",
+    "signed_at": "2026-10-03T15:21:13Z"
   },
   "dataset_name": "irs_ng",
   "description": "IRS tax-exempt organizations: Business Master File, Form 990/990-EZ/990-PF Statistics of Income extracts, Form 990 XML filings, Publication 78 eligibility, auto-revocations, 990-N postcards, 527 political organizations, and Census ACS demographics, with Photon geocoding.",
@@ -176,7 +176,8 @@
       ],
       "provenance": "derived",
       "queryable": true,
-      "relation_type": "table"
+      "relation_type": "table",
+      "row_count_estimate": 0
     },
     {
       "columns": [
@@ -516,6 +517,12 @@
           "nullable": true,
           "srid": 4326,
           "type": "geometry"
+        },
+        {
+          "name": "geocode_system",
+          "native_type": "character varying(50)",
+          "nullable": true,
+          "type": "string"
         }
       ],
       "name": "bmf_organizations",
@@ -524,7 +531,8 @@
       ],
       "provenance": "derived",
       "queryable": true,
-      "relation_type": "table"
+      "relation_type": "table",
+      "row_count_estimate": 2258922
     },
     {
       "columns": [
@@ -619,7 +627,8 @@
       ],
       "provenance": "derived",
       "queryable": true,
-      "relation_type": "table"
+      "relation_type": "table",
+      "row_count_estimate": 1268351
     },
     {
       "columns": [
@@ -756,7 +765,8 @@
       ],
       "provenance": "derived",
       "queryable": true,
-      "relation_type": "table"
+      "relation_type": "table",
+      "row_count_estimate": 763757
     },
     {
       "columns": [
@@ -821,7 +831,8 @@
       ],
       "provenance": "derived",
       "queryable": true,
-      "relation_type": "table"
+      "relation_type": "table",
+      "row_count_estimate": 1219475
     },
     {
       "columns": [
@@ -1204,7 +1215,8 @@
       ],
       "provenance": "derived",
       "queryable": true,
-      "relation_type": "table"
+      "relation_type": "table",
+      "row_count_estimate": 3558238
     },
     {
       "columns": [
@@ -1527,7 +1539,8 @@
       ],
       "provenance": "derived",
       "queryable": true,
-      "relation_type": "table"
+      "relation_type": "table",
+      "row_count_estimate": 551393
     },
     {
       "columns": [
@@ -1604,7 +1617,8 @@
       ],
       "provenance": "derived",
       "queryable": true,
-      "relation_type": "table"
+      "relation_type": "table",
+      "row_count_estimate": 41
     },
     {
       "columns": [
@@ -1657,7 +1671,8 @@
       ],
       "provenance": "derived",
       "queryable": true,
-      "relation_type": "table"
+      "relation_type": "table",
+      "row_count_estimate": 1490900
     },
     {
       "columns": [
@@ -1836,7 +1851,8 @@
       ],
       "provenance": "derived",
       "queryable": true,
-      "relation_type": "table"
+      "relation_type": "table",
+      "row_count_estimate": 672964
     },
     {
       "columns": [
@@ -1977,7 +1993,8 @@
       "name": "mv_nonprofit_profile",
       "provenance": "recovered",
       "queryable": true,
-      "relation_type": "materialized_view"
+      "relation_type": "materialized_view",
+      "row_count_estimate": 2258851
     },
     {
       "columns": [
@@ -2078,7 +2095,8 @@
       ],
       "provenance": "recovered",
       "queryable": true,
-      "relation_type": "materialized_view"
+      "relation_type": "materialized_view",
+      "row_count_estimate": 613079
     },
     {
       "columns": [
@@ -2190,6 +2208,12 @@
           "nullable": true,
           "srid": 4326,
           "type": "geometry"
+        },
+        {
+          "name": "geocode_system",
+          "native_type": "character varying(50)",
+          "nullable": true,
+          "type": "string"
         }
       ],
       "name": "political_orgs_527",
@@ -2198,7 +2222,8 @@
       ],
       "provenance": "derived",
       "queryable": true,
-      "relation_type": "table"
+      "relation_type": "table",
+      "row_count_estimate": 48190
     },
     {
       "columns": [
@@ -2257,7 +2282,8 @@
       ],
       "provenance": "derived",
       "queryable": true,
-      "relation_type": "table"
+      "relation_type": "table",
+      "row_count_estimate": 1388336
     },
     {
       "columns": [
@@ -2310,7 +2336,8 @@
       ],
       "provenance": "derived",
       "queryable": true,
-      "relation_type": "table"
+      "relation_type": "table",
+      "row_count_estimate": 1184277
     },
     {
       "columns": [

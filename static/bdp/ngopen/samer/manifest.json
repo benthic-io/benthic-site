@@ -7,9 +7,9 @@
     "algorithm": "EdDSA",
     "canonicalization": "RFC8785",
     "hash_algorithm": "SHA-256",
-    "payload_hash": "cf45dc61829a9e481ffca77bb54a0d684fbf30f66ef6c8ddc8e3ccd37dd31a53",
-    "signature_base64": "Uar+/PFiq62L6yWl1plz1SIuC05MX+ti/ur9CI2ht8hLXWhaFUP0g8npEEM13pcqKqQL6nUMioZHAsKQuoeRAg==",
-    "signed_at": "2026-09-25T15:36:25Z"
+    "payload_hash": "bf0ec40a9b4ec2ea7355663410ad6ee45642da0a57d7787bee0686b083f55d2d",
+    "signature_base64": "900yvicq7DIdJhtNd74yYAhcbZq/5toq+B9dzmlE77dWsqzQytnm4YIu9d0wUSHHjWeV+2aouF26Qe5XHwxsAg==",
+    "signed_at": "2026-10-03T15:21:13Z"
   },
   "dataset_name": "samer",
   "endpoints": [
@@ -176,7 +176,8 @@
       ],
       "provenance": "derived",
       "queryable": true,
-      "relation_type": "materialized_view"
+      "relation_type": "materialized_view",
+      "row_count_estimate": 866796
     },
     {
       "columns": [
@@ -381,7 +382,7 @@
       "provenance": "derived",
       "queryable": true,
       "relation_type": "table",
-      "row_count_estimate": 856290
+      "row_count_estimate": 2606720
     }
   ],
   "title": "SAM.gov Entity Registrations"

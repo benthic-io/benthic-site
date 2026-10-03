@@ -13,8 +13,8 @@
     }
   ],
   "license": "https://sam.gov/content/about/terms-of-use",
-  "manifest_bytes": 10348,
-  "manifest_payload_hash": "cf45dc61829a9e481ffca77bb54a0d684fbf30f66ef6c8ddc8e3ccd37dd31a53",
+  "manifest_bytes": 10385,
+  "manifest_payload_hash": "bf0ec40a9b4ec2ea7355663410ad6ee45642da0a57d7787bee0686b083f55d2d",
   "manifest_url": "https://benthic.io/bdp/ngopen/samer/manifest.json",
   "migration_status": "migrated",
   "queryable_relation_count": 2,
