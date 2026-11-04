@@ -1,15 +1,15 @@
 ---
-title: "ocb"
+title: "gosub"
 ---
 
-### ocb
+### gosub
 
 [OpenCode](https://opencode.ai) is good at driving one machine. Run `opencode serve` on more than one — a laptop, a workstation, a build box, three slices of the same project on three hosts — and you get several independent conversations and no way to see them together from anywhere but a desk.
 
-ocb is the coordinator for that fleet. It lists every session across every host, sends a prompt to the host you name, and shows the permission requests, questions, and changes those sessions produce. The phone app carries the parts you want away from the desk: the board, the inbox, and the answer to a waiting session.
+gosub is the coordinator for that fleet. It lists every session across every host, sends a prompt to the host you name, and shows the permission requests, questions, and changes those sessions produce. The phone app carries the parts you want away from the desk: the board, the inbox, and the answer to a waiting session.
 
 It is MIT licensed and the whole repository is public at
-[github.com/benthic-io/opencode-boss](https://github.com/benthic-io/opencode-boss). There is no closed server half.
+[github.com/benthic-io/gosub](https://github.com/benthic-io/gosub). There is no closed server half.
 
 ### Built for a team, not a queue
 
@@ -40,7 +40,7 @@ One codebase and one feature set; the difference is configuration.
 
 **Self-host.** The whole stack on a machine you control, nothing leaving your network. This is the default path in the documentation.
 
-**Hosted, here.** A free coordinator at `https://benthic.io/boss` — note that `/boss` is the coordinator's path, separate from this page. You run a small outbound connector on a machine that can already reach your fleet; it dials out, so you never publish a port.
+**Hosted, here.** A free coordinator at `https://benthic.io/gosub` — note that `/gosub` is the coordinator's path, separate from this page. You run a small outbound connector on a machine that can already reach your fleet; it dials out, so you never publish a port.
 
 ### Status
 
@@ -48,6 +48,6 @@ Alpha. The repository is the product and the hosted coordinator is a deployment 
 
 ### Why benthic.io runs it
 
-We built ocb to run our own OpenCode fleet, and it turned out to be generally useful rather than specifically ours — the same reason this site exists. The software is MIT and the hosted coordinator is free. If you would rather not depend on somebody else's machine, self-hosting is the better default, and the documentation assumes you will.
+We built gosub to run our own OpenCode fleet, and it turned out to be generally useful rather than specifically ours — the same reason this site exists. The software is MIT and the hosted coordinator is free. If you would rather not depend on somebody else's machine, self-hosting is the better default, and the documentation assumes you will.
 
 Getting started, architecture, the API, the security model, and a troubleshooting page written from real failure modes are in the repository.
