@@ -6,7 +6,7 @@ title: "gosub"
 
 [OpenCode](https://opencode.ai) is good at driving one machine. Run `opencode serve` on more than one — a laptop, a workstation, a build box, three slices of the same project on three hosts — and you get several independent conversations and no way to see them together from anywhere but a desk.
 
-gosub is the coordinator for that fleet. It lists every session across every host, sends a prompt to the host you name, and shows the permission requests, questions, and changes those sessions produce. The phone app carries the parts you want away from the desk: the board, the inbox, and the answer to a waiting session.
+gosub is the coordinator for that fleet. It aggregates every session across every host so your OpenCode TUI, web, or desktop client connects to gosubc on localhost and sees them as one system. It lists every session across every host, sends a prompt to the host you name, and shows the permission requests, questions, and changes those sessions produce. The phone app carries the parts you want away from the desk: the board, the inbox, and the answer to a waiting session. Image attachments, model listing, and live streaming all flow through the same gateway.
 
 It is MIT licensed and the whole repository is public at
 [github.com/benthic-io/gosub](https://github.com/benthic-io/gosub). There is no closed server half.
@@ -17,7 +17,7 @@ A fleet is not one conversation running in parallel with itself. It is a team: a
 
 The board, the inbox, and the signal queue are how that team reaches a human. They are also the layer the next step builds on.
 
-**Swarm capability is in development.** The direction is session-to-session coordination: every member sees the roster — who else is on the team, what each owns, and what each can be asked to do — and a change that crosses a boundary is announced to the member who now has work, with the contract and the files, instead of being discovered at merge time. A UI change that alters an API call tells the backend session; a backend change that moves a route tells the app and the docs. The coordinator stays a control plane: it carries the message, it does not call a model.
+**Team coordination is live.** A fleet is a team: a session that owns the app, one that owns the daemons, one that owns deployment, one that owns the docs, and a boss that coordinates them. Each has a scope and a set of files it may change. Every member sees the roster — who else is on the team, what each owns, and what each can be asked to do — and raises signals that the boss drains and routes. A change that crosses a boundary is announced to the member who now has work, with the contract and the files, instead of being discovered at merge time. A UI change that alters an API call tells the backend session; a backend change that moves a route tells the app and the docs. The coordinator stays a control plane: it carries the message, it does not call a model.
 
 ### The coordinator runs no model
 
@@ -44,7 +44,7 @@ One codebase and one feature set; the difference is configuration.
 
 ### Status
 
-Alpha. The repository is the product and the hosted coordinator is a deployment of it, not a separate build. The Android app is not on the Play Store yet; you build it from the repository.
+Alpha. The repository is the product and the hosted coordinator is a deployment of it, not a separate build. The Android app is distributed via Firebase App Distribution; you build it from the repository. The OpenCode TUI, web, and desktop clients connect to gosubc on localhost and see every host's sessions as one system. Hosts run a single `gosubd` binary in host mode; the coordinator runs the same binary in coordinator mode.
 
 ### Why benthic.io runs it
 
