@@ -41,7 +41,3 @@ disableKinds = ["taxonomy", "term"]
     name = "About"
     url = "/about/"
     weight = 40
-  [[menu.main]]
-    name = "Gosub"
-    url = "/ocb/"
-    weight = 50
